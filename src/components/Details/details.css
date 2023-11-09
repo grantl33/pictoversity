@@ -1,0 +1,185 @@
+.details {
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "detailsheader" "detailsbody" "detailsfooter";
+
+    overflow-y: scroll;
+
+    background-color: #6C81F0;
+}
+
+.details .details-content {
+    margin: 16px;
+}
+
+.details .details-header {
+    grid-area: detailsheader;
+    width: 100%;
+}
+
+
+.details .details-footer {
+    grid-area: detailsfooter;
+    height: 16px;
+    width: 100%;
+}
+
+.details .details-topbar {
+    display: grid;
+    grid-template-columns: 64px 1fr 64px;
+}
+
+.details .details-topbar .center {
+    text-align: center;
+}
+
+.details .details-topbar .right {
+    text-align: right;
+}
+
+.details .details-body {
+    grid-area: detailsbody;
+    margin: 0 16px;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.details .details-body li {
+    height: 64px;
+}
+
+.item-cover {
+    width: 96px;
+    background-position: center;
+    background-size: cover;
+    height: 128px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.item-cover .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.25) 100%);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.details-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "infoleft inforight";
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.details-info .left {
+    grid-area: infoleft;
+}
+
+.details-info .right {
+    grid-area: inforight;
+}
+
+.details-info p {
+    font-size: small;
+}
+
+.details .info-actions {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
+    grid-template-areas: "div div div div";
+    gap: 4px;
+    align-items: center;
+}
+
+
+.details .details-info .icon {
+    width: 20px;
+    margin: 4px;
+}
+
+.details .details-info .creator-info {
+    font-size: x-small;
+}
+
+.details .details-info .creator-info a {
+    font-weight: 600;
+}
+
+.details .details-info .creator-info span {
+    display: block;
+}
+
+.details .details-info .creator-image-container {
+    position: relative;
+    background-image: url('../../assets/icons/person-badge.svg');
+    background-position: center;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    align-items: end;
+}
+
+.details .creator-image {
+    width: 20px;
+    height: 20px;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    margin: 0 auto 2px auto;
+}
+
+.details .episodes-container {
+    background-color: whitesmoke;
+    height: 100%;
+    overflow-y: scroll;
+    border-radius: 4px;
+}
+
+.details .episode-row {
+    display: grid;
+    grid-template-columns: 32px auto 1fr;
+    grid-template-areas: "div div div";
+    align-items: center;
+    gap: 2px;
+    border-bottom: black 1px solid;
+}
+
+.details .episode-image {
+    background-position: center;
+    background-size: cover;
+    width: 64px;
+    height: 64px;
+    margin: 4px;
+    border-radius: 4px;
+    position: relative;
+}
+
+
+.details .episode-image .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.25) 100%);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.details .episode-number {
+    margin: 4px;
+    font-weight: 600;
+    font-size: medium;
+    text-align: right;
+}
+
+.details .episode-title {
+    margin: 4px;
+    font-size: medium;
+}

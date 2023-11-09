@@ -1,38 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "headerarea" "mainarea" "footerarea";
+  font-family: Inter;
+  width: 100%;
+  height: 100vh;
+}
+
+header {
+  grid-area: headerarea;
+  background-color: #6C81F0;
+}
+
+header .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "div div";
+  margin: 0 16px;
+  height: 40px;
+}
+
+header .header-left {
+  font-family: CaveatBrush;
+  font-size: x-large;
+  display: flex;
+  align-items: center;
+}
+
+header .header-right {
+  display: flex;
+  align-items: center;
+  justify-items: right;
+  flex-flow: row-reverse;
+  gap: 16px;
+}
+
+header .header-right .icon {
+  width: 16px;
+}
+
+main {
+  grid-area: mainarea;
+  background-color: whitesmoke;
+}
+
+footer {
+  grid-area: footerarea;
+  background-color: #6C81F0;
+}
+
+footer .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "div div div";
+  height: 64px;
+  align-items: center;
+  margin: 0 16px;
+}
+
+footer .main-link {
+  text-align: center;
+  border-radius: 8px;
+  padding: 2px 0;
+}
+
+footer .main-link span {
+  display: block;
+  font-size: small;
+}
+
+footer .main-link.selected {
+  background-color: rgba(255, 255, 255, 0.25);
+  filter: invert();
+}
+
+footer img {
+  width: 32px;
+}
+
+main .content {
+  height: calc(100vh - 40px - 64px);
+  overflow-y: scroll;
+}
+
+main .new-releases {
+  margin: 16px;
+}
+
+main .content-listing {
+  margin: 0;
+}
+
+main .items-row {
+  display: inline-flex;
+  gap: 8px;
+  margin: 0 16px;
+}
+
+main .items-container {
+  width: 100vw;
+  height: auto;
+  margin: 0 auto;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+main .items-container::-webkit-scrollbar {
+  display: none;
+}
+
+main .item-card {
+  width: 96px;
+  height: 160px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main .item-card span {
+  font-size: small;
+  text-overflow: ellipsis;
+  height: 2em;
+  white-space: nowrap;
+  width: 80px;
+  display: block;
+  overflow: hidden;
+  margin: 2px auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+main .item-card .item-cover {
+  width: 96px;
+  background-position: center;
+  background-size: cover;
+  height: 128px;
+  border-radius: 4px;
+  position: relative;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+main .item-card .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.25) 100%);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+main .item-card .ranking {
+  position: absolute;
+  left: -12px;
+  height: 48px;
+  top: 72px;
+}
+
+main .item-card:first-child .ranking {
+  left: -18px;
+}
+
+main .hero {
+  width: 100%;
+  height: 175px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+main .hero span {
+  display: block;
+  padding: 4px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent);
   color: white;
+  font-size: small;
+  font-weight: 600;
 }
 
-.App-link {
-  color: #61dafb;
+h2 {
+  font-size: medium;
+  margin: 0 0 8px 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+main .content-listing h2 {
+  margin: 0 0 8px 16px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
