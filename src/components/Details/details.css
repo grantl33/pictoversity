@@ -98,11 +98,11 @@
 
 .details .details-info .icon {
     width: 20px;
-    margin: 4px;
+    margin: 8px;
 }
 
 .details .details-info .creator-info {
-    font-size: x-small;
+    font-size: small;
 }
 
 .details .details-info .creator-info a {
@@ -150,7 +150,7 @@
     grid-template-areas: "div div div";
     align-items: center;
     gap: 2px;
-    border-bottom: black 1px solid;
+    border-bottom: #ccc 1px solid;
 }
 
 .details .episode-image {
@@ -182,5 +182,5 @@
 
 .details .episode-title {
     margin: 4px;
-    font-size: medium;
+    font-size: small;
 }
