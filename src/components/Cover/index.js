@@ -8,7 +8,8 @@ import rank05 from "../../assets/rank_05.svg";
 function Cover(props) {
     const {
         comicData,
-        ranking
+        ranking,
+        showTitle = true
     } = props;
     const {
         id,
@@ -28,7 +29,7 @@ function Cover(props) {
                 {(ranking === 4) && <img src={rank04} alt="4" className="ranking" />}
                 {(ranking === 5) && <img src={rank05} alt="5" className="ranking" />}
             </div>
-            <span>{title}</span>
+            {showTitle && <span>{title}</span>}
         </NavLink>
     )
 }
