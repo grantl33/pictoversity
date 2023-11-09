@@ -46,7 +46,7 @@ function Creator() {
                     <div className="creator-header">
                         <div className="creator-title">
                             <div>Creator Info:</div>
-                            <div>
+                            <div className="right">
                                 <Link to="/">
                                     <img className="icon" src={close} alt="back" />
                                 </Link>

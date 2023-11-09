@@ -12,14 +12,16 @@ function Home() {
             <header>
                 <div className="row">
                     <div className="header-left">
-                        Pictoversity
+                        <span>Pictoversity</span>
                     </div>
                     <div className="header-right">
-                        <img className="icon" src={bell} alt="" />
-                        <img className="icon" src={search} alt="" />
+                        <div className="header-actions">
+                            <img className="icon" src={bell} alt="" />
+                            <img className="icon" src={search} alt="" />
+                        </div>
                     </div>
                 </div>
-            </header>
+            </header >
             <main>
                 <div className="content">
                     <div className="new-releases">

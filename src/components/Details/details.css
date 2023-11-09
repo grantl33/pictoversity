@@ -4,7 +4,6 @@
     height: 100vh;
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "detailsheader" "detailsbody" "detailsfooter";
-    overflow-y: scroll;
     background-color: #6C81F0;
 }
 
