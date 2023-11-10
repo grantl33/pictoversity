@@ -8,6 +8,7 @@ import pandagirl from "./assets/covers/panda_girl1.png";
 import bobaandchill from "./assets/covers/bobaandchill.png";
 import graycatadvice from "./assets/covers/graycat_goodadvice.png";
 import catgrab from "./assets/covers/catgrab1.png";
+import everyday from "./assets/covers/everyday1.png";
 
 import troubleTrioEp1 from "./assets/covers/trouble_trio_ep1.png";
 import sliceOfLifeEp1 from "./assets/covers/a_slice_of_life_ep1.png";
@@ -24,6 +25,11 @@ import pandagirlEp1 from "./assets/covers/panda_girl1.png";
 import bobaandchillEp1 from "./assets/covers/bobaandchill.png";
 import graycatadviceEp1 from "./assets/covers/graycat_goodadvice.png";
 import catgrabEp1 from "./assets/covers/catgrab.png";
+import everydayEp1 from "./assets/covers/everyday1.png";
+import everydayEp2 from "./assets/covers/everyday2.png";
+
+import everydayContentEp1 from "./assets/episodes/everyday_ep1.png";
+import everydayContentEp2 from "./assets/episodes/everyday_ep2.png";
 
 const ComicData = {
     comic_001: {
@@ -203,6 +209,27 @@ const ComicData = {
                 title: "Grabbing cats isn't easy!",
                 coverImage: catgrabEp1,
                 contents: ""
+            }
+        ]
+    },
+    comic_011: {
+        id: "comic_011",
+        title: "Everyday Comics",
+        creatorId: "creator_001",
+        coverImage: everyday,
+        summary: "Just comics about everyday life, y'know???",
+        episodes: [
+            {
+                number: 1,
+                title: "Oops, my bad!",
+                coverImage: everydayEp1,
+                contents: everydayContentEp1
+            },
+            {
+                number: 2,
+                title: "While in the car...",
+                coverImage: everydayEp2,
+                contents: everydayContentEp2
             }
         ]
     }

@@ -1,0 +1,38 @@
+.episode {
+    background-repeat: repeat;
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    background-color: whitesmoke;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "div" "div";
+}
+
+.episode .episode-header {
+    background-color: #6C81F0;
+    width: 100%;
+}
+
+.episode .episode-content {
+    margin: 16px;
+}
+
+.episode .episode-topbar {
+    display: grid;
+    grid-template-columns: 64px 1fr 64px;
+}
+
+.episode .episode-topbar .right {
+    text-align: right;
+}
+
+.episode .episode-body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.episode .episode-container {
+    height: 100%;
+    overflow-y: scroll;
+
+}

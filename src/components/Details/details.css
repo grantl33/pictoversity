@@ -28,6 +28,10 @@
     grid-template-columns: 64px 1fr 64px;
 }
 
+.details .details-topbar .icon {
+    width: 24px;
+}
+
 .details .details-topbar .center {
     text-align: center;
 }
@@ -96,7 +100,7 @@
 
 
 .details .details-info .icon {
-    width: 20px;
+    width: 24px;
     margin: 8px;
 }
 

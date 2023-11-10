@@ -5,7 +5,7 @@
 
 .App {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 60px 1fr 80px;
   grid-template-areas: "headerarea" "mainarea" "footerarea";
   font-family: Inter;
   width: 100%;
@@ -18,20 +18,27 @@ header {
   background-color: #6C81F0;
 }
 
+@media (pointer: none) {
+  header .row {
+    color: red;
+  }
+}
+
 header .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "div div";
-  height: 40px;
+  height: 100%;
   width: calc(100vw - 32px);
   margin: 0 16px;
 }
 
 header .header-left {
   font-family: CaveatBrush;
-  font-size: x-large;
+  font-size: xx-large;
   display: flex;
   align-items: center;
+  color: #ffd700;
 }
 
 header .header-right {
@@ -46,7 +53,7 @@ header .header-right .header-actions {
 }
 
 header .header-right .icon {
-  width: 16px;
+  width: 24px;
 }
 
 main {
@@ -90,7 +97,7 @@ footer img {
 }
 
 main .content {
-  height: calc(100vh - 40px - 64px);
+  height: calc(100vh - 60px - 80px);
   overflow-y: scroll;
 }
 
@@ -199,4 +206,8 @@ main .content-listing h2 {
 a {
   text-decoration: none;
   color: black;
+}
+
+.icon {
+  width: 24px;
 }
