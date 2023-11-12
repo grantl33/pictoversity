@@ -1,6 +1,7 @@
 import "./details.css";
 import arrowleft from "../../assets/icons/arrow-left.svg";
 import plus from "../../assets/icons/plus-circle.svg";
+import remove from "../../assets/icons/dash-circle.svg";
 import bell from "../../assets/icons/bell-fill.svg";
 import donate from "../../assets/icons/donate.svg";
 import badgeempty from "../../assets/icons/person-badge-empty.svg";
@@ -8,10 +9,17 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { useMemo, useState } from "react";
 import ComicData from "../../comicData";
 import CreatorData from "../../creatorData";
+import { useMainContext, useMainDispatchContext } from "../../MainContext";
 
 function Details() {
     const { search } = useLocation();
     const [comicData, setComicData] = useState();
+    // Use main context to read from state
+    const mainContext = useMainContext();
+    const { lockerItems } = mainContext;
+
+    // Use dispatch context for updating the main state
+    const dispatch = useMainDispatchContext();
 
     useMemo(() => {
         const query = new URLSearchParams(search);
@@ -43,6 +51,25 @@ function Details() {
         useGrouping: true,
         style: "decimal"
     });
+    const isComicAdded = (comicData != null)
+        ? lockerItems.indexOf(comicData.id) > -1
+        : null;
+
+    const handleAddLockerItem = () => {
+        dispatch({
+            type: "addLockerItem",
+            comicId: comicData.id,
+            alertText: "Added to locker!"
+        });
+    }
+
+    const handleRemoveLockerItem = () => {
+        dispatch({
+            type: "removeLockerItem",
+            comicId: comicData.id,
+            alertText: "Removed from locker."
+        });
+    }
 
     return (
         <div className="details">
@@ -54,16 +81,21 @@ function Details() {
                             <div className="details-topbar">
                                 <div>
                                     <Link to="/">
-                                        <img className="icon" src={arrowleft} alt="back" />
+                                        <img className="icon" src={arrowleft} alt="Back" />
                                     </Link>
                                 </div>
                                 <div className="center">
                                     <h3>{comicData.title}</h3>
                                 </div>
                                 <div className="right">
-                                    <div className="icon-button">
-                                        <img className="icon" src={plus} alt="back" />
-                                    </div>
+                                    {(isComicAdded &&
+                                        <div className="icon-button" onClick={handleRemoveLockerItem}>
+                                            <img className="icon" src={remove} alt="Remove" />
+                                        </div>)}
+                                    {(!isComicAdded &&
+                                        <div className="icon-button" onClick={handleAddLockerItem}>
+                                            <img className="icon" src={plus} alt="Add" />
+                                        </div>)}
                                 </div>
                             </div>
                             <div className="details-info">
@@ -102,7 +134,9 @@ function Details() {
                                     backgroundImage: `url('${episode.coverImage}')`
                                 }
                                 return (
-                                    <NavLink to={`/episode?id=${comicData.id}&episodeId=${episode.number}`} className="episode-row">
+                                    <NavLink key={episode.number}
+                                        to={`/episode?id=${comicData.id}&episodeId=${episode.number}`}
+                                        className="episode-row">
                                         <div className="episode-number">{episode.number}</div>
                                         <div>
                                             <div className="episode-image" style={episodeStyle}>
@@ -112,7 +146,6 @@ function Details() {
                                         <div className="episode-title">{episode.title}</div>
                                     </NavLink>)
                             })}
-
                         </div>
                     </div>
                     <div className="details-footer"></div>

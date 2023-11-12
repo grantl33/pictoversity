@@ -18,12 +18,6 @@ header {
   background-color: #6C81F0;
 }
 
-@media (pointer: none) {
-  header .row {
-    color: red;
-  }
-}
-
 header .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -210,4 +204,17 @@ a {
 
 .icon {
   width: 24px;
+}
+
+.empty-message {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-message span {
+  padding: 16px;
+  margin: 32px 0;
+  background: #dedede;
+  border-radius: 8px;
 }

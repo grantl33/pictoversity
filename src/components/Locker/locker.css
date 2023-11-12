@@ -1,0 +1,96 @@
+.locker {
+    height: calc(100vh - 60px - 80px);
+    overflow-y: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "lockerheader" "lockerbody";
+
+}
+
+.locker .locker-header {
+    grid-area: lockerheader;
+}
+
+.locker .locker-body {
+    grid-area: lockerbody;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+
+.locker h2 {
+    font-weight: 600;
+    font-size: x-large;
+}
+
+.locker h2 img {
+    width: 32px;
+    vertical-align: middle;
+}
+
+.locker .locker-content {
+    margin: 0 16px;
+}
+
+.locker .locker-top-banner {
+    margin: 32px 0;
+}
+
+.locker nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-columns: "div div";
+}
+
+.locker nav .nav-tab {
+    background-color: #D8DBF8;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.locker nav .nav-tab.selected {
+    background-color: #6C81F0;
+    font-weight: 600;
+}
+
+.locker nav .nav-tab span {
+    margin: auto 0;
+}
+
+.locker .locker-container {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.locker .locker-item-row {
+    display: grid;
+    grid-template-columns: 1fr 64px;
+    grid-template-areas: "iteminfo itemremove";
+    margin: 0 16px;
+}
+
+.locker .locker-item-info {
+    grid-area: iteminfo;
+    display: grid;
+    grid-template-areas: "a div";
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    font-size: small;
+}
+
+.locker .locker-item-info div {
+    font-size: small;
+    margin: auto 0;
+}
+
+.locker .locker-item-remove {
+    grid-area: itemremove;
+    display: flex;
+    justify-content: center;
+}
+
+.locker .item-card {
+    height: auto;
+}
