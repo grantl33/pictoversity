@@ -4,7 +4,8 @@ import { MainContext, MainDispatchContext } from "./MainContext";
 export const initialState = {
     lockerItems: [],
     currentUser: {
-        username: "Guest",
+        username: "Guest12345",
+        email: null,
     },
     alertText: null,
 }
@@ -41,6 +42,15 @@ export function mainReducer(state, action) {
             return {
                 ...state,
                 alertText: action.alertText,
+            }
+        case "setCurrentUsername":
+            const updatedCurrentUser = {
+                ...state.currentUser,
+                username: action.username
+            }
+            return {
+                ...state,
+                currentUser: updatedCurrentUser
             }
         default:
             throw Error(`Unknown action: ${action.type}`);

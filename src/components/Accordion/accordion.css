@@ -1,0 +1,33 @@
+.accordion {
+    font-size: small;
+    display: grid;
+    gap: 8px;
+}
+
+.accordion .accordion-content {
+    transition: height 100ms, opacity 100ms;
+    transition-timing-function: ease-out;
+    overflow: hidden;
+    height: 0px;
+}
+
+.accordion .accordion-title {
+    font-size: small;
+    font-weight: 600;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+}
+
+.accordion .accordion-content p {
+    margin: 8px;
+}
+
+.accordion .accordion-content p a {
+    text-decoration: underline;
+}
+
+.accordion .icon {
+    vertical-align: middle;
+    margin: 0 8px 0 0;
+}
