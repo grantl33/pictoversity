@@ -9,6 +9,8 @@ import Details from './components/Details';
 import Creator from './components/Creator';
 import Episode from './components/Episode';
 import Alert from './components/Alert';
+import WindowContext from './components/WindowContext';
+import Modal from './components/Modal';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/episode" element={<Episode />}></Route>
         </Routes>
         <Alert />
+        <Modal />
+        <WindowContext />
       </MainProvider>
     </div>
   );

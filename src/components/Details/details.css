@@ -5,6 +5,8 @@
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "detailsheader" "detailsbody" "detailsfooter";
     background-color: #6C81F0;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
 .details .details-content {
@@ -92,16 +94,16 @@
 .details .info-actions {
     margin-top: 8px;
     display: grid;
-    grid-template-columns: auto auto auto 1fr;
-    grid-template-areas: "div div div div";
+    grid-template-columns: auto auto 1fr;
+    grid-template-areas: "div div div";
     gap: 4px;
-    align-items: center;
+    align-items: start;
 }
 
 
 .details .details-info .icon {
     width: 24px;
-    margin: 8px;
+    margin: 0 8px;
 }
 
 .details .details-info .creator-info {

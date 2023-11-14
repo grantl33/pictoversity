@@ -29,18 +29,31 @@ function IdCard() {
                         } />
                     </div>
                 </div>
+                <div className="shadow-container">
+                    <div className="shadow"></div>
+                </div>
             </div>
             <div className="idcard-body">
                 <div className="idcard-container">
                     <div className="accordion">
                         <Accordion title="How to become a content creator">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et elementum ex. Aliquam gravida cursus ante ac ultrices. Sed pulvinar dolor et dui hendrerit, vitae porttitor lorem facilisis. Quisque aliquet convallis hendrerit. Ut id laoreet velit, ac aliquet turpis. Aenean vel velit sem. Pellentesque iaculis varius purus a interdum. Sed nec tellus egestas, viverra nisi in, venenatis metus.
+                            Do you create awesome comics that you would like to share on the Pictoversity App?
+                            Then you should become a Pictoversity Creator!<br />
+                            <a href="https://docs.google.com/document/d/1SKzUUkZiivYfqEAPWkfPhBwFSjBD3VXbbfCrQ6eD1JU/edit?usp=sharing"
+                                target="_blank" rel="noreferrer">Click here for more info</a>.
                         </Accordion>
                         <Accordion title="Become a volunteer">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et elementum ex. Aliquam gravida cursus ante ac ultrices. Sed pulvinar dolor et dui hendrerit, vitae porttitor lorem facilisis. Quisque aliquet convallis hendrerit. Ut id laoreet velit, ac aliquet turpis. Aenean vel velit sem. Pellentesque iaculis varius purus a interdum. Sed nec tellus egestas, viverra nisi in, venenatis metus.
+                            Would you like to help Pictoversity? We need volunteers to help with formatting comics,
+                            reviewing comic submissions, and more!<br />
+                            <a href="https://docs.google.com/document/d/1aBuvnGd_gk4VwpAdmPFbhGFJEIlKOw11Li60ZvtWLvk/edit?usp=sharing"
+                                target="_blank" rel="noreferrer">Click here for more info</a>.
                         </Accordion>
                         <Accordion title="Make a donation!">
-                            You can make a donation <a href="https://google.com" target="_blank" rel="noreferrer">here</a>! Morbi et elementum ex. Aliquam gravida cursus ante ac ultrices. Sed pulvinar dolor et dui hendrerit, vitae porttitor lorem facilisis. Quisque aliquet convallis hendrerit. Ut id laoreet velit, ac aliquet turpis. Aenean vel velit sem. Pellentesque iaculis varius purus a interdum. Sed nec tellus egestas, viverra nisi in, venenatis metus.
+                            You can make a donation <a href="https://www.paypal.com/donate/?business=PDMTEA6K5786Y&no_recurring=0&item_name=Thanks+for+supporting+Pictoversity%21+We+appreciate+you%21&currency_code=USD"
+                                target="_blank" rel="noreferrer">here</a>!
+                            All donations go towards keeping Pictoversity running. We are constantly developing and improving the platform
+                            as well as adding new creators and comics. Your generous donations will help make all of this possible!
+                            We appreciate you! :)
                         </Accordion>
                     </div>
                 </div>

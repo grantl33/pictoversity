@@ -7,16 +7,35 @@ import { useState } from 'react'
 import Home from '../Home'
 import Locker from '../Locker'
 import IdCard from '../IdCard'
+import { useMainDispatchContext } from '../../MainContext'
 
 function Main() {
+    // Use dispatch context for updating the main state
+    const dispatch = useMainDispatchContext();
     const [selectedTab, setSelectedTab] = useState("home");
-
+    const handleLogoClick = () => {
+        dispatch({
+            type: "setModalContent",
+            modalContent: {
+                title: "About Pictoversity",
+                content: <>
+                    Pictoversity is an app and platform for educational comics.
+                    It was designed and created by <a href="https://www.instagram.com/yumieleecomics/"
+                        target="_blank" rel="noreferrer">Yumie Lee</a> and
+                    the app was developed by <a href="https://github.com/grantl33"
+                        target="_blank" rel="noreferrer">Grant Lee</a>.<br /><br />
+                    &copy; Copyright 2023<br />Yumie and Grant Lee
+                </>
+            }
+        });
+    }
     return (
         <>
             <header>
                 <div className="row">
+                    <div></div>
                     <div className="header-left">
-                        <span>Pictoversity</span>
+                        <span onClick={handleLogoClick}>Pictoversity</span>
                     </div>
                     <div className="header-right">
                         <div className="header-actions">
@@ -24,8 +43,9 @@ function Main() {
                             <img className="icon" src={search} alt="" />
                         </div>
                     </div>
+                    <div></div>
                 </div>
-            </header >
+            </header>
             <main>
                 {selectedTab === "home" && <Home />}
                 {selectedTab === "locker" && <Locker />}
@@ -33,6 +53,7 @@ function Main() {
             </main >
             <footer>
                 <nav className="row">
+                    <div></div>
                     <div className={(selectedTab === "home") ? "main-link selected" : "main-link"}
                         onClick={(e) => setSelectedTab("home")}>
                         <img src={home} alt="" />
@@ -48,6 +69,7 @@ function Main() {
                         <img src={idcard} alt="" />
                         <span>ID</span>
                     </div>
+                    <div></div>
                 </nav>
             </footer>
         </>

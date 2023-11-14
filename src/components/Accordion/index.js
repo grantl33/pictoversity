@@ -19,7 +19,7 @@ function Accordion(props) {
         const el = contentRef.current;
         el.style.height = "auto";
         setHeight(el.getBoundingClientRect().height);
-        el.style.height = 0;
+        el.style.height = "0px";
     }
 
     const style = (opened)

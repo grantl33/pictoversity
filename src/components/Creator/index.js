@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import ComicData from "../../comicData";
 import CreatorData from "../../creatorData";
 import Cover from "../Cover";
+import FollowingButton from "../FollowingButton";
 
 function Creator() {
     const { search } = useLocation();
@@ -62,18 +63,20 @@ function Creator() {
                             <div className="creator-name">
                                 {creatorData.name}
                                 <span>{nf.format(creatorData.followers)} followers</span>
+                                <FollowingButton creatorData={creatorData} />
                             </div>
                             <div className="creator-actions">
-                                <div className="creator-donate">
+                                <a href={creatorData.donateLink} className="creator-donate" target="_blank" rel="noreferrer">
                                     <img src={donate} alt="Donate" className="icon" />
                                     Donate
-                                </div>
-                                <div className="creator-contact">
+                                </a>
+                                <a href={`mailto:${creatorData.email}`} className="creator-contact" target="_blank" rel="noreferrer">
                                     <img src={envelope} alt="Contact" className="icon" />
                                     Contact
-                                </div>
+                                </a>
                             </div>
                         </div>
+
                         <div className="summary">
                             <p>{creatorData.description}</p>
                         </div>
@@ -82,6 +85,9 @@ function Creator() {
                         <div className="creator-series">
                             <div className="creator-series-header">
                                 Series
+                            </div>
+                            <div className="shadow-container">
+                                <div className="shadow"></div>
                             </div>
                             <div className="creator-series-container">
                                 <div className="creator-series-list">
@@ -103,7 +109,7 @@ function Creator() {
                         </div>
                     </div>
                 </>}
-        </div>
+        </div >
     )
 }
 

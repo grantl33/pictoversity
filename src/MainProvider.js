@@ -3,11 +3,16 @@ import { MainContext, MainDispatchContext } from "./MainContext";
 
 export const initialState = {
     lockerItems: [],
+    followingCreators: [],
     currentUser: {
         username: "Guest12345",
         email: null,
     },
     alertText: null,
+    modalContent: {
+        title: null,
+        content: null,
+    }
 }
 
 export function mainReducer(state, action) {
@@ -25,7 +30,7 @@ export function mainReducer(state, action) {
         case "removeLockerItem":
             const lockerItemsRemove = [...state.lockerItems];
             const removeIdx = lockerItemsRemove.indexOf(action.comicId);
-            if (lockerItemsRemove.indexOf(action.comicId) > -1) {
+            if (removeIdx > -1) {
                 lockerItemsRemove.splice(removeIdx, 1);
             }
             return {
@@ -33,15 +38,15 @@ export function mainReducer(state, action) {
                 lockerItems: lockerItemsRemove,
                 alertText: action.alertText
             }
-        case "setCurrentUser":
-            return {
-                ...state,
-                currentUser: action.currentUser,
-            }
         case "setAlertText":
             return {
                 ...state,
                 alertText: action.alertText,
+            }
+        case "setModalContent":
+            return {
+                ...state,
+                modalContent: action.modalContent,
             }
         case "setCurrentUsername":
             const updatedCurrentUser = {
@@ -51,6 +56,27 @@ export function mainReducer(state, action) {
             return {
                 ...state,
                 currentUser: updatedCurrentUser
+            }
+        case "addFollowCreator":
+            const addFollowingCreators = [...state.followingCreators];
+            if (!addFollowingCreators.includes(action.creatorId)) {
+                addFollowingCreators.push(action.creatorId);
+            }
+            return {
+                ...state,
+                followingCreators: addFollowingCreators,
+                alertText: action.alertText
+            }
+        case "removeFollowCreator":
+            const removeFollowingCreators = [...state.followingCreators];
+            const removeCreatorIdx = removeFollowingCreators.indexOf(action.creatorId);
+            if (removeCreatorIdx > -1) {
+                removeFollowingCreators.splice(removeCreatorIdx, 1);
+            }
+            return {
+                ...state,
+                followingCreators: removeFollowingCreators,
+                alertText: action.alertText
             }
         default:
             throw Error(`Unknown action: ${action.type}`);
