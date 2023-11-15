@@ -6,8 +6,9 @@ function WindowContext() {
   const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
-    setIsStandalone(window.navigator.standalone === true);
-    if (isStandalone) {
+    const standaloneCheck = window.navigator.standalone === true;
+    setIsStandalone(standaloneCheck);
+    if (standaloneCheck) {
       dispatch({
         type: "setAlertText",
         alertText: "Thanks for installing Pictoversity!"
