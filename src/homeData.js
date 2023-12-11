@@ -3,6 +3,7 @@ import ComicData from "./comicData";
 const HomeData = {
     new: ComicData.comic_001,
     recommended: [
+        ComicData.comic_012,
         ComicData.comic_011,
         ComicData.comic_005,
         ComicData.comic_008,

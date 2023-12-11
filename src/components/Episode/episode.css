@@ -29,10 +29,11 @@
 .episode .episode-body {
     height: 100%;
     overflow-y: hidden;
+    background: linear-gradient(90deg, #D8DBF8, black, #D8DBF8);
 }
 
 .episode .episode-container {
     height: 100%;
     overflow-y: scroll;
-
+    text-align: center;
 }
