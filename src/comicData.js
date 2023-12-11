@@ -9,6 +9,7 @@ import bobaandchill from "./assets/covers/bobaandchill.png";
 import graycatadvice from "./assets/covers/graycat_goodadvice.png";
 import catgrab from "./assets/covers/catgrab1.png";
 import everyday from "./assets/covers/everyday1.png";
+import coachMeCover from "./assets/covers/coach_me_cover.png";
 
 import troubleTrioEp1 from "./assets/covers/trouble_trio_ep1.png";
 import sliceOfLifeEp1 from "./assets/covers/a_slice_of_life_ep1.png";
@@ -27,9 +28,14 @@ import graycatadviceEp1 from "./assets/covers/graycat_goodadvice.png";
 import catgrabEp1 from "./assets/covers/catgrab.png";
 import everydayEp1 from "./assets/covers/everyday1.png";
 import everydayEp2 from "./assets/covers/everyday2.png";
+import coachMeCoverEp1 from "./assets/covers/coach_me_ep1.png";
+import coachMeCoverEp2 from "./assets/covers/coach_me_ep2.png";
 
 import everydayContentEp1 from "./assets/episodes/everyday_ep1.png";
 import everydayContentEp2 from "./assets/episodes/everyday_ep2.png";
+
+import coachMeContentEp1 from "./assets/episodes/coach_me/episode_01.jpg";
+import coachMeContentEp2 from "./assets/episodes/coach_me/episode_02.jpg";
 
 const ComicData = {
     comic_001: {
@@ -230,6 +236,27 @@ const ComicData = {
                 title: "While in the car...",
                 coverImage: everydayEp2,
                 contents: everydayContentEp2
+            }
+        ]
+    },
+    comic_012: {
+        id: "comic_012",
+        title: "Coach Me!",
+        creatorId: "creator_001",
+        coverImage: coachMeCover,
+        summary: "Getting fit is not easy. Sometimes you just need a coach!",
+        episodes: [
+            {
+                number: 1,
+                title: "What am I doing wrong?",
+                coverImage: coachMeCoverEp1,
+                contents: coachMeContentEp1
+            },
+            {
+                number: 2,
+                title: "Don't lecture me!",
+                coverImage: coachMeCoverEp2,
+                contents: coachMeContentEp2
             }
         ]
     }
