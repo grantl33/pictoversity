@@ -11,6 +11,8 @@ import catgrab from "./assets/covers/catgrab1.png";
 import everyday from "./assets/covers/everyday1.png";
 import coachMeCover from "./assets/covers/coach_me_cover.png";
 import theDuckWarCover from "./assets/covers/theduckwars_cover.png";
+import differentEyesCover from "./assets/covers/different_eyes_cover.png";
+import thingsWeUsedToDoCover from "./assets/covers/things_we_used_to_do_cover.png";
 
 import troubleTrioEp1 from "./assets/covers/trouble_trio_ep1.png";
 import sliceOfLifeEp1 from "./assets/covers/a_slice_of_life_ep1.png";
@@ -31,7 +33,12 @@ import everydayEp1 from "./assets/covers/everyday1.png";
 import everydayEp2 from "./assets/covers/everyday2.png";
 import coachMeCoverEp1 from "./assets/covers/coach_me_ep1.png";
 import coachMeCoverEp2 from "./assets/covers/coach_me_ep2.png";
+import coachMeCoverEp3 from "./assets/covers/coach_me_cover_ep3.png";
+import coachMeCoverEp4 from "./assets/covers/coach_me_cover_ep4.png";
 import theDuckWarCoverEp1 from "./assets/covers/theduckwars_ep1.png";
+import differentEyesCoverEp1 from "./assets/covers/different_eyes_cover_ep1.png";
+import differentEyesCoverEp2 from "./assets/covers/different_eyes_cover_ep2.png";
+import thingsWeUsedToDoCoverEp1 from "./assets/covers/things_we_used_to_do_cover_ep1.png";
 
 // Episodes
 import everydayContentEp1 from "./assets/episodes/everyday_ep1.png";
@@ -39,8 +46,15 @@ import everydayContentEp2 from "./assets/episodes/everyday_ep2.png";
 
 import coachMeContentEp1 from "./assets/episodes/coach_me/episode_01.jpg";
 import coachMeContentEp2 from "./assets/episodes/coach_me/episode_02.jpg";
+import coachMeContentEp3 from "./assets/episodes/coach_me/episode_03.png";
+import coachMeContentEp4 from "./assets/episodes/coach_me/episode_04.png";
 
 import theDuckWarEp1 from "./assets/episodes/theduckwar/theduckwar_ep1.png";
+
+import differentEyesEp1 from "./assets/episodes/different_eyes/episode_01.png";
+import differentEyesEp2 from "./assets/episodes/different_eyes/episode_02.png";
+
+import thingsWeUsedToDoEp1 from "./assets/episodes/things_we_used_to_do/episode_01.png";
 
 const ComicData = {
     comic_001: {
@@ -277,6 +291,42 @@ const ComicData = {
                 title: "Introducktions",
                 coverImage: theDuckWarCoverEp1,
                 contents: theDuckWarEp1
+            }
+        ]
+    },
+    comic_014: {
+        id: "comic_014",
+        title: "Different Eyes",
+        creatorId: "creator_001",
+        coverImage: differentEyesCover,
+        summary: "Mental health stuff, y'know?",
+        episodes: [
+            {
+                number: 1,
+                title: "One, Two, Three...",
+                coverImage: differentEyesCoverEp1,
+                contents: differentEyesEp1
+            },
+            {
+                number: 2,
+                title: "Welcome back",
+                coverImage: differentEyesCoverEp2,
+                contents: differentEyesEp2
+            }
+        ]
+    },
+    comic_015: {
+        id: "comic_015",
+        title: "Things We Used To Do As Kids",
+        creatorId: "creator_004",
+        coverImage: thingsWeUsedToDoCover,
+        summary: "Remember when you were a child? Well, here's that in a nutshell.",
+        episodes: [
+            {
+                number: 1,
+                title: "Run!",
+                coverImage: thingsWeUsedToDoCoverEp1,
+                contents: thingsWeUsedToDoEp1
             }
         ]
     }

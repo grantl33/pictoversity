@@ -1,6 +1,7 @@
 import yumie from "./assets/profiles/yumie.png";
 import grant from "./assets/profiles/grant.png";
 import caitlyn from "./assets/profiles/caitlyn.png";
+import noelle from "./assets/profiles/noelle.png";
 
 const CreatorData = {
     creator_001: {
@@ -23,13 +24,22 @@ const CreatorData = {
     },
     creator_003: {
         id: "creator_003",
-        name: "Caitlyn",
-        description: "Caitlyn's Comics",
+        name: "Katelyn",
+        description: "Katelyn's Comics",
         donateLink: "",
         email: "",
         creatorImage: caitlyn,
         followers: 100,
-    }
+    },
+    creator_004: {
+        id: "creator_004",
+        name: "mustard_monkey3",
+        description: "I'm too good!!",
+        donateLink: "",
+        email: "tommyaltacc0@gmail.com",
+        creatorImage: noelle,
+        followers: 100,
+    },
 }
 
 export default CreatorData;
