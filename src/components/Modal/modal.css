@@ -4,6 +4,7 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.0);
     display: grid;
+    z-index: 2;
 }
 
 .modal .modal-container {

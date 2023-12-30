@@ -13,7 +13,8 @@ function Modal() {
     const [show, setShow] = useState(false);
     const {
         title,
-        content
+        content,
+        showReload
     } = modalContent;
     const hasModalContent = (title !== null && content !== null);
 
@@ -24,10 +25,15 @@ function Modal() {
                 type: "setModalContent",
                 modalContent: {
                     title: null,
-                    content: null
-                }
+                    content: null,
+                    showReload: false
+                },
             });
         }, 200)
+    }
+
+    const handleReload = () => {
+        window.location.reload();
     }
     useEffect(() => {
         setShow(hasModalContent);
@@ -40,6 +46,9 @@ function Modal() {
                     <h2>{title}</h2>
                     <p>{content}</p>
                     <button onClick={handleDismiss}>Dismiss</button>
+                    {showReload &&
+                        <button onClick={handleReload}>Refresh App</button>
+                    }
                 </div>
             </div>
         </div>}

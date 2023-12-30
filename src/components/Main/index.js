@@ -25,7 +25,8 @@ function Main() {
                     the app was developed by <a href="https://github.com/grantl33"
                         target="_blank" rel="noreferrer">Grant Lee</a>.<br /><br />
                     &copy; Copyright 2023<br />Yumie and Grant Lee
-                </>
+                </>,
+                showReload: true
             }
         });
     }
