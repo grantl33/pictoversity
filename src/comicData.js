@@ -276,6 +276,18 @@ const ComicData = {
                 title: "Don't lecture me!",
                 coverImage: coachMeCoverEp2,
                 contents: coachMeContentEp2
+            },
+            {
+                number: 3,
+                title: "Sore muscles",
+                coverImage: coachMeCoverEp3,
+                contents: coachMeContentEp3
+            },
+            {
+                number: 4,
+                title: "Abnormal muscle pain",
+                coverImage: coachMeCoverEp4,
+                contents: coachMeContentEp4
             }
         ]
     },
