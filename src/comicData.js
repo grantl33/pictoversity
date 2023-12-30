@@ -13,6 +13,7 @@ import coachMeCover from "./assets/covers/coach_me_cover.png";
 import theDuckWarCover from "./assets/covers/theduckwars_cover.png";
 import differentEyesCover from "./assets/covers/different_eyes_cover.png";
 import thingsWeUsedToDoCover from "./assets/covers/things_we_used_to_do_cover.png";
+import adventuresInMusicCover from "./assets/covers/adventures_in_music_cover.png";
 
 import troubleTrioEp1 from "./assets/covers/trouble_trio_ep1.png";
 import sliceOfLifeEp1 from "./assets/covers/a_slice_of_life_ep1.png";
@@ -39,6 +40,7 @@ import theDuckWarCoverEp1 from "./assets/covers/theduckwars_ep1.png";
 import differentEyesCoverEp1 from "./assets/covers/different_eyes_cover_ep1.png";
 import differentEyesCoverEp2 from "./assets/covers/different_eyes_cover_ep2.png";
 import thingsWeUsedToDoCoverEp1 from "./assets/covers/things_we_used_to_do_cover_ep1.png";
+import adventuresInMusicCoverEp1 from "./assets/covers/adventures_in_music_cover_ep1.png";
 
 // Episodes
 import everydayContentEp1 from "./assets/episodes/everyday_ep1.png";
@@ -55,6 +57,8 @@ import differentEyesEp1 from "./assets/episodes/different_eyes/episode_01.png";
 import differentEyesEp2 from "./assets/episodes/different_eyes/episode_02.png";
 
 import thingsWeUsedToDoEp1 from "./assets/episodes/things_we_used_to_do/episode_01.png";
+
+import adventuresInMusicEp1 from "./assets/episodes/adventures_in_music/episode_01.png";
 
 const ComicData = {
     comic_001: {
@@ -339,6 +343,21 @@ const ComicData = {
                 title: "Run!",
                 coverImage: thingsWeUsedToDoCoverEp1,
                 contents: thingsWeUsedToDoEp1
+            }
+        ]
+    },
+    comic_016: {
+        id: "comic_016",
+        title: "Adventures in Music",
+        creatorId: "creator_005",
+        coverImage: adventuresInMusicCover,
+        summary: "Music can be an adventure.",
+        episodes: [
+            {
+                number: 1,
+                title: "Try Again!",
+                coverImage: adventuresInMusicCoverEp1,
+                contents: adventuresInMusicEp1
             }
         ]
     }

@@ -2,6 +2,7 @@ import yumie from "./assets/profiles/yumie.png";
 import grant from "./assets/profiles/grant.png";
 import caitlyn from "./assets/profiles/caitlyn.png";
 import noelle from "./assets/profiles/noelle.png";
+import junie from "./assets/profiles/junie.png";
 
 const CreatorData = {
     creator_001: {
@@ -38,6 +39,15 @@ const CreatorData = {
         donateLink: "",
         email: "tommyaltacc0@gmail.com",
         creatorImage: noelle,
+        followers: 100,
+    },
+    creator_005: {
+        id: "creator_005",
+        name: "junie_lee",
+        description: "Hi I'm Junie, please support my comics and click the donate button! Thanks!!!",
+        donateLink: "https://www.paypal.com/donate/?business=PDMTEA6K5786Y&no_recurring=0&item_name=Thank+you+for+donating+to+Junie+Lee%21+Your+generous+donation+helps+support+the+ongoing+creation+of+her+comics%21&currency_code=USD",
+        email: "junielee07@gmail.com",
+        creatorImage: junie,
         followers: 100,
     },
 }
