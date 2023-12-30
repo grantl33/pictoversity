@@ -5,8 +5,7 @@ function Home() {
     return (
         <div className="content">
             <div className="new-releases">
-                <h2>New Releases</h2>
-                <Hero comicData={HomeData.new} />
+                <Hero />
             </div>
             <div className="content-listing">
                 <h2>Recommended for you</h2>

@@ -1,17 +1,13 @@
+import introvideo from "../../assets/pictoversity_intro.mp4";
+import posterImage from "../../assets/video_poster.png";
 
 function Hero(props) {
-    const { comicData } = props;
-    const {
-        title,
-        coverImage
-    } = comicData;
-
-    const style = {
-        backgroundImage: `url('${coverImage}')`
-    };
     return (
-        <div className="hero" style={style} >
-            <span>{title}</span>
+        <div className="hero">
+            <video width="100%" poster={posterImage} controls>
+                <source src={introvideo} type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
         </div>
     )
 }
