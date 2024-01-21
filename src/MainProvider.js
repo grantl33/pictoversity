@@ -12,11 +12,50 @@ export const initialState = {
     modalContent: {
         title: null,
         content: null,
-    }
+    },
+    loadingComics: false,
+    comics: [],
+    loadingCreators: false,
+    creators: [],
+    loadingEpisodes: false,
+    episodes: [],
 }
 
 export function mainReducer(state, action) {
     switch (action.type) {
+        case "setLoadingComics":
+            return {
+                ...state,
+                loadingComicsData: action.loadingComics
+            }
+        case "setLoadingCreators":
+            return {
+                ...state,
+                loadingCreators: action.loadingCreators
+            }
+        case "setLoadingEpisodes":
+            return {
+                ...state,
+                loadingEpisodes: action.loadingEpisodes
+            }
+        case "setComics":
+            return {
+                ...state,
+                comics: action.comics,
+                loadingComics: false,
+            }
+        case "setCreators":
+            return {
+                ...state,
+                creators: action.creators,
+                loadingCreators: false,
+            }
+        case "setEpisodes":
+            return {
+                ...state,
+                episodes: action.episodes,
+                loadingEpisodes: false,
+            }
         case "addLockerItem":
             const lockerItemsAdd = [...state.lockerItems];
             if (!lockerItemsAdd.includes(action.comicId)) {

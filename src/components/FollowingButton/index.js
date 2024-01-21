@@ -12,20 +12,20 @@ function FollowingButton(props) {
 
     const isFollowing = followingCreators != null &&
         creatorData != null &&
-        followingCreators.includes(creatorData.id);
+        followingCreators.includes(creatorData.Id);
 
     const handleAddFollowCreator = () => {
         dispatch({
             type: "addFollowCreator",
-            creatorId: creatorData.id,
-            alertText: `Following ${creatorData.name}`
+            creatorId: creatorData.Id,
+            alertText: `Following ${creatorData.NAME}`
         });
     }
     const handleRemoveFollowCreator = () => {
         dispatch({
             type: "removeFollowCreator",
-            creatorId: creatorData.id,
-            alertText: `Unfollowed ${creatorData.name}`
+            creatorId: creatorData.Id,
+            alertText: `Unfollowed ${creatorData.NAME}`
         });
     }
 

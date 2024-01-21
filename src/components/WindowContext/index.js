@@ -24,6 +24,7 @@ function WindowContext() {
             by clicking <span className="icon box-arrow-up"></span> in the location bar and
             select<br />"Add to Home Screen <span className="icon plus-square"></span>".
           </>
+          
         }
       });
     }

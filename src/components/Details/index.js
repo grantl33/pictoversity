@@ -5,18 +5,23 @@ import remove from "../../assets/icons/dash-circle.svg";
 import donate from "../../assets/icons/donate.svg";
 import badgeempty from "../../assets/icons/person-badge-empty.svg";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { useMemo, useState } from "react";
-import ComicData from "../../comicData";
-import CreatorData from "../../creatorData";
+import { useEffect, useMemo, useState } from "react";
 import { useMainContext, useMainDispatchContext } from "../../MainContext";
 import FollowingButton from "../FollowingButton";
+import { loadEpisodesByComicId } from "../../api";
+import { isNullOrUndefined } from "../../utils";
 
 function Details() {
     const { search } = useLocation();
     const [comicData, setComicData] = useState();
     // Use main context to read from state
     const mainContext = useMainContext();
-    const { lockerItems } = mainContext;
+    const {
+        lockerItems,
+        comics,
+        creators,
+        episodes,
+    } = mainContext;
 
     // Use dispatch context for updating the main state
     const dispatch = useMainDispatchContext();
@@ -24,41 +29,48 @@ function Details() {
     useMemo(() => {
         const query = new URLSearchParams(search);
         const comicId = query.get("id");
-        if (comicId in ComicData) {
-            setComicData(ComicData[comicId]);
-        } else {
-            setComicData(null);
+        if (comics && comics.length > 0) {
+            const reqComicData = comics.find((comic) => parseInt(comicId) === comic.Id);
+            if (reqComicData && reqComicData.Id) {
+                setComicData(reqComicData);
+            } else {
+                setComicData(null);
+            }
+
         }
-    }, [search]);
+    }, [search, comics]);
+
+    useEffect(() => {
+        if (comicData && comicData.Id != null)
+            loadEpisodesByComicId(dispatch, comicData.Id);
+    }, [comicData, dispatch]);
+
 
     const style = (comicData != null) ? {
-        backgroundImage: `url('${comicData.coverImage}')`
+        backgroundImage: `url('/images/covers/${comicData.COVER_IMAGE}.png')`
     } : null;
 
-    const creatorData = (comicData != null)
-        ? CreatorData[comicData.creatorId]
+    const creatorData = (!isNullOrUndefined(creators) && !isNullOrUndefined(comicData))
+        ? creators.find((creator) => comicData.CREATOR_ID === creator.Id)
         : null;
 
-    const creatorStyle = (creatorData != null) ? {
-        backgroundImage: `url('${creatorData.creatorImage}')`
+    const creatorStyle = (!isNullOrUndefined(creatorData)) ? {
+        backgroundImage: `url('/images/profiles/${creatorData.USERNAME}.png')`
     } : null;
 
-    const episodes = (comicData != null)
-        ? comicData.episodes
-        : null;
 
     const nf = new Intl.NumberFormat("en-US", {
         useGrouping: true,
         style: "decimal"
     });
-    const isComicAdded = (comicData != null)
-        ? lockerItems.indexOf(comicData.id) > -1
+    const isComicAdded = (!isNullOrUndefined(comicData))
+        ? lockerItems.indexOf(comicData.Id) > -1
         : null;
 
     const handleAddLockerItem = () => {
         dispatch({
             type: "addLockerItem",
-            comicId: comicData.id,
+            comicId: comicData.Id,
             alertText: "Added to locker!"
         });
     }
@@ -66,15 +78,15 @@ function Details() {
     const handleRemoveLockerItem = () => {
         dispatch({
             type: "removeLockerItem",
-            comicId: comicData.id,
+            comicId: comicData.Id,
             alertText: "Removed from locker."
         });
     }
 
     return (
         <div className="details">
-            {(comicData == null) && <>Error: Comic not found!</>}
-            {(comicData != null) &&
+            {(isNullOrUndefined(comicData) || isNullOrUndefined(creatorData)) && <>Error: Comic not found!</>}
+            {(!isNullOrUndefined(comicData) && !isNullOrUndefined(creatorData)) &&
                 <>
                     <div className="details-header">
                         <div className="details-content">
@@ -85,7 +97,7 @@ function Details() {
                                     </Link>
                                 </div>
                                 <div className="center">
-                                    <h3>{comicData.title}</h3>
+                                    <h3>{comicData.TITLE}</h3>
                                 </div>
                                 <div className="right">
                                     {(isComicAdded &&
@@ -105,18 +117,18 @@ function Details() {
                                     </div>
                                 </div>
                                 <div className="right">
-                                    <p>{comicData.summary}</p>
+                                    <p>{comicData.SUMMARY}</p>
                                     <div className="info-actions">
-                                        <Link className="creator-image-container" to={`/creator?id=${creatorData.id}`}>
+                                        <Link className="creator-image-container" to={`/creator?id=${creatorData.Id}`}>
                                             <div className="creator-image" style={creatorStyle}></div>
                                             <img src={badgeempty} alt="" className="badge" />
                                         </Link>
                                         <div className="creator-info">
-                                            <Link to={`/creator?id=${creatorData.id}`}>{creatorData.name}</Link>
-                                            <span>{nf.format(creatorData.followers)} followers</span>
+                                            <Link to={`/creator?id=${creatorData.Id}`}>{creatorData.NAME}</Link>
+                                            <span>{nf.format(0)} followers</span>
                                             <FollowingButton creatorData={creatorData} />
                                         </div>
-                                        <a href={creatorData.donateLink} target="_blank" rel="noreferrer">
+                                        <a href={creatorData.DONATE_LINK} target="_blank" rel="noreferrer">
                                             <img src={donate} alt="Donate" className="icon" />
                                         </a>
                                     </div>
@@ -127,21 +139,21 @@ function Details() {
                     </div>
                     <div className="details-body">
                         <div className="episodes-container">
-                            {episodes.map((episode) => {
+                            {(episodes && episodes.length > 0) && episodes.map((episode) => {
                                 const episodeStyle = {
-                                    backgroundImage: `url('${episode.coverImage}')`
+                                    backgroundImage: `url('/images/covers/${comicData.COVER_IMAGE}_${episode.EPISODE_NUMBER}.png')`
                                 }
                                 return (
-                                    <NavLink key={episode.number}
-                                        to={`/episode?id=${comicData.id}&episodeId=${episode.number}`}
+                                    <NavLink key={episode.EPISODE_NUMBER}
+                                        to={`/episode?id=${comicData.Id}&episodeNumber=${episode.EPISODE_NUMBER}`}
                                         className="episode-row">
-                                        <div className="episode-number">{episode.number}</div>
+                                        <div className="episode-number">{episode.EPISODE_NUMBER}</div>
                                         <div>
                                             <div className="episode-image" style={episodeStyle}>
                                                 <div className="overlay"></div>
                                             </div>
                                         </div>
-                                        <div className="episode-title">{episode.title}</div>
+                                        <div className="episode-title">{episode.TITLE}</div>
                                     </NavLink>)
                             })}
                         </div>

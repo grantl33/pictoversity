@@ -5,34 +5,37 @@ import donate from "../../assets/icons/donate.svg";
 import badgeempty from "../../assets/icons/person-badge-empty.svg";
 import { Link, useLocation } from "react-router-dom";
 import { useMemo, useState } from "react";
-import ComicData from "../../comicData";
-import CreatorData from "../../creatorData";
 import Cover from "../Cover";
 import FollowingButton from "../FollowingButton";
+import { useMainContext } from "../../MainContext";
+import { isNullOrUndefined } from "../../utils";
 
 function Creator() {
     const { search } = useLocation();
     const [creatorData, setCreatorData] = useState();
 
+    // Use main context to read from state
+    const mainContext = useMainContext();
+    const {
+        comics,
+        creators
+    } = mainContext;
     useMemo(() => {
         const query = new URLSearchParams(search);
         const creatorId = query.get("id");
-        if (creatorId in CreatorData) {
-            setCreatorData(CreatorData[creatorId]);
-        } else {
-            setCreatorData(null);
+        if (creators && creators.length > 0) {
+            setCreatorData(creators.find(creator => creator.Id === parseInt(creatorId)));
         }
-    }, [search]);
+    }, [search, creators]);
 
-    const creatorStyle = (creatorData != null) ?
+    const creatorStyle = (!isNullOrUndefined(creatorData)) ?
         {
-            backgroundImage: `url('${creatorData.creatorImage}')`
+            backgroundImage: `url('/images/profiles/${creatorData.USERNAME}.png')`
         }
         : null;
 
-    const allComics = Object.keys(ComicData).map((key) => ComicData[key]);
-    const seriesList = (creatorData != null) ?
-        allComics.filter((item) => item.creatorId === creatorData.id)
+    const seriesList = (!isNullOrUndefined(creatorData)) ?
+        comics.filter((item) => item.CREATOR_ID === creatorData.Id)
         : null;
 
     const nf = new Intl.NumberFormat("en-US", {
@@ -62,11 +65,11 @@ function Creator() {
                             </div>
                             <div className="creator-name">
                                 {creatorData.name}
-                                <span>{nf.format(creatorData.followers)} followers</span>
+                                <span>{nf.format(0)} followers</span>
                                 <FollowingButton creatorData={creatorData} />
                             </div>
                             <div className="creator-actions">
-                                <a href={creatorData.donateLink} className="creator-donate" target="_blank" rel="noreferrer">
+                                <a href={creatorData.DONATE_LINK} className="creator-donate" target="_blank" rel="noreferrer">
                                     <img src={donate} alt="Donate" className="icon" />
                                     Donate
                                 </a>
@@ -92,14 +95,14 @@ function Creator() {
                             <div className="creator-series-container">
                                 <div className="creator-series-list">
                                     {seriesList.map((item) => (
-                                        <div key={item.id} className="creator-series-row">
+                                        <div key={item.Id} className="creator-series-row">
                                             <div>
                                                 <Cover comicData={item} showTitle={false} />
                                             </div>
                                             <div>
-                                                <h3>{item.title}</h3>
+                                                <h3>{item.TITLE}</h3>
                                                 <p>
-                                                    {item.summary}
+                                                    {item.SUMMARY}
                                                 </p>
                                             </div>
                                         </div>

@@ -1,7 +1,19 @@
-import HomeData from '../../homeData';
 import Hero from '../../components/Hero';
 import CoverRow from '../../components/CoverRow';
+import { useMainContext } from '../../MainContext';
 function Home() {
+    // Use main context to read from state
+    const mainContext = useMainContext();
+    const {
+        comics
+    } = mainContext;
+    const recommended = (comics && comics.length > 0)
+        ? comics.toSorted((a, b) => a.Id - b.Id)
+        : null;
+    const popular = (comics && comics.length > 0)
+        ? comics.toSorted((a, b) => b.EPISODE_COUNT - a.EPISODE_COUNT)
+        : null;
+
     return (
         <div className="content">
             <div className="new-releases">
@@ -9,23 +21,11 @@ function Home() {
             </div>
             <div className="content-listing">
                 <h2>Recommended for you</h2>
-                <CoverRow comicsData={HomeData.recommended} />
+                <CoverRow comicsData={recommended} />
             </div>
             <div className="content-listing">
                 <h2>Popular</h2>
-                <CoverRow comicsData={HomeData.popular} showRanking={true} />
-            </div>
-            <div className="content-listing">
-                <h2>Continue Reading</h2>
-                <CoverRow comicsData={HomeData.continue} />
-            </div>
-            <div className="content-listing">
-                <h2>Walk Through Comics</h2>
-                <CoverRow comicsData={HomeData.walkthru} />
-            </div>
-            <div className="content-listing">
-                <h2>Morality Comics</h2>
-                <CoverRow comicsData={HomeData.morality} />
+                <CoverRow comicsData={popular} showRanking={true} />
             </div>
         </div>
     )

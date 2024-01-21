@@ -29,12 +29,12 @@ function Cover(props) {
         showTitle = true
     } = props;
     const {
-        id,
-        title,
-        coverImage
+        Id: id,
+        TITLE: title,
+        COVER_IMAGE: coverImage
     } = comicData;
     const style = {
-        backgroundImage: `url('${coverImage}')`
+        backgroundImage: `url('/images/covers/${coverImage}.png')`
     }
     const rankingNumber = rankingNumbers[ranking - 1];
     return (

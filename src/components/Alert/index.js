@@ -29,6 +29,7 @@ function Alert() {
             }, 3000);
         }
     }, [alertText, dispatch]);
+    
     return (
         <>
             {alertText !== null && <div className={`alert${(showAlert) ? " show" : ""}`}>
