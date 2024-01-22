@@ -15,39 +15,43 @@ function getAPI(entityName, entityId, queryParams) {
         : `${baseUrl}/data-api/rest/${entityName}${qs}`;
 }
 
-export function loadComics(dispatch) {
+export async function loadComics(dispatch) {
     // load data from database and set via reducer
     dispatch({
         type: "setLoadingComics",
         loadingComics: true
     });
 
-    fetch(getAPI("Comics"))
-        .then((response) => response.json())
-        .then((jsonData) => {
-            dispatch({
-                type: "setComics",
-                comics: jsonData.value || []
-            });
-        })
-        .catch((error) => console.log(error));
+    const response = await fetch(getAPI("Comics"));
+    const jsonData = await response.json();
+    try {
+        console.log("jsonData:", JSON.stringify(jsonData.value));
+        dispatch({
+            type: "setComics",
+            comics: jsonData.value || []
+        });
+    } catch (error) {
+        console.log(error)
+    }
 }
-export function loadCreators(dispatch) {
+export async function loadCreators(dispatch) {
     // load data from database and set via reducer
     dispatch({
         type: "setLoadingCreators",
         loadingCreators: true
     });
 
-    fetch(getAPI("Creators"))
-        .then((response) => response.json())
-        .then((jsonData) => {
-            dispatch({
-                type: "setCreators",
-                creators: jsonData.value || []
-            });
-        })
-        .catch((error) => console.log(error));
+    const response = await fetch(getAPI("Creators"));
+    const jsonData = await response.json();
+    try {
+        console.log("jsonData:", JSON.stringify(jsonData.value))
+        dispatch({
+            type: "setCreators",
+            creators: jsonData.value || []
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
 export function loadEpisodesByComicId(dispatch, comicId) {
     // load data from database and set via reducer
