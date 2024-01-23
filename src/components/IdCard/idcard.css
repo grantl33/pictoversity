@@ -21,11 +21,6 @@
 .idcard .idcard-top-banner {
     display: grid;
     grid-template-rows: auto auto auto;
-    grid-template-areas: "h2" "image" "input";
-    grid-template-areas:
-        "h2"
-        "image"
-        "input";
     justify-content: center;
     text-align: center;
     align-content: center;
@@ -43,20 +38,86 @@
 
 }
 
-.idcard .idcard-top-banner input {
+.idcard .idcard-top-banner label {
+    margin: auto 4px;
     font-size: large;
-    border: 0;
-    background: transparent;
-    text-align: center;
+    font-weight: bold;
+    text-align: right;
 }
 
-.idcard .idcard-top-banner input:focus {
+.idcard .idcard-top-banner input {
     font-size: large;
-    background: white;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
     text-align: left;
-    margin: 0;
 }
+
+.idcard .idcard-top-banner input:focus {}
 
 .idcard .idcard-container {
     margin: 16px;
+}
+
+.idcard .field-section {}
+
+.idcard .field-row {
+    margin: 8px 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: left;
+    text-align: left;
+}
+
+
+.split-tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 250px;
+    text-align: center;
+    background-color: white;
+    color: #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-weight: bold;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+}
+
+.split-tab-choice {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.split-tab .split-tab-choice:hover {
+    background-color: #ccc;
+    color: black;
+}
+
+.split-tab .split-tab-choice.selected {
+    background-color: #6C81F0;
+    color: white;
+}
+
+
+button {
+    background-color: #6C81F0;
+    color: white;
+    padding: 8px 16px;
+    font-size: large;
+    font-weight: 500;
+    border-radius: 8px;
+    border: 0;
+    margin: 0 auto;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    filter: opacity(.5);
+}
+
+.locker-combo {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 8px;
 }

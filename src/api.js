@@ -1,4 +1,4 @@
-import { isNotBlank } from "./utils";
+import { isNotBlank, isNullOrUndefined } from "./utils";
 
 export const API_VERSION = 0.1;
 
@@ -25,7 +25,6 @@ export async function loadComics(dispatch) {
     const response = await fetch(getAPI("Comics"));
     const jsonData = await response.json();
     try {
-        console.log("jsonData:", JSON.stringify(jsonData.value));
         dispatch({
             type: "setComics",
             comics: jsonData.value || []
@@ -44,7 +43,6 @@ export async function loadCreators(dispatch) {
     const response = await fetch(getAPI("Creators"));
     const jsonData = await response.json();
     try {
-        console.log("jsonData:", JSON.stringify(jsonData.value))
         dispatch({
             type: "setCreators",
             creators: jsonData.value || []
@@ -53,20 +51,112 @@ export async function loadCreators(dispatch) {
         console.log(error);
     }
 }
-export function loadEpisodesByComicId(dispatch, comicId) {
+export async function loadEpisodesByComicId(dispatch, comicId) {
     // load data from database and set via reducer
     dispatch({
         type: "setLoadingEpisodes",
         loadingEpisodes: true
     });
 
-    fetch(getAPI("EpisodesByComicId", null, { ComicId: comicId }))
-        .then((response) => response.json())
-        .then((jsonData) => {
-            dispatch({
-                type: "setEpisodes",
-                episodes: jsonData.value || []
-            });
-        })
-        .catch((error) => console.log(error));
+    const response = await fetch(getAPI("EpisodesByComicId", null, { ComicId: comicId }));
+    const jsonData = await response.json();
+    try {
+        dispatch({
+            type: "setEpisodes",
+            episodes: jsonData.value || []
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
+
+export async function createMember(dispatch, memberObj) {
+    // load data from database and set via reducer
+    dispatch({
+        type: "setLoadingMember",
+        loadingMember: true
+    });
+
+    const response = await fetch(getAPI("Members"), {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(memberObj)
+    });
+    const jsonData = await response.json();
+    try {
+        const memberObj = (Array.isArray(jsonData.value))
+            ? jsonData.value[0]
+            : jsonData.value;
+        if (isNullOrUndefined(memberObj)) {
+            dispatch({
+                type: "setAlertText",
+                alertText: "Registration failed, please try again."
+            });
+        } else {
+            dispatch({
+                type: "setMember",
+                member: memberObj
+            });
+
+            dispatch({
+                type: "setAlertText",
+                alertText: `Welcome, ${memberObj.NAME}!`
+            });
+        }
+        dispatch({
+            type: "setLoadingMember",
+            loadingMember: false
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export async function loadMember(dispatch, memberObj) {
+    // load data from database and set via reducer
+    dispatch({
+        type: "setLoadingMember",
+        loadingMember: true
+    });
+
+    const response = await fetch(getAPI("MembersLogin", null, {
+        Email: memberObj.email,
+        Combo: memberObj.combo,
+    }), {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    const jsonData = await response.json();
+    try {
+        const memberObj = (Array.isArray(jsonData.value))
+            ? jsonData.value[0]
+            : jsonData.value;
+
+        if (isNullOrUndefined(memberObj)) {
+            dispatch({
+                type: "setAlertText",
+                alertText: "Login failed, please try again."
+            });
+        } else {
+            dispatch({
+                type: "setMember",
+                member: memberObj
+            });
+            dispatch({
+                type: "setAlertText",
+                alertText: `Welcome back, ${memberObj.NAME}!`
+            });
+        }
+        dispatch({
+            type: "setLoadingMember",
+            loadingMember: false
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+

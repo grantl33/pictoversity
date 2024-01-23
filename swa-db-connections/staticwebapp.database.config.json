@@ -85,6 +85,45 @@
           ]
         }
       ]
+    },
+    "Members": {
+      "source": "dbo.Members",
+      "rest": {
+        "methods": [
+          "post"
+        ]
+      },
+      "permissions": [
+        {
+          "actions": [
+            "*"
+          ],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "MembersLogin": {
+      "source": {
+        "type": "stored-procedure",
+        "object": "dbo.MembersLogin",
+        "parameters": {
+          "Email": "Email",
+          "Combo": "Combo"
+        }
+      },
+      "rest": {
+        "methods": [
+          "get"
+        ]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "execute"
+          ]
+        }
+      ]
     }
   }
 }

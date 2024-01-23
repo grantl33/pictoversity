@@ -4,15 +4,67 @@ import studentcard from "../../assets/icons/student_card.svg";
 import { useMainContext } from "../../MainContext";
 import { useMainDispatchContext } from "../../MainContext";
 import Accordion from "../Accordion";
+import { isBlank, isNullOrUndefined } from "../../utils";
+import { useEffect, useState } from "react";
+import { createMember, loadMember } from "../../api";
 
 function IdCard() {
 
     // Use main context to read from state
     const mainContext = useMainContext();
-    const { currentUser } = mainContext;
+    const {
+        member,
+    } = mainContext;
 
     // Use dispatch context for updating the main state
     const dispatch = useMainDispatchContext();
+
+    const [tabMode, setTabMode] = useState("login");
+    const [memberName, setMemberName] = useState("");
+    const [memberEmail, setMemberEmail] = useState("");
+    const [memberLockerCombo, setMemberLockerCombo] = useState("");
+    const [memberLockerComboP1, setMemberLockerComboP1] = useState(0);
+    const [memberLockerComboP2, setMemberLockerComboP2] = useState(0);
+    const [memberLockerComboP3, setMemberLockerComboP3] = useState(0);
+    const [isValid, setIsValid] = useState(false);
+    const [validationErrors, setValidationErrors] = useState({});
+
+    useEffect(() => {
+        const errorMsgs = {};
+        let validCheck = true;
+        if (isBlank(memberName) && tabMode === "register") {
+            errorMsgs.name = "Name is required.";
+            validCheck = false;
+        }
+        if (isBlank(memberEmail)) {
+            errorMsgs.email = "Valid email is required.";
+            validCheck = false;
+        }
+        if (isBlank(memberLockerComboP1) ||
+            isBlank(memberLockerComboP2) ||
+            isBlank(memberLockerComboP3)) {
+            errorMsgs.lockerCombo = "3-digit locker combo required.";
+            validCheck = false;
+        } else {
+            setMemberLockerCombo(`${memberLockerComboP1}-${memberLockerComboP2}-${memberLockerComboP3}`);
+        }
+        setValidationErrors(errorMsgs);
+        setIsValid(validCheck);
+    }, [memberName, memberEmail, memberLockerComboP1, memberLockerComboP2, memberLockerComboP3, tabMode])
+
+    const handleRegister = () => {
+        createMember(dispatch, {
+            NAME: memberName,
+            EMAIL: memberEmail,
+            LOCKER_COMBO: memberLockerCombo
+        });
+    }
+    const handleLogin = () => {
+        loadMember(dispatch, {
+            email: memberEmail,
+            combo: memberLockerCombo
+        });
+    }
 
     return (
         <div className="idcard">
@@ -20,13 +72,85 @@ function IdCard() {
                 <div className="idcard-content">
                     <div className="idcard-top-banner">
                         <h2>My ID</h2>
-                        <img src={studentcard} alt="ID Card" className="icon" />
-                        <input value={currentUser.username} onChange={(e) =>
-                            dispatch({
-                                type: "setCurrentUsername",
-                                username: e.target.value
-                            })
-                        } />
+                        {!isNullOrUndefined(member) &&
+                            <>
+                                <img src={studentcard} alt="ID Card" className="icon" />
+                                <h2>{member.NAME}</h2>
+                                <h3>{member.EMAIL}</h3>
+                            </>
+                        }
+                        {isNullOrUndefined(member) &&
+                            <div className="field-section">
+                                <div className="split-tab">
+                                    <div className={`split-tab-choice${(tabMode === "login") ? " selected" : ""}`} onClick={() => {
+                                        setTabMode("login");
+                                    }}>Login</div>
+                                    <div className={`split-tab-choice${(tabMode === "register") ? " selected" : ""}`} onClick={() => {
+                                        setTabMode("register");
+                                    }}>Register</div>
+                                </div>
+                                {(tabMode === "register") &&
+                                    <>
+                                        <div className="field-row">
+                                            <label>Name:</label>
+                                            <input type="text" value={memberName} placeholder="Your Name" maxLength={100} onChange={(e) => {
+                                                setMemberName(e.target.value);
+                                            }} />
+                                        </div>
+                                        {!isNullOrUndefined(validationErrors.name) &&
+                                            <div className="field-row">
+                                                <label></label>
+                                                <span className="error-msg">{validationErrors.name}</span>
+                                            </div>
+
+                                        }
+                                    </>
+                                }
+                                <div className="field-row">
+                                    <label>Email:</label>
+                                    <input type="text" value={memberEmail} placeholder="your-email@domain.com" maxLength={100} onChange={(e) => {
+                                        setMemberEmail(e.target.value);
+                                    }} />
+                                </div>
+                                {!isNullOrUndefined(validationErrors.email) &&
+                                    <div className="field-row">
+                                        <label></label>
+                                        <span className="error-msg">{validationErrors.email}</span>
+                                    </div>
+                                }
+                                <div className="field-row">
+                                    <label>Locker Combo:</label>
+                                    <div className="locker-combo">
+                                        <input type="number" value={memberLockerComboP1} min="0" max="36" size="2" onChange={(e) => {
+                                            setMemberLockerComboP1(e.target.value);
+                                        }} />
+                                        <input type="number" value={memberLockerComboP2} min="0" max="36" size="2" onChange={(e) => {
+                                            setMemberLockerComboP2(e.target.value);
+                                        }} />
+                                        <input type="number" value={memberLockerComboP3} min="0" max="36" size="2" onChange={(e) => {
+                                            setMemberLockerComboP3(e.target.value);
+                                        }} />
+                                    </div>
+
+                                </div>
+                                {!isNullOrUndefined(validationErrors.name) &&
+                                    <div className="field-row">
+                                        <label></label>
+                                        <span className="error-msg">{validationErrors.lockerCombo}</span>
+                                    </div>
+                                }
+                                <div>
+                                    {(tabMode === "register") &&
+                                        <button disabled={!isValid} onClick={handleRegister}>Register!</button>
+                                    }
+                                    {(tabMode === "login") &&
+                                        <button disabled={!isValid} onClick={handleLogin}>Login!</button>
+                                    }
+                                </div>
+
+                            </div>
+                        }
+
                     </div>
                 </div>
                 <div className="shadow-container">

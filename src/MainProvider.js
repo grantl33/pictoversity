@@ -19,10 +19,23 @@ export const initialState = {
     creators: [],
     loadingEpisodes: false,
     episodes: [],
+    loadingMember: false,
+    member: null
 }
 
 export function mainReducer(state, action) {
     switch (action.type) {
+        case "setLoadingMember":
+            return {
+                ...state,
+                loadingMember: action.loadingMember
+            }
+        case "setMember":
+            return {
+                ...state,
+                loadingMember: false,
+                member: action.member
+            }
         case "setLoadingComics":
             return {
                 ...state,
