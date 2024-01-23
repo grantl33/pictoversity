@@ -2,12 +2,10 @@ import { useReducer } from "react";
 import { MainContext, MainDispatchContext } from "./MainContext";
 
 export const initialState = {
+    loadingLockerItems: false,
     lockerItems: [],
+    loadingFollowingCreators: false,
     followingCreators: [],
-    currentUser: {
-        username: "Guest12345",
-        email: null,
-    },
     alertText: null,
     modalContent: {
         title: null,
@@ -69,27 +67,6 @@ export function mainReducer(state, action) {
                 episodes: action.episodes,
                 loadingEpisodes: false,
             }
-        case "addLockerItem":
-            const lockerItemsAdd = [...state.lockerItems];
-            if (!lockerItemsAdd.includes(action.comicId)) {
-                lockerItemsAdd.push(action.comicId);
-            }
-            return {
-                ...state,
-                lockerItems: lockerItemsAdd,
-                alertText: action.alertText
-            }
-        case "removeLockerItem":
-            const lockerItemsRemove = [...state.lockerItems];
-            const removeIdx = lockerItemsRemove.indexOf(action.comicId);
-            if (removeIdx > -1) {
-                lockerItemsRemove.splice(removeIdx, 1);
-            }
-            return {
-                ...state,
-                lockerItems: lockerItemsRemove,
-                alertText: action.alertText
-            }
         case "setAlertText":
             return {
                 ...state,
@@ -100,35 +77,25 @@ export function mainReducer(state, action) {
                 ...state,
                 modalContent: action.modalContent,
             }
-        case "setCurrentUsername":
-            const updatedCurrentUser = {
-                ...state.currentUser,
-                username: action.username
-            }
+        case "setLoadingLockerItems":
             return {
                 ...state,
-                currentUser: updatedCurrentUser
+                loadingLockerItems: action.loadingLockerItems,
             }
-        case "addFollowCreator":
-            const addFollowingCreators = [...state.followingCreators];
-            if (!addFollowingCreators.includes(action.creatorId)) {
-                addFollowingCreators.push(action.creatorId);
-            }
+        case "setLockerItems":
             return {
                 ...state,
-                followingCreators: addFollowingCreators,
-                alertText: action.alertText
+                lockerItems: action.lockerItems,
             }
-        case "removeFollowCreator":
-            const removeFollowingCreators = [...state.followingCreators];
-            const removeCreatorIdx = removeFollowingCreators.indexOf(action.creatorId);
-            if (removeCreatorIdx > -1) {
-                removeFollowingCreators.splice(removeCreatorIdx, 1);
-            }
+        case "setLoadingFollowingCreators":
             return {
                 ...state,
-                followingCreators: removeFollowingCreators,
-                alertText: action.alertText
+                loadingFollowingCreators: action.loadingFollowingCreators,
+            }
+        case "setFollowingCreators":
+            return {
+                ...state,
+                followingCreators: action.followingCreators,
             }
         default:
             throw Error(`Unknown action: ${action.type}`);

@@ -8,7 +8,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { useMainContext, useMainDispatchContext } from "../../MainContext";
 import FollowingButton from "../FollowingButton";
-import { loadEpisodesByComicId } from "../../api";
+import { addLockerItem, loadEpisodesByComicId, removeLockerItem } from "../../api";
 import { isNullOrUndefined } from "../../utils";
 
 function Details() {
@@ -17,6 +17,7 @@ function Details() {
     // Use main context to read from state
     const mainContext = useMainContext();
     const {
+        member,
         lockerItems,
         comics,
         creators,
@@ -63,24 +64,26 @@ function Details() {
         useGrouping: true,
         style: "decimal"
     });
-    const isComicAdded = (!isNullOrUndefined(comicData))
-        ? lockerItems.indexOf(comicData.Id) > -1
+    const lockerItem = (!isNullOrUndefined(comicData))
+        ? lockerItems.find((lockerItem) => lockerItem.COMIC_ID === comicData.Id)
         : null;
+    const isComicAdded = !isNullOrUndefined(lockerItem);
 
     const handleAddLockerItem = () => {
-        dispatch({
-            type: "addLockerItem",
-            comicId: comicData.Id,
-            alertText: "Added to locker!"
-        });
+        if (isNullOrUndefined(member)) {
+            dispatch({
+                type: "setAlertText",
+                alertText: "Please login/register first!"
+            });
+        } else {
+            addLockerItem(dispatch, member.Id, comicData);
+        }
     }
 
     const handleRemoveLockerItem = () => {
-        dispatch({
-            type: "removeLockerItem",
-            comicId: comicData.Id,
-            alertText: "Removed from locker."
-        });
+        if (!isNullOrUndefined(lockerItem)) {
+            removeLockerItem(dispatch, lockerItem.Id, member.Id, comicData);
+        }
     }
 
     return (

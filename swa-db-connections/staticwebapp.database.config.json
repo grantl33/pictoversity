@@ -124,6 +124,86 @@
           ]
         }
       ]
+    },
+    "LockerComics": {
+      "source": "dbo.LockerComics",
+      "rest": {
+        "methods": [
+          "get",
+          "post",
+          "delete"
+        ]
+      },
+      "permissions": [
+        {
+          "actions": [
+            "*"
+          ],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "LockerCreators": {
+      "source": "dbo.LockerCreators",
+      "rest": {
+        "methods": [
+          "get",
+          "post",
+          "delete"
+        ]
+      },
+      "permissions": [
+        {
+          "actions": [
+            "*"
+          ],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "LockerComicsByMemberId": {
+      "source": {
+        "type": "stored-procedure",
+        "object": "dbo.LockerComicsByMemberId",
+        "parameters": {
+          "MemberId": "MemberId"
+        }
+      },
+      "rest": {
+        "methods": [
+          "get"
+        ]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "execute"
+          ]
+        }
+      ]
+    },
+    "LockerCreatorsByMemberId": {
+      "source": {
+        "type": "stored-procedure",
+        "object": "dbo.LockerCreatorsByMemberId",
+        "parameters": {
+          "MemberId": "MemberId"
+        }
+      },
+      "rest": {
+        "methods": [
+          "get"
+        ]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "execute"
+          ]
+        }
+      ]
     }
   }
 }

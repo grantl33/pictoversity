@@ -1,32 +1,39 @@
 import "./followingButton.css"
 import { useMainContext } from "../../MainContext";
 import { useMainDispatchContext } from "../../MainContext";
+import { followCreator, unfollowCreator } from "../../api";
+import { isNullOrUndefined } from "../../utils";
 
 function FollowingButton(props) {
     const { creatorData } = props;
     const mainContext = useMainContext();
-    const { followingCreators } = mainContext;
+    const {
+        member,
+        followingCreators
+    } = mainContext;
 
     // Use dispatch context for updating the main state
     const dispatch = useMainDispatchContext();
 
-    const isFollowing = followingCreators != null &&
-        creatorData != null &&
-        followingCreators.includes(creatorData.Id);
+    const followingCreator = !isNullOrUndefined(followingCreators)
+        ? followingCreators.find((followingCreator) => followingCreator.CREATOR_ID === creatorData.Id)
+        : null;
+    const isFollowing = !isNullOrUndefined(followingCreator);
 
     const handleAddFollowCreator = () => {
-        dispatch({
-            type: "addFollowCreator",
-            creatorId: creatorData.Id,
-            alertText: `Following ${creatorData.NAME}`
-        });
+        if (isNullOrUndefined(member)) {
+            dispatch({
+                type: "setAlertText",
+                alertText: "Please login/register first!"
+            });
+        } else {
+            followCreator(dispatch, member.Id, creatorData);
+        }
     }
     const handleRemoveFollowCreator = () => {
-        dispatch({
-            type: "removeFollowCreator",
-            creatorId: creatorData.Id,
-            alertText: `Unfollowed ${creatorData.NAME}`
-        });
+        if (!isNullOrUndefined(followingCreator)) {
+            unfollowCreator(dispatch, followingCreator.Id, member.Id, creatorData);
+        }
     }
 
     return (

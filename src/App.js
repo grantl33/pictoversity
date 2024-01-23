@@ -11,15 +11,29 @@ import Alert from './components/Alert';
 import WindowContext from './components/WindowContext';
 import Modal from './components/Modal';
 import { useEffect } from 'react';
-import { loadComics, loadCreators } from './api';
-import { useMainDispatchContext } from './MainContext';
+import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId } from './api';
+import { useMainContext, useMainDispatchContext } from './MainContext';
+import { isNullOrUndefined } from './utils';
 
 function App() {
   const dispatch = useMainDispatchContext();
+  // Use main context to read from state
+  const mainContext = useMainContext();
+  const {
+    member,
+  } = mainContext;
+
   useEffect(() => {
     loadComics(dispatch);
     loadCreators(dispatch);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isNullOrUndefined(member)) {
+      loadLockerComicsByMemberId(dispatch, member.Id);
+      loadLockerCreatorsByMemberId(dispatch, member.Id);
+    }
+  }, [dispatch, member]);
 
   return (
     <div className="App">

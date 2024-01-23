@@ -107,7 +107,7 @@ function IdCard() {
                                     </>
                                 }
                                 <div className="field-row">
-                                    <label>Email:</label>
+                                    <label>Email Address:</label>
                                     <input type="text" value={memberEmail} placeholder="your-email@domain.com" maxLength={100} onChange={(e) => {
                                         setMemberEmail(e.target.value);
                                     }} />
