@@ -29,7 +29,13 @@
 .episode .episode-body {
     height: 100%;
     overflow-y: hidden;
-    background: linear-gradient(90deg, #D8DBF8, black, #D8DBF8);
+    background: #D8DBF8;
+}
+
+@media (min-width: 480px) {
+    .episode .episode-body {
+        background: linear-gradient(90deg, #D8DBF8, black, #D8DBF8);
+    }
 }
 
 .episode .episode-container {
