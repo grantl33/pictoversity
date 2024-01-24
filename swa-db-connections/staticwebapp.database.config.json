@@ -31,8 +31,8 @@
     }
   },
   "entities": {
-    "Person": {
-      "source": "dbo.MyTestPersonTable",
+    "AppInfo": {
+      "source": "dbo.AppInfo",
       "permissions": [
         {
           "actions": [
@@ -54,7 +54,7 @@
       ]
     },
     "Creators": {
-      "source": "dbo.Creators",
+      "source": "dbo.CreatorsView",
       "permissions": [
         {
           "actions": [
@@ -189,6 +189,39 @@
         "object": "dbo.LockerCreatorsByMemberId",
         "parameters": {
           "MemberId": "MemberId"
+        }
+      },
+      "rest": {
+        "methods": [
+          "get"
+        ]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "execute"
+          ]
+        }
+      ]
+    },
+    "Comments": {
+      "source": "dbo.Comments",
+      "permissions": [
+        {
+          "actions": [
+            "*"
+          ],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "CommentsByEpisodeId": {
+      "source": {
+        "type": "stored-procedure",
+        "object": "dbo.CommentsByEpisodeId",
+        "parameters": {
+          "EpisodeId": "EpisodeId"
         }
       },
       "rest": {

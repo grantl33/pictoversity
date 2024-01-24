@@ -11,7 +11,7 @@ import Alert from './components/Alert';
 import WindowContext from './components/WindowContext';
 import Modal from './components/Modal';
 import { useEffect } from 'react';
-import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId } from './api';
+import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId, loadMember } from './api';
 import { useMainContext, useMainDispatchContext } from './MainContext';
 import { isNullOrUndefined } from './utils';
 
@@ -26,7 +26,14 @@ function App() {
   useEffect(() => {
     loadComics(dispatch);
     loadCreators(dispatch);
-  }, [dispatch]);
+    if (isNullOrUndefined(member)) {
+      const memberLogin = localStorage.getItem("memberLogin");
+      if (!isNullOrUndefined(memberLogin)) {
+        const loginObj = JSON.parse(memberLogin);
+        loadMember(dispatch, loginObj);
+      }
+    }
+  }, [dispatch, member]);
 
   useEffect(() => {
     if (!isNullOrUndefined(member)) {

@@ -1,12 +1,44 @@
 import Hero from '../../components/Hero';
 import CoverRow from '../../components/CoverRow';
-import { useMainContext } from '../../MainContext';
+import { useMainContext, useMainDispatchContext } from '../../MainContext';
+import { useEffect } from 'react';
+import { loadAppInfo } from '../../api';
+import { isNullOrUndefined } from '../../utils';
 function Home() {
+    const dispatch = useMainDispatchContext();
     // Use main context to read from state
     const mainContext = useMainContext();
     const {
+        appInfo,
         comics
     } = mainContext;
+
+    useEffect(() => {
+        loadAppInfo(dispatch);
+    }, [dispatch]);
+
+    useEffect(() => {
+        const appInfoObj = (!isNullOrUndefined(appInfo) && appInfo.length > 0)
+            ? appInfo[0]
+            : null;
+        if (!isNullOrUndefined(appInfoObj)) {
+            const appVersion = appInfoObj.APP_VERSION;
+            if (!isNullOrUndefined(appVersion)) {
+                const appVersionLocal = localStorage.getItem("appVersion");
+                if (!isNullOrUndefined(appVersionLocal) && appVersion !== parseInt(appVersionLocal)) {
+                    // Version has changed, refresh the app
+                    localStorage.removeItem("appVersion");
+                    window.location.replace("/");
+                    return;
+                } else {
+                    console.log("App Version: ", appVersion);
+                    localStorage.setItem("appVersion", appVersion);
+                }
+            }
+        }
+    }, [appInfo]);
+
+
     const recommended = (comics && comics.length > 0)
         ? comics.toSorted((a, b) => a.Id - b.Id)
         : null;

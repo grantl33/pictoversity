@@ -6,7 +6,10 @@ function WindowContext() {
   const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
+    const standaloneCheckVal = Boolean(localStorage.getItem("standaloneCheck"));
+    if (standaloneCheckVal) return; // already checked so exit
     const standaloneCheck = window.navigator.standalone === true;
+
     setIsStandalone(standaloneCheck);
     if (standaloneCheck) {
       dispatch({
@@ -24,10 +27,10 @@ function WindowContext() {
             by clicking <span className="icon box-arrow-up"></span> in the location bar and
             select<br />"Add to Home Screen <span className="icon plus-square"></span>".
           </>
-          
         }
       });
     }
+    localStorage.setItem("standaloneCheck", "true");
   }, [isStandalone, dispatch]);
 }
 

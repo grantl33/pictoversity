@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { MainContext, MainDispatchContext } from "./MainContext";
 
 export const initialState = {
+    appInfo: [],
     loadingLockerItems: false,
     lockerItems: [],
     loadingFollowingCreators: false,
@@ -18,11 +19,18 @@ export const initialState = {
     loadingEpisodes: false,
     episodes: [],
     loadingMember: false,
-    member: null
+    member: null,
+    loadingComments: false,
+    comments: []
 }
 
 export function mainReducer(state, action) {
     switch (action.type) {
+        case "setAppInfo":
+            return {
+                ...state,
+                appInfo: action.appInfo
+            }
         case "setLoadingMember":
             return {
                 ...state,
@@ -96,6 +104,16 @@ export function mainReducer(state, action) {
             return {
                 ...state,
                 followingCreators: action.followingCreators,
+            }
+        case "setLoadingComments":
+            return {
+                ...state,
+                loadingComments: action.loadingComments,
+            }
+        case "setComments":
+            return {
+                ...state,
+                comments: action.comments,
             }
         default:
             throw Error(`Unknown action: ${action.type}`);

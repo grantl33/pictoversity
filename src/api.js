@@ -15,6 +15,19 @@ function getAPI(entityName, entityId, queryParams) {
         : `${baseUrl}/data-api/rest/${entityName}${qs}`;
 }
 
+export async function loadAppInfo(dispatch) {
+    // load data from database and set via reducer
+    const response = await fetch(getAPI("AppInfo"));
+    const jsonData = await response.json();
+    try {
+        dispatch({
+            type: "setAppInfo",
+            appInfo: jsonData.value || []
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
 export async function loadComics(dispatch) {
     // load data from database and set via reducer
     dispatch({
@@ -330,4 +343,76 @@ export async function loadLockerComicsByMemberId(dispatch, memberId) {
     } catch (error) {
         console.log(error);
     }
+}
+
+export async function loadCommentsByEpisodeId(dispatch, episodeId) {
+    // load data from database and set via reducer
+    dispatch({
+        type: "setLoadingComments",
+        loadingComments: true
+    });
+
+    const response = await fetch(getAPI("CommentsByEpisodeId", null, { EpisodeId: episodeId }));
+    const jsonData = await response.json();
+    try {
+        dispatch({
+            type: "setComments",
+            comments: jsonData.value || []
+        });
+
+        dispatch({
+            type: "setLoadingComments",
+            loadingComments: false
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function saveComment(dispatch, episodeId, memberId, commentText) {
+    // load data from database and set via reducer
+    dispatch({
+        type: "setLoadingComments",
+        loadingComments: true
+    });
+
+    const response = await fetch(getAPI("Comments"), {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            EPISODE_ID: episodeId,
+            MEMBER_ID: memberId,
+            COMMENT_TEXT: commentText
+        })
+    });
+    const jsonData = await response.json();
+    try {
+        const commentsObj = (Array.isArray(jsonData.value))
+            ? jsonData.value[0]
+            : jsonData.value;
+        if (isNullOrUndefined(commentsObj)) {
+            dispatch({
+                type: "setAlertText",
+                alertText: "Save comment failed, please try again."
+            });
+        } else {
+            // refetch
+            loadCommentsByEpisodeId(dispatch, episodeId);
+
+            dispatch({
+                type: "setAlertText",
+                alertText: 'Comment saved, thank you!'
+            });
+        }
+        dispatch({
+            type: "setLoadingComments",
+            loadingComments: false
+        });
+        return commentsObj;
+    } catch (error) {
+        console.log(error);
+    }
+    return null;
 }

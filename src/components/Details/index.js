@@ -128,7 +128,7 @@ function Details() {
                                         </Link>
                                         <div className="creator-info">
                                             <Link to={`/creator?id=${creatorData.Id}`}>{creatorData.NAME}</Link>
-                                            <span>{nf.format(0)} followers</span>
+                                            <span>{nf.format(creatorData.FOLLOWERS)} follower{(creatorData.FOLLOWERS > 1 ? "s" : "")}</span>
                                             <FollowingButton creatorData={creatorData} />
                                         </div>
                                         <a href={creatorData.DONATE_LINK} target="_blank" rel="noreferrer">

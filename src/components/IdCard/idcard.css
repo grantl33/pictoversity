@@ -33,6 +33,11 @@
 
 }
 
+.idcard .idcard-top-banner button {
+    margin-top: 8px;
+    ;
+}
+
 .idcard .idcard-top-banner label {
     margin: auto 4px;
     font-size: medium;

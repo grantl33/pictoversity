@@ -65,10 +65,17 @@ function IdCard() {
         });
     }
     const handleLogin = () => {
-        loadMember(dispatch, {
+        const loginObj = {
             email: memberEmail,
             combo: memberLockerCombo
-        });
+        }
+        loadMember(dispatch, loginObj);
+        localStorage.setItem("memberLogin", JSON.stringify(loginObj));
+    }
+
+    const handleLogout = () => {
+        localStorage.clear();
+        window.location.replace("/");
     }
 
     return (
@@ -82,6 +89,7 @@ function IdCard() {
                                 <img src={studentcard} alt="ID Card" className="icon" />
                                 <h2>{member.NAME}</h2>
                                 <h3>{member.EMAIL}</h3>
+                                <button onClick={handleLogout}>Log Out</button>
                             </>
                         }
                         {isNullOrUndefined(member) &&
@@ -133,12 +141,18 @@ function IdCard() {
                                     <div className="locker-combo">
                                         <input type="number" value={memberLockerComboP1} min="0" max="36" size="2" onChange={(e) => {
                                             setMemberLockerComboP1(e.target.value);
+                                        }} onFocus={(e) => {
+                                            e.target.select();
                                         }} />
                                         <input type="number" value={memberLockerComboP2} min="0" max="36" size="2" onChange={(e) => {
                                             setMemberLockerComboP2(e.target.value);
+                                        }} onFocus={(e) => {
+                                            e.target.select();
                                         }} />
                                         <input type="number" value={memberLockerComboP3} min="0" max="36" size="2" onChange={(e) => {
                                             setMemberLockerComboP3(e.target.value);
+                                        }} onFocus={(e) => {
+                                            e.target.select();
                                         }} />
                                     </div>
 
