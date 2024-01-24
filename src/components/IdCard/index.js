@@ -4,7 +4,7 @@ import studentcard from "../../assets/icons/student_card.svg";
 import { useMainContext } from "../../MainContext";
 import { useMainDispatchContext } from "../../MainContext";
 import Accordion from "../Accordion";
-import { isBlank, isNullOrUndefined } from "../../utils";
+import { isBlank, isNullOrUndefined, isValidInt } from "../../utils";
 import { useEffect, useState } from "react";
 import { createMember, loadMember } from "../../api";
 
@@ -45,8 +45,13 @@ function IdCard() {
             isBlank(memberLockerComboP3)) {
             errorMsgs.lockerCombo = "3-digit locker combo required.";
             validCheck = false;
+        } else if (!isValidInt(memberLockerComboP1, 0, 36) ||
+            !isValidInt(memberLockerComboP2, 0, 36) ||
+            !isValidInt(memberLockerComboP3, 0, 36)) {
+            errorMsgs.lockerCombo = "Combo numbers must be between 0 and 36.";
+            validCheck = false;
         } else {
-            setMemberLockerCombo(`${memberLockerComboP1}-${memberLockerComboP2}-${memberLockerComboP3}`);
+            setMemberLockerCombo(`${parseInt(memberLockerComboP1)}-${parseInt(memberLockerComboP2)}-${parseInt(memberLockerComboP3)}`);
         }
         setValidationErrors(errorMsgs);
         setIsValid(validCheck);
@@ -81,13 +86,18 @@ function IdCard() {
                         }
                         {isNullOrUndefined(member) &&
                             <div className="field-section">
-                                <div className="split-tab">
-                                    <div className={`split-tab-choice${(tabMode === "login") ? " selected" : ""}`} onClick={() => {
-                                        setTabMode("login");
-                                    }}>Login</div>
-                                    <div className={`split-tab-choice${(tabMode === "register") ? " selected" : ""}`} onClick={() => {
-                                        setTabMode("register");
-                                    }}>Register</div>
+                                <div className="field-row">
+                                    <label></label>
+                                    <div>
+                                        <div className="split-tab">
+                                            <div className={`split-tab-choice${(tabMode === "login") ? " selected" : ""}`} onClick={() => {
+                                                setTabMode("login");
+                                            }}>Login</div>
+                                            <div className={`split-tab-choice${(tabMode === "register") ? " selected" : ""}`} onClick={() => {
+                                                setTabMode("register");
+                                            }}>Register</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 {(tabMode === "register") &&
                                     <>
@@ -133,19 +143,22 @@ function IdCard() {
                                     </div>
 
                                 </div>
-                                {!isNullOrUndefined(validationErrors.name) &&
+                                {!isNullOrUndefined(validationErrors.lockerCombo) &&
                                     <div className="field-row">
                                         <label></label>
                                         <span className="error-msg">{validationErrors.lockerCombo}</span>
                                     </div>
                                 }
-                                <div>
-                                    {(tabMode === "register") &&
-                                        <button disabled={!isValid} onClick={handleRegister}>Register!</button>
-                                    }
-                                    {(tabMode === "login") &&
-                                        <button disabled={!isValid} onClick={handleLogin}>Login!</button>
-                                    }
+                                <div className="field-row">
+                                    <label></label>
+                                    <div>
+                                        {(tabMode === "register") &&
+                                            <button disabled={!isValid} onClick={handleRegister}>Register!</button>
+                                        }
+                                        {(tabMode === "login") &&
+                                            <button disabled={!isValid} onClick={handleLogin}>Login!</button>
+                                        }
+                                    </div>
                                 </div>
 
                             </div>

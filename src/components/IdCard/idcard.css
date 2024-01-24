@@ -19,12 +19,7 @@
 }
 
 .idcard .idcard-top-banner {
-    display: grid;
-    grid-template-rows: auto auto auto;
-    justify-content: center;
     text-align: center;
-    align-content: center;
-    align-items: center;
     margin: 16px 0;
 }
 
@@ -42,7 +37,7 @@
     margin: auto 4px;
     font-size: medium;
     font-weight: bold;
-    text-align: right;
+    text-align: left;
 }
 
 .idcard .idcard-top-banner input {
@@ -58,13 +53,14 @@
 }
 
 .idcard .field-row {
-    margin: 8px;
+    margin: 8px 16px;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    justify-content: left;
-    text-align: left;
+    grid-template-columns: 1fr 3fr;
 }
 
+.idcard .field-section {
+    text-align: left;
+}
 
 .split-tab {
     display: grid;
@@ -76,7 +72,6 @@
     border-radius: 8px;
     overflow: hidden;
     font-weight: bold;
-    margin: 0 auto;
     border: 2px solid #ccc;
 }
 

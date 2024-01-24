@@ -25,3 +25,8 @@ export function zeroPad(value) {
     value = `0${value}`;
     return value.substring(value.length - 2);
 }
+
+export function isValidInt(value, min, max) {
+    const intValue = parseInt(value);
+    return Number.isInteger(intValue) && intValue >= min && intValue <= max;
+}
