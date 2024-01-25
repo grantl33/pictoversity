@@ -13,9 +13,8 @@ function Notifications() {
     // Use main context to read from state
     const mainContext = useMainContext();
     const {
-        member,
-        comics,
         creators,
+        member,
         notifications
     } = mainContext;
 
