@@ -65,7 +65,7 @@ function Creator() {
                             </div>
                             <div className="creator-name">
                                 {creatorData.name}
-                                <span>{nf.format(0)} followers</span>
+                                <span>{nf.format(creatorData.FOLLOWERS)} follower{(creatorData.FOLLOWERS > 1 ? "s" : "")}</span>
                                 <FollowingButton creatorData={creatorData} />
                             </div>
                             <div className="creator-actions">

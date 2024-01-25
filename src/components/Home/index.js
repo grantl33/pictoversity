@@ -31,7 +31,6 @@ function Home() {
                     window.location.replace("/");
                     return;
                 } else {
-                    console.log("App Version: ", appVersion);
                     localStorage.setItem("appVersion", appVersion);
                 }
             }

@@ -299,7 +299,6 @@ export async function addLockerItem(dispatch, memberId, comicObj) {
     }
 }
 
-
 export async function removeLockerItem(dispatch, lockerComicsId, memberId, comicObj) {
     // load data from database and set via reducer
     dispatch({
@@ -415,4 +414,45 @@ export async function saveComment(dispatch, episodeId, memberId, commentText) {
         console.log(error);
     }
     return null;
+}
+
+export async function loadNotificationsByMemberId(dispatch, memberId) {
+    // load data from database and set via reducer
+    dispatch({
+        type: "setLoadingNotifications",
+        loadingNotifications: true
+    });
+
+    const response = await fetch(getAPI("NotificationsByMemberId", null, { MemberId: memberId }));
+    const jsonData = await response.json();
+    try {
+        dispatch({
+            type: "setNotifications",
+            notifications: jsonData.value || []
+        });
+
+        dispatch({
+            type: "setLoadingNotifications",
+            loadingNotifications: false
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function removeNotification(dispatch, memberId, notificationId) {
+    // load data from database and set via reducer
+    dispatch({
+        type: "setLoadingNotifications",
+        loadingNotifications: true
+    });
+    await fetch(getAPI("Notifications", notificationId), {
+        method: "delete"
+    });
+    try {
+        // refetch
+        loadNotificationsByMemberId(dispatch, memberId);
+    } catch (error) {
+        console.log(error);
+    }
 }

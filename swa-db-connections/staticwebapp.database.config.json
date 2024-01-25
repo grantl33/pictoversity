@@ -237,6 +237,45 @@
           ]
         }
       ]
+    },
+    "Notifications": {
+      "source": "dbo.Notifications",
+      "rest": {
+        "methods": [
+          "get",
+          "delete"
+        ]
+      },
+      "permissions": [
+        {
+          "actions": [
+            "*"
+          ],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "NotificationsByMemberId": {
+      "source": {
+        "type": "stored-procedure",
+        "object": "dbo.NotificationsByMemberId",
+        "parameters": {
+          "MemberId": "MemberId"
+        }
+      },
+      "rest": {
+        "methods": [
+          "get"
+        ]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "execute"
+          ]
+        }
+      ]
     }
   }
 }

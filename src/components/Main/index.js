@@ -3,16 +3,33 @@ import search from '../../assets/icons/search.svg'
 import home from '../../assets/icons/house-fill.svg'
 import locker from '../../assets/icons/locker.svg'
 import idcard from '../../assets/icons/person-vcard.svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Home from '../Home'
 import Locker from '../Locker'
 import IdCard from '../IdCard'
-import { useMainDispatchContext } from '../../MainContext'
+import { useMainContext, useMainDispatchContext } from '../../MainContext'
+import Search from '../Search'
+import Notifications from '../Notifcations'
+import { isNullOrUndefined } from '../../utils'
+import { loadNotificationsByMemberId } from '../../api'
 
 function Main() {
     // Use dispatch context for updating the main state
     const dispatch = useMainDispatchContext();
+
+    // Use main context to read from state
+    const mainContext = useMainContext();
+    const {
+        notifications,
+        member
+    } = mainContext;
     const [selectedTab, setSelectedTab] = useState("home");
+
+    useEffect(() => {
+        if (isNullOrUndefined(member)) return;
+        loadNotificationsByMemberId(dispatch, member.Id);
+    }, [dispatch, member, selectedTab]);
+
     const handleLogoClick = () => {
         dispatch({
             type: "setModalContent",
@@ -40,8 +57,15 @@ function Main() {
                     </div>
                     <div className="header-right">
                         <div className="header-actions">
-                            <img className="icon" src={bell} alt="" />
-                            <img className="icon" src={search} alt="" />
+                            <div className="notifications-bell">
+                                <img className="icon" src={bell} alt="" onClick={(e) => setSelectedTab("notifications")} />
+                                {(!isNullOrUndefined(notifications) && notifications.length > 0) &&
+                                    <div className="notifications-indicator"></div>
+                                }
+                            </div>
+                            <div>
+                                <img className="icon" src={search} alt="" onClick={(e) => setSelectedTab("search")} />
+                            </div>
                         </div>
                     </div>
                     <div></div>
@@ -51,6 +75,8 @@ function Main() {
                 {selectedTab === "home" && <Home />}
                 {selectedTab === "locker" && <Locker />}
                 {selectedTab === "idcard" && <IdCard />}
+                {selectedTab === "search" && <Search />}
+                {selectedTab === "notifications" && <Notifications />}
             </main >
             <footer>
                 <nav className="row">

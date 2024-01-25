@@ -11,7 +11,7 @@ import Alert from './components/Alert';
 import WindowContext from './components/WindowContext';
 import Modal from './components/Modal';
 import { useEffect } from 'react';
-import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId, loadMember } from './api';
+import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId, loadMember, loadNotificationsByMemberId } from './api';
 import { useMainContext, useMainDispatchContext } from './MainContext';
 import { isNullOrUndefined } from './utils';
 
@@ -39,6 +39,7 @@ function App() {
     if (!isNullOrUndefined(member)) {
       loadLockerComicsByMemberId(dispatch, member.Id);
       loadLockerCreatorsByMemberId(dispatch, member.Id);
+      loadNotificationsByMemberId(dispatch, member.Id);
     }
   }, [dispatch, member]);
 

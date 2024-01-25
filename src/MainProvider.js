@@ -21,7 +21,9 @@ export const initialState = {
     loadingMember: false,
     member: null,
     loadingComments: false,
-    comments: []
+    comments: [],
+    loadingNotifcations: false,
+    notifications: []
 }
 
 export function mainReducer(state, action) {
@@ -114,6 +116,16 @@ export function mainReducer(state, action) {
             return {
                 ...state,
                 comments: action.comments,
+            }
+        case "setLoadingNotifications":
+            return {
+                ...state,
+                loadingNotifications: action.loadingNotifications,
+            }
+        case "setNotifications":
+            return {
+                ...state,
+                notifications: action.notifications,
             }
         default:
             throw Error(`Unknown action: ${action.type}`);

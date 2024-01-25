@@ -1,0 +1,66 @@
+.notifications {
+    display: grid;
+    height: 100%;
+    grid-template-rows: auto 1fr;
+}
+
+.notifications .notifications-list {
+    overflow-y: auto;
+}
+
+.notifications .creator-image-container {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.notifications .creator-badge {
+    display: grid;
+}
+
+.notifications .badge {
+    position: absolute;
+    width: 64px;
+}
+
+.notifications .creator-image {
+    position: absolute;
+    left: 11px;
+    top: 3px;
+    width: 42px;
+    height: 58px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    margin: 0 auto 4px auto;
+}
+
+.notifications .notifications-container {
+    display: grid;
+    margin: 0 16px;
+    grid-template-rows: auto;
+    gap: 8px;
+
+}
+
+.notifications .notifications-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+}
+
+.notifications .notifications-source,
+.notifications .notifications-actions {
+    display: grid;
+}
+
+.notifications .notifications-actions img {
+    width: 24px;
+    height: 24px;
+    margin: auto 8px;
+    cursor: pointer;
+}
+
+.notifications .notifications-bar h3 {
+    margin: 32px 16px;
+}
