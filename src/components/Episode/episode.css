@@ -39,6 +39,11 @@
     text-align: center;
 }
 
+.episode .episode-container img {
+    width: 100vw;
+    max-width: 480px;
+}
+
 .episode .episode-postroll {
     background-color: whitesmoke;
 }
