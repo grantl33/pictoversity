@@ -1,7 +1,5 @@
 import { isNotBlank, isNullOrUndefined } from "./utils";
 
-export const API_VERSION = 0.1;
-
 function getAPI(entityName, entityId, queryParams) {
     const baseUrl = (window.location.hostname === "localhost")
         ? "http://localhost:4280" // dev server
