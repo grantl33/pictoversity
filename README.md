@@ -12,3 +12,15 @@ Built with [React](https://reactjs.org/)
 
 Copyright 2023 - Yumie Lee, Grant Lee
 All rights reserved
+
+
+Note:
+For Dev DATABASE_CONNECTION_STRING use (change MYPASSWORD): 
+export DATABASE_CONNECTION_STRING="Server=tcp:grantdb.database.windows.net,1433;Initial Catalog=grantdb01;Persist Security Info=False;User ID=CloudSA8e83c0b3;Password={MYPASSWORD};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+To start the Azure SWA dev environment use:
+swa start --data-api-location swa-db-connections
+
+Install the SWA CLI using: 
+npm install -g @azure/static-web-apps-cli
+
