@@ -1,6 +1,8 @@
 import "./idcard.css";
 
 import studentcard from "../../assets/icons/student_card.svg";
+import { ReactComponent as Verified }  from "../../assets/icons/patch-check-fill.svg";
+
 import { useMainContext } from "../../MainContext";
 import { useMainDispatchContext } from "../../MainContext";
 import Accordion from "../Accordion";
@@ -78,6 +80,11 @@ function IdCard() {
         window.location.replace("/");
     }
 
+    const subscriptionExpiresOn = (!isNullOrUndefined(member) && !isNullOrUndefined(member.SUBSCRIPTION_EXPIRES_ON))
+        ? new Date(member.SUBSCRIPTION_EXPIRES_ON)
+        : null;
+    const isSubscribed = (new Date()) <= subscriptionExpiresOn;
+
     return (
         <div className="idcard">
             <div className="idcard-header">
@@ -86,7 +93,13 @@ function IdCard() {
                         <h2>My ID</h2>
                         {!isNullOrUndefined(member) &&
                             <>
+                                <div className="id-card-container">
                                 <img src={studentcard} alt="ID Card" className="icon" />
+                                {isSubscribed &&
+                                    <Verified className="verified-icon" />
+                                }
+                                </div>
+                                
                                 <h2>{member.NAME}</h2>
                                 <h3>{member.EMAIL}</h3>
                                 <button onClick={handleLogout}>Log Out</button>

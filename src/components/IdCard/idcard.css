@@ -105,3 +105,18 @@ button:disabled {
     grid-template-columns: auto auto auto;
     gap: 8px;
 }
+.id-card-container {
+    position: relative;
+    display: inline-block;
+}
+.verified-icon {
+    position: absolute;
+    bottom: 32px;
+    right: 0;
+    fill: green;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border: 1px solid white;
+    border-radius: 12px;
+}
