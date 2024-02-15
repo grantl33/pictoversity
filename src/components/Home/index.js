@@ -39,7 +39,6 @@ function Home() {
         }
     }, [appInfo]);
 
-
     const recommended = (comics && comics.length > 0)
         ? comics.toSorted((a, b) => a.Id - b.Id)
         : null;
