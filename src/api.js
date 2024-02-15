@@ -15,7 +15,11 @@ function getAPI(entityName, entityId, queryParams) {
 
 export async function loadAppInfo(dispatch) {
     // load data from database and set via reducer
-    const response = await fetch(getAPI("AppInfo"));
+    let response = await fetch(getAPI("AppInfo"));
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("AppInfo"));
+    }
     const jsonData = await response.json();
     try {
         dispatch({
@@ -33,7 +37,11 @@ export async function loadComics(dispatch) {
         loadingComics: true
     });
 
-    const response = await fetch(getAPI("Comics"));
+    let response = await fetch(getAPI("Comics"));
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("Comics"));
+    }
     const jsonData = await response.json();
     try {
         dispatch({
@@ -51,7 +59,11 @@ export async function loadCreators(dispatch) {
         loadingCreators: true
     });
 
-    const response = await fetch(getAPI("Creators"));
+    let response = await fetch(getAPI("Creators"));
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("Creators"));
+    }
     const jsonData = await response.json();
     try {
         dispatch({
@@ -69,7 +81,11 @@ export async function loadEpisodesByComicId(dispatch, comicId) {
         loadingEpisodes: true
     });
 
-    const response = await fetch(getAPI("EpisodesByComicId", null, { ComicId: comicId }));
+    let response = await fetch(getAPI("EpisodesByComicId", null, { ComicId: comicId }));
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("EpisodesByComicId", null, { ComicId: comicId }));
+    }
     const jsonData = await response.json();
     try {
         dispatch({
@@ -88,13 +104,18 @@ export async function createMember(dispatch, memberObj) {
         loadingMember: true
     });
 
-    const response = await fetch(getAPI("Members"), {
+    const payload = {
         method: "post",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(memberObj)
-    });
+    };
+    let response = await fetch(getAPI("Members"), payload);
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("Members"), payload);
+    }
     const jsonData = await response.json();
     try {
         const memberObj = (Array.isArray(jsonData.value))
@@ -133,14 +154,20 @@ export async function loadMember(dispatch, memberObj) {
         loadingMember: true
     });
 
-    const response = await fetch(getAPI("MembersLogin", null, {
+    const payload = {
         Email: memberObj.email,
         Combo: memberObj.combo,
-    }), {
+    };
+    const fetchOpts = {
         headers: {
             "Content-Type": "application/json"
         }
-    });
+    };
+    let response = await fetch(getAPI("MembersLogin", null, payload), fetchOpts);
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("MembersLogin", null, payload), fetchOpts);
+    }
     const jsonData = await response.json();
     try {
         const memberObj = (Array.isArray(jsonData.value))
@@ -178,7 +205,7 @@ export async function followCreator(dispatch, memberId, creatorObj) {
         type: "setLoadingFollowingCreators",
         loadingFollowingCreators: true
     });
-    const response = await fetch(getAPI("LockerCreators"), {
+    const fetchOpts = {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -187,7 +214,12 @@ export async function followCreator(dispatch, memberId, creatorObj) {
             MEMBER_ID: memberId,
             CREATOR_ID: creatorObj.Id
         })
-    });
+    };
+    let response = await fetch(getAPI("LockerCreators"), fetchOpts);
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("LockerCreators"), fetchOpts);
+    }
     const jsonData = await response.json();
     try {
         const lockerCreatorsObj = (Array.isArray(jsonData.value))
@@ -218,9 +250,14 @@ export async function unfollowCreator(dispatch, lockerCreatorsId, memberId, crea
         type: "setLoadingFollowingCreators",
         loadingFollowingCreators: true
     });
-    await fetch(getAPI("LockerCreators", lockerCreatorsId), {
+    const fetchOpts = {
         method: "delete"
-    });
+    };
+    let response = await fetch(getAPI("LockerCreators", lockerCreatorsId), fetchOpts);
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("LockerCreators", lockerCreatorsId), fetchOpts);
+    }
     try {
         // refetch
         loadLockerCreatorsByMemberId(dispatch, memberId);
@@ -239,7 +276,11 @@ export async function loadLockerCreatorsByMemberId(dispatch, memberId) {
         loadingFollowingCreators: true
     });
 
-    const response = await fetch(getAPI("LockerCreatorsByMemberId", null, { MemberId: memberId }));
+    let response = await fetch(getAPI("LockerCreatorsByMemberId", null, { MemberId: memberId }));
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("LockerCreatorsByMemberId", null, { MemberId: memberId }));
+    }
     const jsonData = await response.json();
     try {
         dispatch({
@@ -264,7 +305,7 @@ export async function addLockerItem(dispatch, memberId, comicObj) {
         type: "setLoadingLockerItems",
         loadingLockerItems: true
     });
-    const response = await fetch(getAPI("LockerComics"), {
+    const fetchOpts = {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -273,7 +314,12 @@ export async function addLockerItem(dispatch, memberId, comicObj) {
             MEMBER_ID: memberId,
             COMIC_ID: comicObj.Id
         })
-    });
+    };
+    let response = await fetch(getAPI("LockerComics"), fetchOpts);
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("LockerComics"), fetchOpts);
+    }
     const jsonData = await response.json();
     try {
         const lockerComicsObj = (Array.isArray(jsonData.value))
@@ -303,9 +349,14 @@ export async function removeLockerItem(dispatch, lockerComicsId, memberId, comic
         type: "setLoadingLockerItems",
         loadingLockerItems: true
     });
-    await fetch(getAPI("LockerComics", lockerComicsId), {
+    const fetchOpts = {
         method: "delete"
-    });
+    };
+    let response = await fetch(getAPI("LockerComics", lockerComicsId), fetchOpts);
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("LockerComics", lockerComicsId), fetchOpts);
+    }
     try {
         // refetch
         loadLockerComicsByMemberId(dispatch, memberId);
@@ -325,7 +376,11 @@ export async function loadLockerComicsByMemberId(dispatch, memberId) {
         loadingLockerItems: true
     });
 
-    const response = await fetch(getAPI("LockerComicsByMemberId", null, { MemberId: memberId }));
+    let response = await fetch(getAPI("LockerComicsByMemberId", null, { MemberId: memberId }));
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("LockerComicsByMemberId", null, { MemberId: memberId }));
+    }
     const jsonData = await response.json();
     try {
         dispatch({
@@ -349,7 +404,11 @@ export async function loadCommentsByEpisodeId(dispatch, episodeId) {
         loadingComments: true
     });
 
-    const response = await fetch(getAPI("CommentsByEpisodeId", null, { EpisodeId: episodeId }));
+    let response = await fetch(getAPI("CommentsByEpisodeId", null, { EpisodeId: episodeId }));
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("CommentsByEpisodeId", null, { EpisodeId: episodeId }));
+    }
     const jsonData = await response.json();
     try {
         dispatch({
@@ -373,7 +432,7 @@ export async function saveComment(dispatch, episodeId, memberId, commentText) {
         loadingComments: true
     });
 
-    const response = await fetch(getAPI("Comments"), {
+    const fetchOpts = {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -383,7 +442,12 @@ export async function saveComment(dispatch, episodeId, memberId, commentText) {
             MEMBER_ID: memberId,
             COMMENT_TEXT: commentText
         })
-    });
+    };
+    let response = await fetch(getAPI("Comments"), fetchOpts);
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("Comments"), fetchOpts);
+    }
     const jsonData = await response.json();
     try {
         const commentsObj = (Array.isArray(jsonData.value))
@@ -421,7 +485,11 @@ export async function loadNotificationsByMemberId(dispatch, memberId) {
         loadingNotifications: true
     });
 
-    const response = await fetch(getAPI("NotificationsByMemberId", null, { MemberId: memberId }));
+    let response = await fetch(getAPI("NotificationsByMemberId", null, { MemberId: memberId }));
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("NotificationsByMemberId", null, { MemberId: memberId }));
+    }
     const jsonData = await response.json();
     try {
         dispatch({
@@ -444,9 +512,14 @@ export async function removeNotification(dispatch, memberId, notificationId) {
         type: "setLoadingNotifications",
         loadingNotifications: true
     });
-    await fetch(getAPI("Notifications", notificationId), {
+    const fetchOpts = {
         method: "delete"
-    });
+    };
+    let response = await fetch(getAPI("Notifications", notificationId), fetchOpts);
+    if (!response.ok) {
+        // retry
+        response = await fetch(getAPI("Notifications", notificationId), fetchOpts);
+    }
     try {
         // refetch
         loadNotificationsByMemberId(dispatch, memberId);

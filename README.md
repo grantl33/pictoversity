@@ -12,3 +12,16 @@ Built with [React](https://reactjs.org/)
 
 Copyright 2023 - Yumie Lee, Grant Lee
 All rights reserved
+
+
+To start the local dev API use:
+```
+swa start --data-api-location swa-db-connections
+```
+The API DB connection configuration is in:
+/swa-db-connections/staticwebapp.database.config.json
+
+and relies on the local env for DATABASE_CONNECTION_STRING:
+```
+export DATABASE_CONNECTION_STRING="Server=tcp:grantdb.database.windows.net,1433;Initial Catalog=grantdb01;Persist Security Info=False;User ID=CloudSA8e83c0b3;Password={MYPASSWORD};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+```
