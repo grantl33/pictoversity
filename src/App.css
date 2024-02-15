@@ -277,3 +277,32 @@ button {
   border: 0;
   margin: 0 auto;
 }
+
+.loading-spinner {
+  text-align: center;
+  margin: 4px;
+  display: grid;
+  gap: 8px;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 2rem;
+  border-top: 3px solid #6C81F0;
+  border-left: 3px solid #6C81F0;
+  border-right: 3px solid #6C81F0;
+  border-bottom: 3px solid whitesmoke;
+  animation: rotation 1s infinite linear;
+  margin: auto;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

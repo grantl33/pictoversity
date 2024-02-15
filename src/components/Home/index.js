@@ -10,7 +10,9 @@ function Home() {
     const mainContext = useMainContext();
     const {
         appInfo,
-        comics
+        comics,
+        loadingComics,
+        loadingCreators
     } = mainContext;
 
     useEffect(() => {
@@ -50,14 +52,24 @@ function Home() {
             <div className="new-releases">
                 <Hero />
             </div>
-            <div className="content-listing">
-                <h2>Recommended for you</h2>
-                <CoverRow comicsData={recommended} />
-            </div>
-            <div className="content-listing">
-                <h2>Popular</h2>
-                <CoverRow comicsData={popular} showRanking={true} />
-            </div>
+            {(loadingComics || loadingCreators) &&
+                <div className="loading-spinner">
+                    <div className="spinner"></div>
+                    <span>Loading&hellip;</span>
+                </div>
+            }
+            {(!loadingComics && !loadingCreators) &&
+                <>
+                    <div className="content-listing">
+                        <h2>Recommended for you</h2>
+                        <CoverRow comicsData={recommended} />
+                    </div>
+                    <div className="content-listing">
+                        <h2>Popular</h2>
+                        <CoverRow comicsData={popular} showRanking={true} />
+                    </div>
+                </>
+            }
         </div>
     )
 }
