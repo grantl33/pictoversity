@@ -15,11 +15,8 @@ function getAPI(entityName, entityId, queryParams) {
 
 export async function loadAppInfo(dispatch) {
     // load data from database and set via reducer
-    let response = await fetch(getAPI("AppInfo"));
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("AppInfo"));
-    }
+    //let response = await fetch(getAPI("AppInfo"));
+    let response = await fetchWithRetry(getAPI("AppInfo"));
     const jsonData = await response.json();
     try {
         dispatch({
@@ -37,11 +34,7 @@ export async function loadComics(dispatch) {
         loadingComics: true
     });
 
-    let response = await fetch(getAPI("Comics"));
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("Comics"));
-    }
+    let response = await fetchWithRetry(getAPI("Comics"));
     const jsonData = await response.json();
     try {
         dispatch({
@@ -59,11 +52,7 @@ export async function loadCreators(dispatch) {
         loadingCreators: true
     });
 
-    let response = await fetch(getAPI("Creators"));
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("Creators"));
-    }
+    let response = await fetchWithRetry(getAPI("Creators"));
     const jsonData = await response.json();
     try {
         dispatch({
@@ -81,11 +70,7 @@ export async function loadEpisodesByComicId(dispatch, comicId) {
         loadingEpisodes: true
     });
 
-    let response = await fetch(getAPI("EpisodesByComicId", null, { ComicId: comicId }));
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("EpisodesByComicId", null, { ComicId: comicId }));
-    }
+    let response = await fetchWithRetry(getAPI("EpisodesByComicId", null, { ComicId: comicId }));
     const jsonData = await response.json();
     try {
         dispatch({
@@ -111,11 +96,7 @@ export async function createMember(dispatch, memberObj) {
         },
         body: JSON.stringify(memberObj)
     };
-    let response = await fetch(getAPI("Members"), payload);
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("Members"), payload);
-    }
+    let response = await fetch(fetchWithRetry("Members"), payload);
     const jsonData = await response.json();
     try {
         const memberObj = (Array.isArray(jsonData.value))
@@ -163,11 +144,7 @@ export async function loadMember(dispatch, memberObj) {
             "Content-Type": "application/json"
         }
     };
-    let response = await fetch(getAPI("MembersLogin", null, payload), fetchOpts);
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("MembersLogin", null, payload), fetchOpts);
-    }
+    let response = await fetchWithRetry(getAPI("MembersLogin", null, payload), fetchOpts);
     const jsonData = await response.json();
     try {
         const memberObj = (Array.isArray(jsonData.value))
@@ -215,11 +192,7 @@ export async function followCreator(dispatch, memberId, creatorObj) {
             CREATOR_ID: creatorObj.Id
         })
     };
-    let response = await fetch(getAPI("LockerCreators"), fetchOpts);
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("LockerCreators"), fetchOpts);
-    }
+    let response = await fetchWithRetry(getAPI("LockerCreators"), fetchOpts);
     const jsonData = await response.json();
     try {
         const lockerCreatorsObj = (Array.isArray(jsonData.value))
@@ -253,11 +226,7 @@ export async function unfollowCreator(dispatch, lockerCreatorsId, memberId, crea
     const fetchOpts = {
         method: "delete"
     };
-    let response = await fetch(getAPI("LockerCreators", lockerCreatorsId), fetchOpts);
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("LockerCreators", lockerCreatorsId), fetchOpts);
-    }
+    await fetchWithRetry(getAPI("LockerCreators", lockerCreatorsId), fetchOpts);
     try {
         // refetch
         loadLockerCreatorsByMemberId(dispatch, memberId);
@@ -276,11 +245,7 @@ export async function loadLockerCreatorsByMemberId(dispatch, memberId) {
         loadingFollowingCreators: true
     });
 
-    let response = await fetch(getAPI("LockerCreatorsByMemberId", null, { MemberId: memberId }));
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("LockerCreatorsByMemberId", null, { MemberId: memberId }));
-    }
+    let response = await fetchWithRetry(getAPI("LockerCreatorsByMemberId", null, { MemberId: memberId }));
     const jsonData = await response.json();
     try {
         dispatch({
@@ -315,11 +280,7 @@ export async function addLockerItem(dispatch, memberId, comicObj) {
             COMIC_ID: comicObj.Id
         })
     };
-    let response = await fetch(getAPI("LockerComics"), fetchOpts);
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("LockerComics"), fetchOpts);
-    }
+    let response = await fetchWithRetry(getAPI("LockerComics"), fetchOpts);
     const jsonData = await response.json();
     try {
         const lockerComicsObj = (Array.isArray(jsonData.value))
@@ -352,11 +313,7 @@ export async function removeLockerItem(dispatch, lockerComicsId, memberId, comic
     const fetchOpts = {
         method: "delete"
     };
-    let response = await fetch(getAPI("LockerComics", lockerComicsId), fetchOpts);
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("LockerComics", lockerComicsId), fetchOpts);
-    }
+    await fetchWithRetry(getAPI("LockerComics", lockerComicsId), fetchOpts);
     try {
         // refetch
         loadLockerComicsByMemberId(dispatch, memberId);
@@ -376,11 +333,7 @@ export async function loadLockerComicsByMemberId(dispatch, memberId) {
         loadingLockerItems: true
     });
 
-    let response = await fetch(getAPI("LockerComicsByMemberId", null, { MemberId: memberId }));
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("LockerComicsByMemberId", null, { MemberId: memberId }));
-    }
+    let response = await fetchWithRetry(getAPI("LockerComicsByMemberId", null, { MemberId: memberId }));
     const jsonData = await response.json();
     try {
         dispatch({
@@ -404,11 +357,7 @@ export async function loadCommentsByEpisodeId(dispatch, episodeId) {
         loadingComments: true
     });
 
-    let response = await fetch(getAPI("CommentsByEpisodeId", null, { EpisodeId: episodeId }));
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("CommentsByEpisodeId", null, { EpisodeId: episodeId }));
-    }
+    let response = await fetchWithRetry(getAPI("CommentsByEpisodeId", null, { EpisodeId: episodeId }));
     const jsonData = await response.json();
     try {
         dispatch({
@@ -443,11 +392,7 @@ export async function saveComment(dispatch, episodeId, memberId, commentText) {
             COMMENT_TEXT: commentText
         })
     };
-    let response = await fetch(getAPI("Comments"), fetchOpts);
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("Comments"), fetchOpts);
-    }
+    let response = await fetchWithRetry(getAPI("Comments"), fetchOpts);
     const jsonData = await response.json();
     try {
         const commentsObj = (Array.isArray(jsonData.value))
@@ -485,11 +430,7 @@ export async function loadNotificationsByMemberId(dispatch, memberId) {
         loadingNotifications: true
     });
 
-    let response = await fetch(getAPI("NotificationsByMemberId", null, { MemberId: memberId }));
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("NotificationsByMemberId", null, { MemberId: memberId }));
-    }
+    let response = await fetchWithRetry(getAPI("NotificationsByMemberId", null, { MemberId: memberId }));
     const jsonData = await response.json();
     try {
         dispatch({
@@ -515,15 +456,32 @@ export async function removeNotification(dispatch, memberId, notificationId) {
     const fetchOpts = {
         method: "delete"
     };
-    let response = await fetch(getAPI("Notifications", notificationId), fetchOpts);
-    if (!response.ok) {
-        // retry
-        response = await fetch(getAPI("Notifications", notificationId), fetchOpts);
-    }
+    await fetchWithRetry(getAPI("Notifications", notificationId), fetchOpts);
     try {
         // refetch
         loadNotificationsByMemberId(dispatch, memberId);
     } catch (error) {
         console.log(error);
     }
+}
+
+// simple delay mechanism
+const wait = (delay) => (new Promise((resolve) => setTimeout(resolve, delay)));
+
+export async function fetchWithRetry(apiPath, retryCount = 0) {
+    console.log("request:", apiPath);
+    let response = await fetch(apiPath, {});
+    if (response.ok === false) {
+        console.log(`request failed (attempts: ${retryCount}`);
+        if (retryCount < 5) {
+            console.log("retrying...");
+            const delay = retryCount * 1000; // simple backoff
+            await wait(delay);
+            response = await fetchWithRetry(apiPath, retryCount + 1);
+        } else {
+            console.log(`too many request attempts: ${retryCount}`);
+        }
+        return;
+    }
+    return response;
 }
