@@ -481,7 +481,6 @@ export async function fetchWithRetry(apiPath, retryCount = 0) {
         } else {
             console.log(`too many request attempts: ${retryCount}`);
         }
-        return;
     }
     return response;
 }
