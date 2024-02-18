@@ -242,6 +242,10 @@ a {
   width: 24px;
 }
 
+.empty-state {
+  margin: 32px;
+}
+
 .empty-message {
   text-align: center;
   display: flex;

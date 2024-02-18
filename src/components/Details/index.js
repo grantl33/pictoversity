@@ -10,6 +10,7 @@ import { useMainContext, useMainDispatchContext } from "../../MainContext";
 import FollowingButton from "../FollowingButton";
 import { addLockerItem, loadEpisodesByComicId, removeLockerItem } from "../../api";
 import { isNullOrUndefined } from "../../utils";
+import LoadingSpinner from "../LoadingSpinner";
 
 function Details() {
     const { search } = useLocation();
@@ -22,6 +23,7 @@ function Details() {
         comics,
         creators,
         episodes,
+        loadingEpisodes,
     } = mainContext;
 
     // Use dispatch context for updating the main state
@@ -37,7 +39,6 @@ function Details() {
             } else {
                 setComicData(null);
             }
-
         }
     }, [search, comics]);
 
@@ -83,6 +84,16 @@ function Details() {
     const handleRemoveLockerItem = () => {
         if (!isNullOrUndefined(lockerItem)) {
             removeLockerItem(dispatch, lockerItem.Id, member.Id, comicData);
+        }
+    }
+
+    const episodesFiltered = [];
+    if (episodes && episodes.length > 0 && !loadingEpisodes && !isNullOrUndefined(comicData)) {
+        for (let i = 0; i < episodes.length; i++) {
+            const episode = episodes[i];
+            if (episode.COMIC_ID === comicData.Id) {
+                episodesFiltered.push(episode);
+            }
         }
     }
 
@@ -142,7 +153,8 @@ function Details() {
                     </div>
                     <div className="details-body">
                         <div className="episodes-container">
-                            {(episodes && episodes.length > 0) && episodes.map((episode) => {
+                            {loadingEpisodes && <div className="empty-state"><LoadingSpinner /></div>}
+                            {(!loadingEpisodes && episodesFiltered) && episodesFiltered.map((episode) => {
                                 const episodeStyle = {
                                     backgroundImage: `url('/images/covers/${comicData.COVER_IMAGE}_${episode.EPISODE_NUMBER}.png')`
                                 }

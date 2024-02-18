@@ -472,7 +472,7 @@ export async function fetchWithRetry(apiPath, retryCount = 0) {
     console.log("request:", apiPath);
     let response = await fetch(apiPath, {});
     if (response.ok === false) {
-        console.log(`request failed (attempts: ${retryCount}`);
+        console.log(`request failed (attempts: ${retryCount})`);
         if (retryCount < 5) {
             console.log("retrying...");
             const delay = retryCount * 1000; // simple backoff

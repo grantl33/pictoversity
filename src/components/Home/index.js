@@ -4,6 +4,7 @@ import { useMainContext, useMainDispatchContext } from '../../MainContext';
 import { useEffect } from 'react';
 import { loadAppInfo } from '../../api';
 import { isNullOrUndefined } from '../../utils';
+import LoadingSpinner from '../LoadingSpinner';
 function Home() {
     const dispatch = useMainDispatchContext();
     // Use main context to read from state
@@ -52,10 +53,7 @@ function Home() {
                 <Hero />
             </div>
             {(loadingComics || loadingCreators) &&
-                <div className="loading-spinner">
-                    <div className="spinner"></div>
-                    <span>Loading&hellip;</span>
-                </div>
+                <LoadingSpinner />
             }
             {(!loadingComics && !loadingCreators) &&
                 <>
