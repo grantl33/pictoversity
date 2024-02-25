@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId, loadMember, loadNotificationsByMemberId } from './api';
 import { useMainContext, useMainDispatchContext } from './MainContext';
 import { isNullOrUndefined } from './utils';
+import About from './components/About';
 
 function App() {
   const dispatch = useMainDispatchContext();
@@ -22,6 +23,15 @@ function App() {
   const {
     member,
   } = mainContext;
+  // const location = useLocation();
+  // const isAboutPage = location.pathname === "/about";
+  let standaloneCheck = false;
+  try {
+    standaloneCheck = window.navigator.standalone === true;
+  } catch (e) {
+    console.log(e);
+  }
+  // standaloneCheck = true;
 
   useEffect(() => {
     loadComics(dispatch);
@@ -44,17 +54,25 @@ function App() {
   }, [dispatch, member]);
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Main />}></Route>
-        <Route path="/details" element={<Details />}></Route>
-        <Route path="/creator" element={<Creator />}></Route>
-        <Route path="/episode" element={<Episode />}></Route>
-      </Routes>
+    <div className={`App${(!standaloneCheck ? " about-page" : "")}`}>
+      {!standaloneCheck &&
+        <Routes>
+          <Route path="/" element={<About />}></Route>
+        </Routes>
+      }
+      {
+        standaloneCheck &&
+        <Routes>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/details" element={<Details />}></Route>
+          <Route path="/creator" element={<Creator />}></Route>
+          <Route path="/episode" element={<Episode />}></Route>
+        </Routes>
+      }
       <Alert />
       <Modal />
       <WindowContext />
-    </div>
+    </div >
   );
 }
 

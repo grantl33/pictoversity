@@ -85,8 +85,10 @@ function Episode() {
                     </div>
                     <div className="episode-body">
                         <div className="episode-container">
-                            <img src={`/images/episodes/${comicData.COVER_IMAGE}_${episodeData.EPISODE_NUMBER}.png`} alt="" />
-
+                            <img src={require(`../../assets/episodes/${comicData.COVER_IMAGE}_${episodeData.EPISODE_NUMBER}.png`)}
+                                className="image-episode"
+                                alt={`Episode ${episodeData.EPISODE_NUMBER}`}
+                            />
                             <div className="episode-postroll">
                                 {(!isNullOrUndefined(nextEpisode) || !isNullOrUndefined(prevEpisode)) &&
                                     <div className="episode-nav">

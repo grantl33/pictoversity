@@ -1,3 +1,4 @@
+import pictoversity from "../../assets/pictoversity.png";
 import bell from '../../assets/icons/bell-fill.svg'
 import search from '../../assets/icons/search.svg'
 import home from '../../assets/icons/house-fill.svg'
@@ -12,6 +13,8 @@ import Search from '../Search'
 import Notifications from '../Notifcations'
 import { isNullOrUndefined } from '../../utils'
 import { loadNotificationsByMemberId } from '../../api'
+import About from "../About";
+import Bio from "../Bio";
 
 function Main() {
     // Use dispatch context for updating the main state
@@ -31,6 +34,8 @@ function Main() {
     }, [dispatch, member, selectedTab]);
 
     const handleLogoClick = () => {
+        setSelectedTab("about");
+        /**
         dispatch({
             type: "setModalContent",
             modalContent: {
@@ -46,6 +51,7 @@ function Main() {
                 showReload: true
             }
         });
+        **/
     }
     return (
         <>
@@ -53,7 +59,7 @@ function Main() {
                 <div className="row">
                     <div></div>
                     <div className="header-left">
-                        <span onClick={handleLogoClick}>Pictoversity</span>
+                        <img src={pictoversity} alt="Logo" height={32} className="logo" onClick={handleLogoClick} />
                     </div>
                     <div className="header-right">
                         <div className="header-actions">
@@ -77,6 +83,12 @@ function Main() {
                 {selectedTab === "idcard" && <IdCard />}
                 {selectedTab === "search" && <Search />}
                 {selectedTab === "notifications" && <Notifications />}
+                {selectedTab === "about" &&
+                    <div className="main-bio-container">
+                        <div className="main-bio">
+                            <Bio />
+                        </div>
+                    </div>}
             </main >
             <footer>
                 <nav className="row">

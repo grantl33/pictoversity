@@ -17,8 +17,9 @@ export async function loadAppInfo(dispatch) {
     // load data from database and set via reducer
     //let response = await fetch(getAPI("AppInfo"));
     let response = await fetchWithRetry(getAPI("AppInfo"));
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         dispatch({
             type: "setAppInfo",
             appInfo: jsonData.value || []
@@ -35,8 +36,9 @@ export async function loadComics(dispatch) {
     });
 
     let response = await fetchWithRetry(getAPI("Comics"));
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         dispatch({
             type: "setComics",
             comics: jsonData.value || []
@@ -53,8 +55,9 @@ export async function loadCreators(dispatch) {
     });
 
     let response = await fetchWithRetry(getAPI("Creators"));
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         dispatch({
             type: "setCreators",
             creators: jsonData.value || []
@@ -71,8 +74,9 @@ export async function loadEpisodesByComicId(dispatch, comicId) {
     });
 
     let response = await fetchWithRetry(getAPI("EpisodesByComicId", null, { ComicId: comicId }));
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         dispatch({
             type: "setEpisodes",
             episodes: jsonData.value || []
@@ -97,8 +101,9 @@ export async function createMember(dispatch, memberObj) {
         body: JSON.stringify(memberObj)
     };
     let response = await fetch(fetchWithRetry("Members"), payload);
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         const memberObj = (Array.isArray(jsonData.value))
             ? jsonData.value[0]
             : jsonData.value;
@@ -145,8 +150,9 @@ export async function loadMember(dispatch, memberObj) {
         }
     };
     let response = await fetchWithRetry(getAPI("MembersLogin", null, payload), fetchOpts);
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         const memberObj = (Array.isArray(jsonData.value))
             ? jsonData.value[0]
             : jsonData.value;
@@ -193,8 +199,9 @@ export async function followCreator(dispatch, memberId, creatorObj) {
         })
     };
     let response = await fetchWithRetry(getAPI("LockerCreators"), fetchOpts);
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         const lockerCreatorsObj = (Array.isArray(jsonData.value))
             ? jsonData.value[0]
             : jsonData.value;
@@ -246,8 +253,9 @@ export async function loadLockerCreatorsByMemberId(dispatch, memberId) {
     });
 
     let response = await fetchWithRetry(getAPI("LockerCreatorsByMemberId", null, { MemberId: memberId }));
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         dispatch({
             type: "setFollowingCreators",
             followingCreators: jsonData.value || []
@@ -281,8 +289,9 @@ export async function addLockerItem(dispatch, memberId, comicObj) {
         })
     };
     let response = await fetchWithRetry(getAPI("LockerComics"), fetchOpts);
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         const lockerComicsObj = (Array.isArray(jsonData.value))
             ? jsonData.value[0]
             : jsonData.value;
@@ -334,8 +343,9 @@ export async function loadLockerComicsByMemberId(dispatch, memberId) {
     });
 
     let response = await fetchWithRetry(getAPI("LockerComicsByMemberId", null, { MemberId: memberId }));
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         dispatch({
             type: "setLockerItems",
             lockerItems: jsonData.value || []
@@ -358,8 +368,9 @@ export async function loadCommentsByEpisodeId(dispatch, episodeId) {
     });
 
     let response = await fetchWithRetry(getAPI("CommentsByEpisodeId", null, { EpisodeId: episodeId }));
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         dispatch({
             type: "setComments",
             comments: jsonData.value || []
@@ -392,9 +403,10 @@ export async function saveComment(dispatch, episodeId, memberId, commentText) {
             COMMENT_TEXT: commentText
         })
     };
-    let response = await fetchWithRetry(getAPI("Comments"), fetchOpts);
-    const jsonData = await response.json();
+
     try {
+        let response = await fetchWithRetry(getAPI("Comments"), fetchOpts);
+        const jsonData = await response.json();
         const commentsObj = (Array.isArray(jsonData.value))
             ? jsonData.value[0]
             : jsonData.value;
@@ -431,8 +443,9 @@ export async function loadNotificationsByMemberId(dispatch, memberId) {
     });
 
     let response = await fetchWithRetry(getAPI("NotificationsByMemberId", null, { MemberId: memberId }));
-    const jsonData = await response.json();
+
     try {
+        const jsonData = await response.json();
         dispatch({
             type: "setNotifications",
             notifications: jsonData.value || []

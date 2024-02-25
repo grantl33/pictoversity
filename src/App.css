@@ -14,6 +14,11 @@
   background: #D8DBF8;
 }
 
+.App.about-page {
+  grid-template-rows: 60px 1fr;
+  grid-template-areas: "headerarea" "mainarea"
+}
+
 @media (min-width: 480px) {
   .App {
     background: linear-gradient(90deg, #D8DBF8, black, #D8DBF8);
@@ -33,20 +38,21 @@ header {
   width: 100%;
 }
 
+header.full {
+  max-width: none;
+}
+
 header .row {
   display: grid;
   grid-template-columns: 16px 1fr 1fr 16px;
   grid-template-areas: "div div div div";
   height: 100%;
   width: 100%;
+  align-items: center;
 }
 
-header .header-left {
-  font-family: CaveatBrush;
-  font-size: xx-large;
-  display: flex;
-  align-items: center;
-  color: #ffd700;
+header .logo.full {
+  margin-left: 16px;
 }
 
 header .header-right {
@@ -121,7 +127,7 @@ footer img {
   width: 32px;
 }
 
-main .content {
+main>.content {
   height: calc(100vh - 60px - 80px);
   overflow-y: scroll;
   overflow-x: hidden;
@@ -309,4 +315,22 @@ button {
   to {
     transform: rotate(360deg);
   }
+}
+
+.centered {
+  text-align: center;
+}
+
+.main-bio-container {
+  display: grid;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.main-bio {
+  margin: 18px;
+}
+
+.main-bio .bio {
+  overflow-y: visible;
 }
