@@ -13,7 +13,6 @@ import Search from '../Search'
 import Notifications from '../Notifcations'
 import { isNullOrUndefined } from '../../utils'
 import { loadNotificationsByMemberId } from '../../api'
-import About from "../About";
 import Bio from "../Bio";
 
 function Main() {
