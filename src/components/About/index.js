@@ -6,6 +6,7 @@ import step2 from "../../assets/about/install_02.png"
 import step3 from "../../assets/about/install_03.png"
 import step4 from "../../assets/about/install_04.png"
 import seesaw from "../../assets/about/seesaw.png"
+import signup from "../../assets/about/signup.png"
 import Header from "../Header";
 import { ReactComponent as Instagram } from "../../assets/about/instagram.svg";
 import { ReactComponent as Email } from "../../assets/about/envelope-fill.svg";
@@ -86,6 +87,13 @@ function About() {
                     </div>
                 </div>
                 <div>
+                    <div className="signup centered content">
+                        <h2>Install the app and sign up to be a member of Pictoversity!</h2>
+
+                        <img src={signup} alt="Sign up to be a member of Pictoversity!" className="wide-image" />
+                    </div>
+                </div>
+                <div>
                     <div className="start-making content" style={blurBgStyle}>
                         <h2>Start making comics for Pictoversity!</h2>
                         <div>
@@ -94,7 +102,6 @@ function About() {
                                 Then you should become a Pictoversity Creator!</a>
                         </div>
                         <img src={seesaw} alt="Start making comics for Pictoversity!" className="wide-image" />
-
                     </div>
                 </div>
                 <Bio />

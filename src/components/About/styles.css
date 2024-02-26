@@ -12,6 +12,7 @@
     display: grid;
     overflow: hidden;
     height: 380px;
+    background-color: #000;
 }
 
 .about .hero-background {
