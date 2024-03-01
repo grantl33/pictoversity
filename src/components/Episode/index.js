@@ -126,7 +126,7 @@ function Episode() {
                                         </div>
                                     }
                                     {!isNullOrUndefined(comments) && comments.map((commentObj) =>
-                                        <div className="comment-row">
+                                        <div className="comment-row" key={commentObj.Id}>
                                             <div className="comment-info">
                                                 <div className="comment-name">
                                                     <img src={studentcard} alt="Member" />

@@ -100,7 +100,7 @@ export async function createMember(dispatch, memberObj) {
         },
         body: JSON.stringify(memberObj)
     };
-    let response = await fetch(fetchWithRetry("Members"), payload);
+    let response = await fetchWithRetry(getAPI("Members"), 0, payload);
 
     try {
         const jsonData = await response.json();
@@ -149,7 +149,7 @@ export async function loadMember(dispatch, memberObj) {
             "Content-Type": "application/json"
         }
     };
-    let response = await fetchWithRetry(getAPI("MembersLogin", null, payload), fetchOpts);
+    let response = await fetchWithRetry(getAPI("MembersLogin", null, payload), 0, fetchOpts);
 
     try {
         const jsonData = await response.json();
@@ -198,7 +198,7 @@ export async function followCreator(dispatch, memberId, creatorObj) {
             CREATOR_ID: creatorObj.Id
         })
     };
-    let response = await fetchWithRetry(getAPI("LockerCreators"), fetchOpts);
+    let response = await fetchWithRetry(getAPI("LockerCreators"), 0, fetchOpts);
 
     try {
         const jsonData = await response.json();
@@ -233,7 +233,7 @@ export async function unfollowCreator(dispatch, lockerCreatorsId, memberId, crea
     const fetchOpts = {
         method: "delete"
     };
-    await fetchWithRetry(getAPI("LockerCreators", lockerCreatorsId), fetchOpts);
+    await fetchWithRetry(getAPI("LockerCreators", lockerCreatorsId), 0, fetchOpts);
     try {
         // refetch
         loadLockerCreatorsByMemberId(dispatch, memberId);
@@ -288,7 +288,7 @@ export async function addLockerItem(dispatch, memberId, comicObj) {
             COMIC_ID: comicObj.Id
         })
     };
-    let response = await fetchWithRetry(getAPI("LockerComics"), fetchOpts);
+    let response = await fetchWithRetry(getAPI("LockerComics"), 0, fetchOpts);
 
     try {
         const jsonData = await response.json();
@@ -322,7 +322,7 @@ export async function removeLockerItem(dispatch, lockerComicsId, memberId, comic
     const fetchOpts = {
         method: "delete"
     };
-    await fetchWithRetry(getAPI("LockerComics", lockerComicsId), fetchOpts);
+    await fetchWithRetry(getAPI("LockerComics", lockerComicsId), 0, fetchOpts);
     try {
         // refetch
         loadLockerComicsByMemberId(dispatch, memberId);
@@ -405,7 +405,7 @@ export async function saveComment(dispatch, episodeId, memberId, commentText) {
     };
 
     try {
-        let response = await fetchWithRetry(getAPI("Comments"), fetchOpts);
+        let response = await fetchWithRetry(getAPI("Comments"), 0, fetchOpts);
         const jsonData = await response.json();
         const commentsObj = (Array.isArray(jsonData.value))
             ? jsonData.value[0]
@@ -469,7 +469,7 @@ export async function removeNotification(dispatch, memberId, notificationId) {
     const fetchOpts = {
         method: "delete"
     };
-    await fetchWithRetry(getAPI("Notifications", notificationId), fetchOpts);
+    await fetchWithRetry(getAPI("Notifications", notificationId), 0, fetchOpts);
     try {
         // refetch
         loadNotificationsByMemberId(dispatch, memberId);
@@ -481,16 +481,15 @@ export async function removeNotification(dispatch, memberId, notificationId) {
 // simple delay mechanism
 const wait = (delay) => (new Promise((resolve) => setTimeout(resolve, delay)));
 
-export async function fetchWithRetry(apiPath, retryCount = 0) {
-    console.log("request:", apiPath);
-    let response = await fetch(apiPath, {});
+export async function fetchWithRetry(apiPath, retryCount = 0, fetchOpts) {
+    let response = await fetch(apiPath, fetchOpts);
     if (response.ok === false) {
         console.log(`request failed (attempts: ${retryCount})`);
         if (retryCount < 5) {
             console.log("retrying...");
             const delay = retryCount * 1000; // simple backoff
             await wait(delay);
-            response = await fetchWithRetry(apiPath, retryCount + 1);
+            response = await fetchWithRetry(apiPath, retryCount + 1, fetchOpts);
         } else {
             console.log(`too many request attempts: ${retryCount}`);
         }
