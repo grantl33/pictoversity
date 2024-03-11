@@ -3,7 +3,7 @@ function Header() {
     return (
         <header className="full">
             <div className="row">
-                <div><img src={pictoversity} alt="Logo" height={32} className="logo full" /></div>
+                <div><img src={pictoversity} alt="Logo" height={24} className="logo full" /></div>
                 <div className="header-left">
                     <span></span>
                 </div>
