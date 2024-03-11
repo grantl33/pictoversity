@@ -58,7 +58,7 @@ function Main() {
                 <div className="row">
                     <div></div>
                     <div className="header-left">
-                        <img src={pictoversity} alt="Logo" height={32} className="logo" onClick={handleLogoClick} />
+                        <img src={pictoversity} alt="Logo" height={24} className="logo" onClick={handleLogoClick} />
                     </div>
                     <div className="header-right">
                         <div className="header-actions">
