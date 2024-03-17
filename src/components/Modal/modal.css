@@ -81,3 +81,10 @@
     color: #560EEF;
     text-decoration: underline;
 }
+
+.modal-title {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    gap: 4px;
+    align-items: end;
+}

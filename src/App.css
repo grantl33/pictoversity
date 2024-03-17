@@ -334,3 +334,19 @@ button {
 .main-bio .bio {
   overflow-y: visible;
 }
+
+.crown,
+.guest {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+.guest path,
+.crown path {
+  fill: #333333
+}
+
+.crown.full-member path {
+  fill: #6C81F0
+}

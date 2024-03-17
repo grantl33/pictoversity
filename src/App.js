@@ -31,7 +31,8 @@ function App() {
   } catch (e) {
     console.log(e);
   }
-  // standaloneCheck = true;
+  // Uncomment this to force the app mode (development only)
+  //standaloneCheck = true;
 
   useEffect(() => {
     loadComics(dispatch);

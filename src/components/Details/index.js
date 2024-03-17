@@ -4,12 +4,13 @@ import plus from "../../assets/icons/plus-circle.svg";
 import remove from "../../assets/icons/dash-circle.svg";
 import donate from "../../assets/icons/donate.svg";
 import badgeempty from "../../assets/icons/person-badge-empty.svg";
+import { ReactComponent as MemberCrown } from "../../assets/crown-filled.svg";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { useMainContext, useMainDispatchContext } from "../../MainContext";
 import FollowingButton from "../FollowingButton";
 import { addLockerItem, loadEpisodesByComicId, removeLockerItem } from "../../api";
-import { isNullOrUndefined } from "../../utils";
+import { FULL_MEMBER_TEXT, FULL_MEMBER_TITLE, isNullOrUndefined, isValidFullMember } from "../../utils";
 import LoadingSpinner from "../LoadingSpinner";
 
 function Details() {
@@ -87,6 +88,17 @@ function Details() {
         }
     }
 
+    const handleFullMemberAccessOnly = () => {
+        dispatch({
+            type: "setModalContent",
+            modalContent: {
+                title: FULL_MEMBER_TITLE,
+                content: FULL_MEMBER_TEXT,
+                showReload: false
+            },
+        });
+    }
+
     const episodesFiltered = [];
     if (episodes && episodes.length > 0 && !loadingEpisodes && !isNullOrUndefined(comicData)) {
         for (let i = 0; i < episodes.length; i++) {
@@ -96,6 +108,8 @@ function Details() {
             }
         }
     }
+
+    const isCrowned = isValidFullMember(member);
 
     return (
         <div className="details">
@@ -159,17 +173,42 @@ function Details() {
                                     backgroundImage: `url('/images/covers/${comicData.COVER_IMAGE}_${episode.EPISODE_NUMBER}.png')`
                                 }
                                 return (
-                                    <NavLink key={episode.EPISODE_NUMBER}
-                                        to={`/episode?id=${comicData.Id}&episodeNumber=${episode.EPISODE_NUMBER}`}
-                                        className="episode-row">
-                                        <div className="episode-number">{episode.EPISODE_NUMBER}</div>
-                                        <div>
-                                            <div className="episode-image" style={episodeStyle}>
-                                                <div className="overlay"></div>
+                                    <>
+                                        {(!episode.IS_FREE && !isCrowned) &&
+                                            <div className="episode-row" onClick={handleFullMemberAccessOnly}>
+                                                <div className="episode-number">{episode.EPISODE_NUMBER}</div>
+                                                <div>
+                                                    <div className="episode-image" style={episodeStyle}>
+                                                        <div className="overlay"></div>
+                                                    </div>
+                                                </div>
+                                                <div className="episode-title">{episode.TITLE}</div>
+                                                <div>
+                                                    {!episode.IS_FREE &&
+                                                        <MemberCrown className={`crown ${isCrowned ? " full-member" : ""}`} />
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="episode-title">{episode.TITLE}</div>
-                                    </NavLink>)
+                                        }
+                                        {(episode.IS_FREE || isCrowned) &&
+                                            <NavLink key={episode.EPISODE_NUMBER}
+                                                to={`/episode?id=${comicData.Id}&episodeNumber=${episode.EPISODE_NUMBER}`}
+                                                className="episode-row">
+                                                <div className="episode-number">{episode.EPISODE_NUMBER}</div>
+                                                <div>
+                                                    <div className="episode-image" style={episodeStyle}>
+                                                        <div className="overlay"></div>
+                                                    </div>
+                                                </div>
+                                                <div className="episode-title">{episode.TITLE}</div>
+                                                <div>
+                                                    {!episode.IS_FREE &&
+                                                        <MemberCrown className={`crown ${isCrowned ? " full-member" : ""}`} />
+                                                    }
+                                                </div>
+                                            </NavLink>}
+                                    </>
+                                )
                             })}
                         </div>
                     </div>

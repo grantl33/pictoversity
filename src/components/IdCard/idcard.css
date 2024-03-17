@@ -105,10 +105,12 @@ button:disabled {
     grid-template-columns: auto auto auto;
     gap: 8px;
 }
+
 .id-card-container {
     position: relative;
     display: inline-block;
 }
+
 .verified-icon {
     position: absolute;
     bottom: 32px;
@@ -119,4 +121,26 @@ button:disabled {
     background: white;
     border: 1px solid white;
     border-radius: 12px;
+}
+
+.idcard .member-info {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    margin: 8px;
+    gap: 4px
+}
+
+.idcard .checkbox-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px
+}
+
+.idcard input[type='checkbox'] {
+    width: 16px;
+}
+
+.idcard a {
+    text-decoration: underline;
 }

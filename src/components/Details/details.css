@@ -151,7 +151,7 @@
 
 .details .episode-row {
     display: grid;
-    grid-template-columns: 32px auto 1fr;
+    grid-template-columns: 32px auto 1fr auto;
     grid-template-areas: "div div div";
     align-items: center;
     gap: 2px;
@@ -188,4 +188,8 @@
 .details .episode-title {
     margin: 4px;
     font-size: small;
+}
+
+.details .crown {
+    margin: 16px
 }

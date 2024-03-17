@@ -1,12 +1,13 @@
 import "./idcard.css";
 
 import studentcard from "../../assets/icons/student_card.svg";
-import { ReactComponent as Verified }  from "../../assets/icons/patch-check-fill.svg";
+import { ReactComponent as MemberCrown } from "../../assets/crown-filled.svg";
+import { ReactComponent as Guest } from "../../assets/person.svg";
 
 import { useMainContext } from "../../MainContext";
 import { useMainDispatchContext } from "../../MainContext";
 import Accordion from "../Accordion";
-import { isBlank, isNullOrUndefined, isValidInt } from "../../utils";
+import { getMembershipExpiration, isBlank, isNullOrUndefined, isValidFullMember, isValidInt } from "../../utils";
 import { useEffect, useState } from "react";
 import { createMember, loadMember } from "../../api";
 
@@ -21,13 +22,14 @@ function IdCard() {
     // Use dispatch context for updating the main state
     const dispatch = useMainDispatchContext();
 
-    const [tabMode, setTabMode] = useState("login");
+    const [tabMode, setTabMode] = useState("register");
     const [memberName, setMemberName] = useState("");
     const [memberEmail, setMemberEmail] = useState("");
     const [memberLockerCombo, setMemberLockerCombo] = useState("");
     const [memberLockerComboP1, setMemberLockerComboP1] = useState(0);
     const [memberLockerComboP2, setMemberLockerComboP2] = useState(0);
     const [memberLockerComboP3, setMemberLockerComboP3] = useState(0);
+    const [agreeToTerms, setAgreeToTerms] = useState(false);
     const [isValid, setIsValid] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -39,7 +41,7 @@ function IdCard() {
             validCheck = false;
         }
         if (isBlank(memberEmail)) {
-            errorMsgs.email = "Valid email is required.";
+            errorMsgs.email = "Valid user name is required.";
             validCheck = false;
         }
         if (isBlank(memberLockerComboP1) ||
@@ -55,9 +57,13 @@ function IdCard() {
         } else {
             setMemberLockerCombo(`${parseInt(memberLockerComboP1)}-${parseInt(memberLockerComboP2)}-${parseInt(memberLockerComboP3)}`);
         }
+        if (!agreeToTerms && tabMode === "register") {
+            errorMsgs.agreeToTerms = "You must read and agree.";
+            validCheck = false;
+        }
         setValidationErrors(errorMsgs);
         setIsValid(validCheck);
-    }, [memberName, memberEmail, memberLockerComboP1, memberLockerComboP2, memberLockerComboP3, tabMode])
+    }, [memberName, memberEmail, memberLockerComboP1, memberLockerComboP2, memberLockerComboP3, agreeToTerms, tabMode])
 
     const handleRegister = () => {
         createMember(dispatch, {
@@ -80,10 +86,8 @@ function IdCard() {
         window.location.replace("/");
     }
 
-    const subscriptionExpiresOn = (!isNullOrUndefined(member) && !isNullOrUndefined(member.SUBSCRIPTION_EXPIRES_ON))
-        ? new Date(member.SUBSCRIPTION_EXPIRES_ON)
-        : null;
-    const isSubscribed = (new Date()) <= subscriptionExpiresOn;
+    const membershipExpiration = getMembershipExpiration(member);
+    const isCrowned = isValidFullMember(member);
 
     return (
         <div className="idcard">
@@ -94,15 +98,30 @@ function IdCard() {
                         {!isNullOrUndefined(member) &&
                             <>
                                 <div className="id-card-container">
-                                <img src={studentcard} alt="ID Card" className="icon" />
-                                {isSubscribed &&
-                                    <Verified className="verified-icon" />
-                                }
+                                    <img src={studentcard} alt="ID Card" className="icon" />
                                 </div>
-                                
+
                                 <h2>{member.NAME}</h2>
                                 <h3>{member.EMAIL}</h3>
-                                <button onClick={handleLogout}>Log Out</button>
+                                <div className="member-info">
+                                    {isCrowned &&
+                                        <>
+                                            <div><MemberCrown className="crown full-member" /></div>
+                                            <div>Full Member (expires: {getMembershipExpiration(member)})</div>
+                                        </>
+                                    }
+                                    {!isCrowned &&
+                                        <>
+                                            <div><Guest className="guest" /></div>
+                                            <div>Guest {!isNullOrUndefined(membershipExpiration) &&
+                                                <>(expired on: {membershipExpiration})</>}
+                                            </div>
+                                        </>
+                                    }
+                                </div>
+                                <div>
+                                    <button onClick={handleLogout}>Log Out</button>
+                                </div>
                             </>
                         }
                         {isNullOrUndefined(member) &&
@@ -111,12 +130,13 @@ function IdCard() {
                                     <label></label>
                                     <div>
                                         <div className="split-tab">
-                                            <div className={`split-tab-choice${(tabMode === "login") ? " selected" : ""}`} onClick={() => {
-                                                setTabMode("login");
-                                            }}>Login</div>
                                             <div className={`split-tab-choice${(tabMode === "register") ? " selected" : ""}`} onClick={() => {
                                                 setTabMode("register");
                                             }}>Register</div>
+                                            <div className={`split-tab-choice${(tabMode === "login") ? " selected" : ""}`} onClick={() => {
+                                                setTabMode("login");
+                                            }}>Login</div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -138,8 +158,8 @@ function IdCard() {
                                     </>
                                 }
                                 <div className="field-row">
-                                    <label>Email Address:</label>
-                                    <input type="text" value={memberEmail} placeholder="your-email@domain.com" maxLength={100} onChange={(e) => {
+                                    <label>Username:</label>
+                                    <input type="text" value={memberEmail} placeholder="Enter a unique username" maxLength={100} onChange={(e) => {
                                         setMemberEmail(e.target.value);
                                     }} />
                                 </div>
@@ -149,6 +169,7 @@ function IdCard() {
                                         <span className="error-msg">{validationErrors.email}</span>
                                     </div>
                                 }
+
                                 <div className="field-row">
                                     <label>Locker Combo:</label>
                                     <div className="locker-combo">
@@ -176,6 +197,34 @@ function IdCard() {
                                         <span className="error-msg">{validationErrors.lockerCombo}</span>
                                     </div>
                                 }
+
+                                {(tabMode === "register") &&
+                                    <>
+                                        <div className="field-row">
+                                            <label></label>
+                                            <div className="checkbox-item">
+                                                <input type="checkbox" value={agreeToTerms} onChange={(e) => {
+                                                    setAgreeToTerms(!agreeToTerms);
+                                                }} /><span> I have read and agree to <a
+                                                    href="https://docs.google.com/document/d/1KYgh6setZ0u3kFHj7dvPb-54e7iWUmou84VDC7WjZ-Q/edit?usp=sharing" target="_blank" rel="noreferrer">Pictoversity's terms</a>.</span>
+                                            </div>
+                                        </div>
+                                        {!isNullOrUndefined(validationErrors.agreeToTerms) &&
+                                            <div className="field-row">
+                                                <label></label>
+                                                <span className="error-msg">{validationErrors.agreeToTerms}</span>
+                                            </div>
+                                        }
+                                        <div className="field-row">
+                                            <label>Payment:</label>
+                                            <div>
+                                                Please make your payment after registering: <a
+                                                    href="https://docs.google.com/document/d/16j5ZTPOk-HNwr5AqAfoDpzUEK1Kc6SkcTkS4-kWHv4Q/edit?usp=sharing" target="_blank" rel="noreferrer">Payment instructions</a>
+                                            </div>
+                                        </div>
+                                    </>
+                                }
+
                                 <div className="field-row">
                                     <label></label>
                                     <div>
@@ -188,6 +237,10 @@ function IdCard() {
                                     </div>
                                 </div>
 
+                                {(tabMode === "login") && <div className="field-row">
+                                    <label></label>
+                                    <span>Forgot locker combo? Please email <a href="mailto:pictoversity@gmail.com">pictoversity@gmail.com</a></span>
+                                </div>}
                             </div>
                         }
 
@@ -200,6 +253,11 @@ function IdCard() {
             <div className="idcard-body">
                 <div className="idcard-container">
                     <div className="accordion">
+                        <Accordion title="Help & Support">
+                            If you have a question/concern, forgot your locker combo, or want to report a problem
+                            please contact us via email at: <a href="mailto:pictoversity@gmail.com">pictoversity@gmail.com</a>.
+                            We will do our best to help you!
+                        </Accordion>
                         <Accordion title="How to become a content creator">
                             Do you create awesome comics that you would like to share on the Pictoversity App?
                             Then you should become a Pictoversity Creator!<br />

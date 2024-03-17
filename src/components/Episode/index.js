@@ -6,7 +6,7 @@ import close from "../../assets/icons/x-circle.svg";
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { useMainContext, useMainDispatchContext } from "../../MainContext";
-import { isNullOrUndefined } from "../../utils";
+import { FULL_MEMBER_TEXT, FULL_MEMBER_TITLE, isNullOrUndefined, isValidFullMember } from "../../utils";
 import { loadCommentsByEpisodeId, saveComment } from "../../api";
 
 function Episode() {
@@ -63,6 +63,19 @@ function Episode() {
             setIsCommentSaved(true);
         }
     }
+
+    const handleFullMemberAccessOnly = () => {
+        dispatch({
+            type: "setModalContent",
+            modalContent: {
+                title: FULL_MEMBER_TITLE,
+                content: FULL_MEMBER_TEXT,
+                showReload: false
+            },
+        });
+    }
+
+    const isCrowned = isValidFullMember(member);
     return (
         <div className="episode">
             {(isNullOrUndefined(comicData) || isNullOrUndefined(episodeData)) && <>Error: Comic not found!</>}
@@ -100,11 +113,16 @@ function Episode() {
                                             }
                                         </div>
                                         <div className="next">
-                                            {!isNullOrUndefined(nextEpisode) &&
-                                                <NavLink key={nextEpisode.EPISODE_NUMBER}
-                                                    to={`/episode?id=${comicData.Id}&episodeNumber=${nextEpisode.EPISODE_NUMBER}`}
-                                                >Next <img src={arrowRight} alt="Next" /></NavLink>
-                                            }
+                                            <>
+                                                {!isNullOrUndefined(nextEpisode) && (nextEpisode.IS_FREE || isCrowned) &&
+                                                    <NavLink key={nextEpisode.EPISODE_NUMBER}
+                                                        to={`/episode?id=${comicData.Id}&episodeNumber=${nextEpisode.EPISODE_NUMBER}`}
+                                                    >Next <img src={arrowRight} alt="Next" /></NavLink>
+                                                }
+                                                {!isNullOrUndefined(nextEpisode) && (!nextEpisode.IS_FREE && !isCrowned) &&
+                                                    <div onClick={handleFullMemberAccessOnly}>Next <img src={arrowRight} alt="Next" /></div>
+                                                }
+                                            </>
                                         </div>
                                     </div>
                                 }
@@ -112,7 +130,7 @@ function Episode() {
                                     <h3>Comments</h3>
                                 </div>
                                 <div className="episode-comments">
-                                    {(!isNullOrUndefined(member) && !isCommentSaved) &&
+                                    {(isCrowned && !isCommentSaved) &&
                                         <div className="comment-field">
                                             <textarea rows={2} onChange={(e) => {
                                                 setMemberComment(e.target.value);
@@ -120,9 +138,9 @@ function Episode() {
                                             <button onClick={handleSaveComment} >Add Comment</button>
                                         </div>
                                     }
-                                    {isNullOrUndefined(member) &&
+                                    {!isCrowned &&
                                         <div className="comment-row">
-                                            <div className="comment-empty">Please login/register to add comments.</div>
+                                            <div className="comment-empty">You must be a full member to add comments.</div>
                                         </div>
                                     }
                                     {!isNullOrUndefined(comments) && comments.map((commentObj) =>
