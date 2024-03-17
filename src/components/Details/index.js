@@ -107,6 +107,9 @@ function Details() {
                 episodesFiltered.push(episode);
             }
         }
+        episodesFiltered.sort((a, b) => {
+            return parseInt(a.EPISODE_NUMBER) < parseInt(b.EPISODE_NUMBER) ? 1 : -1;
+        })
     }
 
     const isCrowned = isValidFullMember(member);
