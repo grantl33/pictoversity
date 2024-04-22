@@ -46,6 +46,9 @@ function Home() {
     const popular = (comics && comics.length > 0)
         ? comics.toSorted((a, b) => b.EPISODE_COUNT - a.EPISODE_COUNT)
         : null;
+    const newest = (comics && comics.length > 0)
+        ? comics.toSorted((a, b) => b.Id - a.Id)
+        : null;
 
     return (
         <div className="content">
@@ -64,6 +67,10 @@ function Home() {
                     <div className="content-listing">
                         <h2>Popular</h2>
                         <CoverRow comicsData={popular} showRanking={true} />
+                    </div>
+                    <div className="content-listing">
+                        <h2>Newest</h2>
+                        <CoverRow comicsData={newest} />
                     </div>
                 </>
             }
