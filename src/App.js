@@ -32,7 +32,7 @@ function App() {
     console.log(e);
   }
   // Uncomment this to force the app mode (development only)
-  //standaloneCheck = true;
+  standaloneCheck = true;
 
   useEffect(() => {
     loadComics(dispatch);
