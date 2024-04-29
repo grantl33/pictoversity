@@ -49,6 +49,9 @@ function Home() {
     const newest = (comics && comics.length > 0)
         ? comics.toSorted((a, b) => b.Id - a.Id)
         : null;
+    if (popular?.length > 10) {
+        popular.splice(10);
+    }
 
     return (
         <div className="content">
@@ -66,7 +69,7 @@ function Home() {
                     </div>
                     <div className="content-listing">
                         <h2>Popular</h2>
-                        <CoverRow comicsData={popular} showRanking={true} maxItems={10} />
+                        <CoverRow comicsData={popular} showRanking={true} />
                     </div>
                     <div className="content-listing">
                         <h2>Newest</h2>
