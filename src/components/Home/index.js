@@ -66,7 +66,7 @@ function Home() {
                     </div>
                     <div className="content-listing">
                         <h2>Popular</h2>
-                        <CoverRow comicsData={popular} showRanking={true} />
+                        <CoverRow comicsData={popular} showRanking={true} maxItems={10} />
                     </div>
                     <div className="content-listing">
                         <h2>Newest</h2>

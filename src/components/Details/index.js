@@ -171,14 +171,14 @@ function Details() {
                     <div className="details-body">
                         <div className="episodes-container">
                             {loadingEpisodes && <div className="empty-state"><LoadingSpinner /></div>}
-                            {(!loadingEpisodes && episodesFiltered) && episodesFiltered.map((episode) => {
+                            {(!loadingEpisodes && episodesFiltered) && episodesFiltered.map((episode, idx) => {
                                 const episodeStyle = {
                                     backgroundImage: `url('/images/covers/${comicData.COVER_IMAGE}_${episode.EPISODE_NUMBER}.png')`
                                 }
                                 return (
                                     <>
                                         {(!episode.IS_FREE && !isCrowned) &&
-                                            <div className="episode-row" onClick={handleFullMemberAccessOnly}>
+                                            <div className="episode-row" onClick={handleFullMemberAccessOnly} key={idx}>
                                                 <div className="episode-number">{episode.EPISODE_NUMBER}</div>
                                                 <div>
                                                     <div className="episode-image" style={episodeStyle}>
