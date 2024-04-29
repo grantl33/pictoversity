@@ -1,7 +1,7 @@
 # Pictoversity - App and platform for educational comics
-[Donations](https://www.paypal.com/donate/?business=PDMTEA6K5786Y&no_recurring=0&item_name=Thanks+for+supporting+Pictoversity%21+We+appreciate+you%21&currency_code=USD) are appreciated! 
+[Donations](https://venmo.com/u/pictoversity) are appreciated! 
 
-Pictoveristy is under development and a demo version is deployed on Azure: 
+Pictoveristy is under development and a beta version is deployed on Azure: 
 [https://wonderful-coast-0efcca010.4.azurestaticapps.net/](https://wonderful-coast-0efcca010.4.azurestaticapps.net/)
 
 It is designed for mobile (see info about [Progressive Web Apps](https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DAndroid#)), which means it behaves much like a native app when you install it using the "Save to Home Screen" option. 

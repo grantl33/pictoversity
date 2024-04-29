@@ -271,7 +271,7 @@ function IdCard() {
                                 target="_blank" rel="noreferrer">Click here for more info</a>.
                         </Accordion>
                         <Accordion title="Make a donation!">
-                            You can make a donation <a href="https://www.paypal.com/donate/?business=PDMTEA6K5786Y&no_recurring=0&item_name=Thanks+for+supporting+Pictoversity%21+We+appreciate+you%21&currency_code=USD"
+                            You can make a donation <a href="https://venmo.com/u/pictoversity"
                                 target="_blank" rel="noreferrer">here</a>!
                             All donations go towards keeping Pictoversity running. We are constantly developing and improving the platform
                             as well as adding new creators and comics. Your generous donations will help make all of this possible!

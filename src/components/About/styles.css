@@ -225,6 +225,28 @@
     width: 200px;
 }
 
+.about .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px
+}
+
+.about .actions>div:first-child {
+    text-align: right;
+}
+
+.about .actions>div:last-child {
+    text-align: left;
+}
+
+.about .actions .get-started {
+    background-image: linear-gradient(#6C81F0, #3e49ab);
+}
+
+.about .donate {
+    background-image: linear-gradient(#efcb5e, #cf943d);
+}
+
 @media (min-width: 640px) {
     .about .hero {
         height: 480px;

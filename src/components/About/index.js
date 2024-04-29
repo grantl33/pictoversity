@@ -25,9 +25,15 @@ function About() {
                         <div className="hero-text content">
                             <h1>Make Learning Fun!</h1>
                             <h2>Check out the Pictoversity Webapp NOW!</h2>
-                            <button onClick={() => {
-                                window.location.href = "#install";
-                            }}>Get Started!</button>
+                            <div className="actions">
+                                <div><button className="get-started" onClick={() => {
+                                    window.location.href = "#install";
+                                }}>Get Started!</button></div>
+                                <div><button className="donate" onClick={() => {
+                                    window.open("https://venmo.com/u/pictoversity");
+                                }}>Donate Now!</button></div>
+                            </div>
+
                             <h3>Digital comic fun combined with a visual learning experience</h3>
                         </div>
                     </div>
@@ -110,11 +116,13 @@ function About() {
                         <div className="footer-row">
                             <div>
                                 <h2>Donate</h2>
-                                <h3>Your dollars will help us run this business made to help children find the best edutainment. We appreciate all the help we can get :) </h3>
+                                <h3>Pictoversity is a 501(c)(3) non-profit organization. Your tax-deductible donations will help us run this platform made
+                                    to help children find the best edutainment. We appreciate all the help we can get :)
+                                </h3>
                             </div>
                             <div>
-                                <button onClick={() => {
-                                    window.open("https://www.paypal.com/donate/?business=PDMTEA6K5786Y&no_recurring=0&item_name=Thanks+for+supporting+Pictoversity%21+We+appreciate+you%21&currency_code=USD")
+                                <button className="donate" onClick={() => {
+                                    window.open("https://venmo.com/u/pictoversity")
                                 }}>Donate Now</button>
                             </div>
                         </div>
