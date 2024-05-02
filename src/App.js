@@ -27,7 +27,9 @@ function App() {
   // const isAboutPage = location.pathname === "/about";
   let standaloneCheck = false;
   try {
-    standaloneCheck = window.navigator.standalone === true;
+    const standaloneCheckIOS = window.navigator.standalone === true;
+    const standaloneCheckAndroid = window.matchMedia('(display-mode: standalone)').matches;
+    standaloneCheck = standaloneCheckIOS || standaloneCheckAndroid;
   } catch (e) {
     console.log(e);
   }
