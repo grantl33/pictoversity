@@ -5,14 +5,22 @@ import step1 from "../../assets/about/install_01.png"
 import step2 from "../../assets/about/install_02.png"
 import step3 from "../../assets/about/install_03.png"
 import step4 from "../../assets/about/install_04.png"
+import step1a from "../../assets/about/install_android_01.png"
+import step2a from "../../assets/about/install_android_02.png"
+import step3a from "../../assets/about/install_android_03.png"
+import step4a from "../../assets/about/install_android_04.png"
 import seesaw from "../../assets/about/seesaw.png"
 import signup from "../../assets/about/signup.png"
 import Header from "../Header";
 import { ReactComponent as Instagram } from "../../assets/about/instagram.svg";
+import { ReactComponent as Apple } from "../../assets/icons/apple.svg";
+import { ReactComponent as Android } from "../../assets/icons/android.svg";
 import { ReactComponent as Email } from "../../assets/about/envelope-fill.svg";
 import Bio from "../Bio";
+import { useState } from "react";
 
 function About() {
+    const [installMode, setInstallMode] = useState("apple");
     const blurBgStyle = {
         backgroundImage: "radial-gradient(rgba(150,157,227,.5) 15%, rgba(150,157,227,0.25) 45%, rgba(150,157,227,0.0) 65%)"
     }
@@ -53,49 +61,116 @@ function About() {
                         </div>
                     </div>
                 </div>
-                <div id="install">
-                    <div className="content">
+                {installMode === "apple" &&
+                    <>
+                        <div id="install">
+                            <div className="content">
 
-                        <div className="section-row">
-                            <div >
-                                <h2>How to download the Pictoversity webapp on iPhone:</h2>
-                                <ol>
-                                    <li>Search up Pictoversity.org</li>
-                                    <li>Click on the Share icon</li>
-                                    <li>Scroll down and click on "Add To Home Screen"</li>
-                                    <li>Click on "Add"</li>
-                                </ol>
+                                <div className="section-row">
+                                    <div className="install-text">
+                                        <h2>How to download the Pictoversity webapp on iPhone:</h2>
+                                        <ol>
+                                            <li>Search up Pictoversity.org</li>
+                                            <li>Click on the Share icon</li>
+                                            <li>Scroll down and click on "Add To Home Screen"</li>
+                                            <li>Click on "Add"</li>
+                                        </ol>
+                                        <div>
+                                            <div className="install-mode" onClick={() => {
+                                                setInstallMode("android")
+                                            }}>
+                                                <div>
+                                                    <div><Android /></div>
+                                                    <div>Install steps for Android device</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="centered">
+                                        <img src={comics} alt="" className="medium-image" />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="centered">
-                                <img src={comics} alt="" className="medium-image" />
+                        </div>
+                        <div>
+                            <div className="install content">
+                                <div>
+                                    <h2>1</h2>
+                                    <img src={step1} alt="Step 1" className="install-image" />
+                                </div>
+                                <div>
+                                    <h2>2</h2>
+                                    <img src={step2} alt="Step 2" className="install-image" />
+                                </div>
+                                <div>
+                                    <h2>3</h2>
+                                    <img src={step3} alt="Step 3" className="install-image" />
+                                </div>
+                                <div>
+                                    <h2>4</h2>
+                                    <img src={step4} alt="Step 4" className="install-image" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="install content">
-                        <div>
-                            <h2>1</h2>
-                            <img src={step1} alt="Step 1" className="install-image" />
+                    </>
+                }
+                {installMode === "android" &&
+                    <>
+                        <div id="install">
+                            <div className="content">
+
+                                <div className="section-row">
+                                    <div className="install-text">
+                                        <h2>How to download the Pictoversity webapp on Android:</h2>
+                                        <ol>
+                                            <li>Search up Pictoversity.org</li>
+                                            <li>Click the "3-dots" icon</li>
+                                            <li>Click the menu option "Install app"</li>
+                                            <li>Click "Install"</li>
+                                        </ol>
+                                        <div>
+                                            <div className="install-mode" onClick={() => {
+                                                setInstallMode("apple")
+                                            }}>
+                                                <div>
+                                                    <div><Apple /></div>
+                                                    <div>Install steps for iPhone</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="centered">
+                                        <img src={comics} alt="" className="medium-image" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <h2>2</h2>
-                            <img src={step2} alt="Step 2" className="install-image" />
+                            <div className="install content android">
+                                <div>
+                                    <h2>1</h2>
+                                    <img src={step1a} alt="Step 1" className="install-image" />
+                                </div>
+                                <div>
+                                    <h2>2</h2>
+                                    <img src={step2a} alt="Step 2" className="install-image" />
+                                </div>
+                                <div>
+                                    <h2>3</h2>
+                                    <img src={step3a} alt="Step 3" className="install-image" />
+                                </div>
+                                <div>
+                                    <h2>4</h2>
+                                    <img src={step4a} alt="Step 4" className="install-image" />
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h2>3</h2>
-                            <img src={step3} alt="Step 3" className="install-image" />
-                        </div>
-                        <div>
-                            <h2>4</h2>
-                            <img src={step4} alt="Step 4" className="install-image" />
-                        </div>
-                    </div>
-                </div>
+
+                    </>
+                }
                 <div>
                     <div className="signup centered content">
                         <h2>Install the app and sign up to be a member of Pictoversity!</h2>
-
                         <img src={signup} alt="Sign up to be a member of Pictoversity!" className="wide-image" />
                     </div>
                 </div>
@@ -142,7 +217,7 @@ function About() {
                         </div>
                         <div className="footer-row">
                             <div>
-                                &copy; 2023 Yumie Lee
+                                &copy; 2024 Yumie Lee
                             </div>
                         </div>
                     </div>
