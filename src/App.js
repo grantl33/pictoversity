@@ -10,7 +10,7 @@ import Episode from './components/Episode';
 import Alert from './components/Alert';
 import WindowContext from './components/WindowContext';
 import Modal from './components/Modal';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId, loadMember, loadNotificationsByMemberId } from './api';
 import { useMainContext, useMainDispatchContext } from './MainContext';
 import { isNullOrUndefined } from './utils';
