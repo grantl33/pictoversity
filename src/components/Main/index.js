@@ -34,6 +34,10 @@ function Main() {
 
     const handleLogoClick = () => {
         setSelectedTab("about");
+        dispatch({
+            type: "setAppMode",
+            value: false
+        });
         /**
         dispatch({
             type: "setModalContent",

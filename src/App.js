@@ -10,7 +10,7 @@ import Episode from './components/Episode';
 import Alert from './components/Alert';
 import WindowContext from './components/WindowContext';
 import Modal from './components/Modal';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId, loadMember, loadNotificationsByMemberId } from './api';
 import { useMainContext, useMainDispatchContext } from './MainContext';
 import { isNullOrUndefined } from './utils';
@@ -22,6 +22,7 @@ function App() {
   const mainContext = useMainContext();
   const {
     member,
+    appMode
   } = mainContext;
   // const location = useLocation();
   // const isAboutPage = location.pathname === "/about";
@@ -56,15 +57,17 @@ function App() {
     }
   }, [dispatch, member]);
 
+  const isAppMode = appMode || standaloneCheck;
+
   return (
-    <div className={`App${(!standaloneCheck ? " about-page" : "")}`}>
-      {!standaloneCheck &&
+    <div className={`App${(!isAppMode ? " about-page" : "")}`}>
+      {!isAppMode &&
         <Routes>
           <Route path="/" element={<About />}></Route>
         </Routes>
       }
       {
-        standaloneCheck &&
+        isAppMode &&
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/details" element={<Details />}></Route>

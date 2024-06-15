@@ -18,8 +18,10 @@ import { ReactComponent as Android } from "../../assets/icons/android.svg";
 import { ReactComponent as Email } from "../../assets/about/envelope-fill.svg";
 import Bio from "../Bio";
 import { useState } from "react";
+import { useMainDispatchContext } from "../../MainContext";
 
 function About() {
+    const dispatch = useMainDispatchContext();
     const [installMode, setInstallMode] = useState("apple");
     const blurBgStyle = {
         backgroundImage: "radial-gradient(rgba(150,157,227,.5) 15%, rgba(150,157,227,0.25) 45%, rgba(150,157,227,0.0) 65%)"
@@ -32,17 +34,21 @@ function About() {
                     <div className="hero-background">
                         <div className="hero-text content">
                             <h1>Make Learning Fun!</h1>
-                            <h2>Check out the Pictoversity Webapp NOW!</h2>
+                            <h2>Digital comic fun combined with a visual learning experience</h2>
                             <div className="actions">
                                 <div><button className="get-started" onClick={() => {
-                                    window.location.href = "#install";
-                                }}>Get Started!</button></div>
+                                    // window.location.href = "#install";
+                                    dispatch({
+                                        type: "setAppMode",
+                                        value: true
+                                    });
+                                }}>Open the App!
+                                </button></div>
                                 <div><button className="donate" onClick={() => {
                                     window.open("https://venmo.com/u/pictoversity");
                                 }}>Donate Now!</button></div>
                             </div>
-
-                            <h3>Digital comic fun combined with a visual learning experience</h3>
+                            <h3>You can also install the webapp on your phone! Just read the instructions below!</h3>
                         </div>
                     </div>
                 </div>

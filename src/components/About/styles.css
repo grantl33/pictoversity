@@ -11,7 +11,7 @@
 .about .hero {
     display: grid;
     overflow: hidden;
-    height: 380px;
+    height: 420px;
     background-color: #000;
 }
 
@@ -47,6 +47,11 @@
     to {
         opacity: 1.0;
     }
+}
+
+.about .hero .content {
+    display: grid;
+    margin: 18px auto;
 }
 
 .about .content {
@@ -227,17 +232,33 @@
 
 .about .actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px
 }
 
-.about .actions>div:first-child {
-    text-align: right;
+.about .actions button {
+    margin: 8px;
 }
 
-.about .actions>div:last-child {
-    text-align: left;
+.about .actions>div {
+    display: grid;
 }
+
+@media (min-width: 640px) {
+    .about .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px
+    }
+
+    .about .actions>div:first-child {
+        text-align: right;
+    }
+
+    .about .actions>div:last-child {
+        text-align: left;
+    }
+}
+
+
 
 .about .actions .get-started {
     background-image: linear-gradient(#6C81F0, #3e49ab);

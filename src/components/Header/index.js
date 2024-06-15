@@ -1,5 +1,10 @@
+import { useMainDispatchContext } from "../../MainContext";
 import pictoversity from "../../assets/pictoversity.png";
+import "./styles.css";
+
 function Header() {
+    const dispatch = useMainDispatchContext();
+
     return (
         <header className="full">
             <div className="row">
@@ -8,7 +13,12 @@ function Header() {
                     <span></span>
                 </div>
                 <div className="header-right">
-
+                    <button className="open-app" onClick={() => {
+                        dispatch({
+                            type: "setAppMode",
+                            value: true
+                        });
+                    }}>Open app!</button>
                 </div>
                 <div></div>
             </div>
