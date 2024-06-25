@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useMainContext, useMainDispatchContext } from "../../MainContext";
 import { FULL_MEMBER_TEXT, FULL_MEMBER_TITLE, isNullOrUndefined, isValidFullMember } from "../../utils";
 import { loadComics, loadCommentsByEpisodeId, loadEpisodesByComicId, saveComment } from "../../api";
+import LoadingSpinner from "../LoadingSpinner";
 
 function Episode() {
     const [comicData, setComicData] = useState(null);
@@ -16,6 +17,7 @@ function Episode() {
     const [isCommentSaved, setIsCommentSaved] = useState(false);
     const [prevEpisode, setPrevEpisode] = useState(null);
     const [nextEpisode, setNextEpisode] = useState(null);
+    const [imageLoaded, setImageLoaded] = useState(null);
     const { search } = useLocation();
     // Use main context to read from state
     const mainContext = useMainContext();
@@ -41,6 +43,9 @@ function Episode() {
         if (episodeNumber && episodes && episodes.length > 0) {
             const reqEpisodeData = episodes.find((episode) => episode.EPISODE_NUMBER === episodeNumber);
             if (!isNullOrUndefined(reqEpisodeData)) {
+                if (reqEpisodeData?.Id !== episodeData?.Id) {
+                    setImageLoaded(false);
+                }
                 setEpisodeData(reqEpisodeData);
                 setNextEpisode(episodes.find((episode) => parseInt(episode.EPISODE_NUMBER) === (parseInt(reqEpisodeData.EPISODE_NUMBER) + 1)));
                 setPrevEpisode(episodes.find((episode) => parseInt(episode.EPISODE_NUMBER) === (parseInt(reqEpisodeData.EPISODE_NUMBER) - 1)));
@@ -49,7 +54,7 @@ function Episode() {
         setIsCommentSaved(false);
         const containerEl = document.querySelector(".episode-container");
         if (!isNullOrUndefined(containerEl)) containerEl.scrollTop = 0;
-    }, [search, comics, episodes]);
+    }, [search, comics, episodes, episodeData]);
 
     useEffect(() => {
         if (comics?.length === 0) {
@@ -110,64 +115,71 @@ function Episode() {
                     </div>
                     <div className="episode-body">
                         <div className="episode-container">
-                            <img src={require(`../../assets/episodes/${comicData.COVER_IMAGE}_${episodeData.EPISODE_NUMBER}.png`)}
+                            {!imageLoaded && <div className="spinner-abs"><LoadingSpinner /></div>}
+                            <img key={`{comicData.COVER_IMAGE}_${episodeData.EPISODE_NUMBER}`}
+                                src={require(`../../assets/episodes/${comicData.COVER_IMAGE}_${episodeData.EPISODE_NUMBER}.png`)}
                                 className="image-episode"
                                 alt={`Episode ${episodeData.EPISODE_NUMBER}`}
+                                onLoad={() => {
+                                    setImageLoaded(true);
+                                }}
                             />
-                            <div className="episode-postroll">
-                                {(!isNullOrUndefined(nextEpisode) || !isNullOrUndefined(prevEpisode)) &&
-                                    <div className="episode-nav">
-                                        <div className="prev">
-                                            {!isNullOrUndefined(prevEpisode) &&
-                                                <NavLink key={prevEpisode.EPISODE_NUMBER}
-                                                    to={`/episode?id=${comicData.Id}&episodeNumber=${prevEpisode.EPISODE_NUMBER}`}
-                                                ><img src={arrowLeft} alt="Next" /> Prev</NavLink>
-                                            }
-                                        </div>
-                                        <div className="next">
-                                            <>
-                                                {!isNullOrUndefined(nextEpisode) && (nextEpisode.IS_FREE || isCrowned) &&
-                                                    <NavLink key={nextEpisode.EPISODE_NUMBER}
-                                                        to={`/episode?id=${comicData.Id}&episodeNumber=${nextEpisode.EPISODE_NUMBER}`}
-                                                    >Next <img src={arrowRight} alt="Next" /></NavLink>
+                            {imageLoaded &&
+                                <div className="episode-postroll">
+                                    {(!isNullOrUndefined(nextEpisode) || !isNullOrUndefined(prevEpisode)) &&
+                                        <div className="episode-nav">
+                                            <div className="prev">
+                                                {!isNullOrUndefined(prevEpisode) &&
+                                                    <NavLink key={prevEpisode.EPISODE_NUMBER}
+                                                        to={`/episode?id=${comicData.Id}&episodeNumber=${prevEpisode.EPISODE_NUMBER}`}
+                                                    ><img src={arrowLeft} alt="Next" /> Prev</NavLink>
                                                 }
-                                                {!isNullOrUndefined(nextEpisode) && (!nextEpisode.IS_FREE && !isCrowned) &&
-                                                    <div onClick={handleFullMemberAccessOnly}>Next <img src={arrowRight} alt="Next" /></div>
-                                                }
-                                            </>
-                                        </div>
-                                    </div>
-                                }
-                                <div className="episode-comments-bar">
-                                    <h3>Comments</h3>
-                                </div>
-                                <div className="episode-comments">
-                                    {(isCrowned && !isCommentSaved) &&
-                                        <div className="comment-field">
-                                            <textarea rows={2} onChange={(e) => {
-                                                setMemberComment(e.target.value);
-                                            }} placeholder="Add your comments" />
-                                            <button onClick={handleSaveComment} >Add Comment</button>
-                                        </div>
-                                    }
-                                    {!isCrowned &&
-                                        <div className="comment-row">
-                                            <div className="comment-empty">You must be a full member to add comments.</div>
-                                        </div>
-                                    }
-                                    {!isNullOrUndefined(comments) && comments.map((commentObj) =>
-                                        <div className="comment-row" key={commentObj.Id}>
-                                            <div className="comment-info">
-                                                <div className="comment-name">
-                                                    <img src={studentcard} alt="Member" />
-                                                    {commentObj.MEMBER_NAME}</div>
-                                                <div className="comment-date">{(new Date(commentObj.CREATED_ON)).toLocaleDateString()}</div>
                                             </div>
-                                            <div className="comment-text">{commentObj.COMMENT_TEXT}</div>
+                                            <div className="next">
+                                                <>
+                                                    {!isNullOrUndefined(nextEpisode) && (nextEpisode.IS_FREE || isCrowned) &&
+                                                        <NavLink key={nextEpisode.EPISODE_NUMBER}
+                                                            to={`/episode?id=${comicData.Id}&episodeNumber=${nextEpisode.EPISODE_NUMBER}`}
+                                                        >Next <img src={arrowRight} alt="Next" /></NavLink>
+                                                    }
+                                                    {!isNullOrUndefined(nextEpisode) && (!nextEpisode.IS_FREE && !isCrowned) &&
+                                                        <div onClick={handleFullMemberAccessOnly}>Next <img src={arrowRight} alt="Next" /></div>
+                                                    }
+                                                </>
+                                            </div>
                                         </div>
-                                    )}
+                                    }
+                                    <div className="episode-comments-bar">
+                                        <h3>Comments</h3>
+                                    </div>
+                                    <div className="episode-comments">
+                                        {(isCrowned && !isCommentSaved) &&
+                                            <div className="comment-field">
+                                                <textarea rows={2} onChange={(e) => {
+                                                    setMemberComment(e.target.value);
+                                                }} placeholder="Add your comments" />
+                                                <button onClick={handleSaveComment} >Add Comment</button>
+                                            </div>
+                                        }
+                                        {!isCrowned &&
+                                            <div className="comment-row">
+                                                <div className="comment-empty">You must be a full member to add comments.</div>
+                                            </div>
+                                        }
+                                        {!isNullOrUndefined(comments) && comments.map((commentObj) =>
+                                            <div className="comment-row" key={commentObj.Id}>
+                                                <div className="comment-info">
+                                                    <div className="comment-name">
+                                                        <img src={studentcard} alt="Member" />
+                                                        {commentObj.MEMBER_NAME}</div>
+                                                    <div className="comment-date">{(new Date(commentObj.CREATED_ON)).toLocaleDateString()}</div>
+                                                </div>
+                                                <div className="comment-text">{commentObj.COMMENT_TEXT}</div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </>
