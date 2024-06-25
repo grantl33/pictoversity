@@ -1,9 +1,9 @@
-import { useMainDispatchContext } from "../../MainContext";
+// import { useMainDispatchContext } from "../../MainContext";
 import pictoversity from "../../assets/pictoversity.png";
 import "./styles.css";
 
 function Header() {
-    const dispatch = useMainDispatchContext();
+    // const dispatch = useMainDispatchContext();
 
     return (
         <header className="full">
@@ -14,10 +14,12 @@ function Header() {
                 </div>
                 <div className="header-right">
                     <button className="open-app" onClick={() => {
-                        dispatch({
-                            type: "setAppMode",
-                            value: true
-                        });
+                        // dispatch({
+                        //     type: "setAppMode",
+                        //     value: true
+                        // });
+                        localStorage.setItem("appMode", true);
+                        window.location.replace("/");
                     }}>Open app!</button>
                 </div>
                 <div></div>

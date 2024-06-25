@@ -7,7 +7,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { useMainContext, useMainDispatchContext } from "../../MainContext";
 import { FULL_MEMBER_TEXT, FULL_MEMBER_TITLE, isNullOrUndefined, isValidFullMember } from "../../utils";
-import { loadCommentsByEpisodeId, saveComment } from "../../api";
+import { loadComics, loadCommentsByEpisodeId, loadEpisodesByComicId, saveComment } from "../../api";
 
 function Episode() {
     const [comicData, setComicData] = useState(null);
@@ -50,6 +50,18 @@ function Episode() {
         const containerEl = document.querySelector(".episode-container");
         if (!isNullOrUndefined(containerEl)) containerEl.scrollTop = 0;
     }, [search, comics, episodes]);
+
+    useEffect(() => {
+        if (comics?.length === 0) {
+            loadComics(dispatch);
+        }
+    }, [dispatch, comics]);
+
+    useEffect(() => {
+        if (comicData && comicData.Id != null)
+            loadEpisodesByComicId(dispatch, comicData.Id);
+    }, [comicData, dispatch]);
+
 
     useEffect(() => {
         if (!isNullOrUndefined(episodeData)) {

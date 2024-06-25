@@ -18,10 +18,10 @@ import { ReactComponent as Android } from "../../assets/icons/android.svg";
 import { ReactComponent as Email } from "../../assets/about/envelope-fill.svg";
 import Bio from "../Bio";
 import { useState } from "react";
-import { useMainDispatchContext } from "../../MainContext";
+// import { useMainDispatchContext } from "../../MainContext";
 
 function About() {
-    const dispatch = useMainDispatchContext();
+    // const dispatch = useMainDispatchContext();
     const [installMode, setInstallMode] = useState("apple");
     const blurBgStyle = {
         backgroundImage: "radial-gradient(rgba(150,157,227,.5) 15%, rgba(150,157,227,0.25) 45%, rgba(150,157,227,0.0) 65%)"
@@ -38,10 +38,12 @@ function About() {
                             <div className="actions">
                                 <div><button className="get-started" onClick={() => {
                                     // window.location.href = "#install";
-                                    dispatch({
-                                        type: "setAppMode",
-                                        value: true
-                                    });
+                                    // dispatch({
+                                    //     type: "setAppMode",
+                                    //     value: true
+                                    // });
+                                    localStorage.setItem("appMode", true);
+                                    window.location.replace("/");
                                 }}>Open the App!
                                 </button></div>
                                 <div><button className="donate" onClick={() => {

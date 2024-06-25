@@ -22,8 +22,8 @@ function App() {
   const mainContext = useMainContext();
   const {
     member,
-    appMode
   } = mainContext;
+  const appMode = localStorage.getItem("appMode") === "true";
   // const location = useLocation();
   // const isAboutPage = location.pathname === "/about";
   let standaloneCheck = false;

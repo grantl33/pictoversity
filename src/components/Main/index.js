@@ -34,10 +34,12 @@ function Main() {
 
     const handleLogoClick = () => {
         setSelectedTab("about");
-        dispatch({
-            type: "setAppMode",
-            value: false
-        });
+        // dispatch({
+        //     type: "setAppMode",
+        //     value: false
+        // });
+        localStorage.setItem("appMode", false);
+        window.location.replace("/");
         /**
         dispatch({
             type: "setModalContent",

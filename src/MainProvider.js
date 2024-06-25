@@ -24,16 +24,16 @@ export const initialState = {
     comments: [],
     loadingNotifcations: false,
     notifications: [],
-    appMode: false,
+    // appMode: false,
 }
 
 export function mainReducer(state, action) {
     switch (action.type) {
-        case "setAppMode":
-            return {
-                ...state,
-                appMode: action.value
-            }
+        // case "setAppMode":
+        //     return {
+        //         ...state,
+        //         appMode: action.value
+        //     }
         case "setAppInfo":
             return {
                 ...state,
