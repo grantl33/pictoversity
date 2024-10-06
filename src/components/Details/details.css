@@ -5,7 +5,6 @@
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "detailsheader" "detailsbody" "detailsfooter";
     background-color: #6C81F0;
-    max-width: 960px;
     margin: 0 auto;
 }
 

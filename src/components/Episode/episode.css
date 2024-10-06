@@ -6,7 +6,6 @@
     background-color: whitesmoke;
     grid-template-rows: auto 1fr;
     grid-template-areas: "div" "div";
-    max-width: 960px;
     margin: 0 auto;
 }
 
