@@ -1,10 +1,11 @@
-import Hero from '../../components/Hero';
+// import Hero from '../../components/Hero';
 import CoverRow from '../../components/CoverRow';
 import { useMainContext, useMainDispatchContext } from '../../MainContext';
 import { useEffect } from 'react';
 import { loadAppInfo } from '../../api';
 import { isNullOrUndefined } from '../../utils';
 import LoadingSpinner from '../LoadingSpinner';
+import Carousel from '../Carousel';
 function Home() {
     const dispatch = useMainDispatchContext();
     // Use main context to read from state
@@ -55,9 +56,10 @@ function Home() {
 
     return (
         <div className="content">
-            <div className="new-releases">
+            {/* <div className="new-releases">
                 <Hero />
-            </div>
+            </div> */}
+            <Carousel />
             {(loadingComics || loadingCreators) &&
                 <LoadingSpinner />
             }
