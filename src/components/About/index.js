@@ -10,7 +10,7 @@ import step2a from "../../assets/about/install_android_02.png"
 import step3a from "../../assets/about/install_android_03.png"
 import step4a from "../../assets/about/install_android_04.png"
 import seesaw from "../../assets/about/seesaw.png"
-import signup from "../../assets/about/signup.png"
+// import signup from "../../assets/about/signup.png"
 import Header from "../Header";
 import { ReactComponent as Instagram } from "../../assets/about/instagram.svg";
 import { ReactComponent as Apple } from "../../assets/icons/apple.svg";
@@ -176,12 +176,12 @@ function About() {
 
                     </>
                 }
-                <div>
+                {/* <div>
                     <div className="signup centered content">
                         <h2>Install the app and sign up to be a member of Pictoversity!</h2>
                         <img src={signup} alt="Sign up to be a member of Pictoversity!" className="wide-image" />
                     </div>
-                </div>
+                </div> */}
                 <div>
                     <div className="start-making content" style={blurBgStyle}>
                         <h2>Start making comics for Pictoversity!</h2>
@@ -196,7 +196,7 @@ function About() {
                 <Bio />
                 <div className="footer-section">
                     <div className="footer-content content">
-                        <div className="footer-row">
+                        {/* <div className="footer-row">
                             <div>
                                 <h2>Donate</h2>
                                 <h3>Pictoversity is a 501(c)(3) non-profit organization. Your tax-deductible donations will help us run this platform made
@@ -208,7 +208,7 @@ function About() {
                                     window.open("https://venmo.com/u/pictoversity")
                                 }}>Donate Now</button>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="footer-row">
                             <div>
                                 <div className="contacts">

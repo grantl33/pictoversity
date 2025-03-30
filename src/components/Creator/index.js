@@ -1,7 +1,7 @@
 import "./creator.css"
 import close from "../../assets/icons/x-circle.svg";
 import envelope from "../../assets/icons/envelope-fill.svg";
-import donate from "../../assets/icons/donate.svg";
+// import donate from "../../assets/icons/donate.svg";
 import badgeempty from "../../assets/icons/person-badge-empty.svg";
 import { Link, useLocation } from "react-router-dom";
 import { useMemo, useState } from "react";
@@ -69,10 +69,10 @@ function Creator() {
                                 <FollowingButton creatorData={creatorData} />
                             </div>
                             <div className="creator-actions">
-                                <a href={creatorData.DONATE_LINK} className="creator-donate" target="_blank" rel="noreferrer">
+                                {/* <a href={creatorData.DONATE_LINK} className="creator-donate" target="_blank" rel="noreferrer">
                                     <img src={donate} alt="Donate" className="icon" />
                                     Donate
-                                </a>
+                                </a> */}
                                 <a href={`mailto:${creatorData.email}`} className="creator-contact" target="_blank" rel="noreferrer">
                                     <img src={envelope} alt="Contact" className="icon" />
                                     Contact

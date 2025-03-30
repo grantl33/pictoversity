@@ -2,7 +2,7 @@ import "./details.css";
 import arrowleft from "../../assets/icons/arrow-left.svg";
 import plus from "../../assets/icons/plus-circle.svg";
 import remove from "../../assets/icons/dash-circle.svg";
-import donate from "../../assets/icons/donate.svg";
+// import donate from "../../assets/icons/donate.svg";
 import badgeempty from "../../assets/icons/person-badge-empty.svg";
 import { ReactComponent as MemberCrown } from "../../assets/crown-filled.svg";
 import { NavLink, Link, useLocation } from "react-router-dom";
@@ -159,9 +159,9 @@ function Details() {
                                             <span>{nf.format(creatorData.FOLLOWERS)} follower{(creatorData.FOLLOWERS > 1 ? "s" : "")}</span>
                                             <FollowingButton creatorData={creatorData} />
                                         </div>
-                                        <a href={creatorData.DONATE_LINK} target="_blank" rel="noreferrer">
+                                        {/* <a href={creatorData.DONATE_LINK} target="_blank" rel="noreferrer">
                                             <img src={donate} alt="Donate" className="icon" />
-                                        </a>
+                                        </a> */}
                                     </div>
                                 </div>
                             </div>
