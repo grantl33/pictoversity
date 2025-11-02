@@ -6,6 +6,8 @@ import { loadAppInfo } from '../../api';
 import { isNullOrUndefined } from '../../utils';
 import LoadingSpinner from '../LoadingSpinner';
 import Carousel from '../Carousel';
+import About from '../About';
+
 function Home() {
     const dispatch = useMainDispatchContext();
     // Use main context to read from state
@@ -79,6 +81,7 @@ function Home() {
                     </div>
                 </>
             }
+            <About />
         </div>
     )
 }

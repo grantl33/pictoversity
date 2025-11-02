@@ -1,0 +1,56 @@
+.monthly {
+    display: grid;
+}
+
+.monthly .monthly-banner {
+    display: grid;
+    width: 100vw;
+    height: 120px;
+}
+
+.monthly .monthly-banner-image {
+    display: grid;
+    overflow: hidden;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 120px;
+}
+
+.monthly .monthly-content {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.monthly .monthly-content-items {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    background-color: transparent;
+    padding: 16px;
+}
+
+.monthly .monthly-content-item {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.monthly .monthly-content-item>div {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.monthly .monthly-content-item img {
+    width: 75%;
+    max-width: 480px;
+    margin: 8px;
+    border: 2px solid #666;
+}

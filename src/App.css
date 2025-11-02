@@ -5,8 +5,8 @@
 
 .App {
   display: grid;
-  grid-template-rows: 60px 1fr 80px;
-  grid-template-areas: "headerarea" "mainarea" "footerarea";
+  grid-template-rows: 60px 1fr;
+  grid-template-areas: "headerarea" "mainarea";
   font-family: Inter;
   width: 100%;
   height: 100vh;
@@ -33,7 +33,8 @@ footer {
 
 header {
   grid-area: headerarea;
-  background-color: #6C81F0;
+  background-color: #fff;
+  border-bottom: 2px solid #6c81f0;
   width: 100%;
 }
 
@@ -58,12 +59,72 @@ header .header-right {
   text-align: right;
 }
 
-header .header-right .header-actions {
+header .header-right .header-menu {
   gap: 16px;
+  display: none;
+  align-items: center;
+  height: 100%;
+}
+
+header .header-right .header-menu-item {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #6C81F0;
+  font-weight: 600;
+}
+
+header .header-right .header-menu-item>div {
+  margin: 0 8px;
+}
+
+header .header-right .header-actions {
+  gap: 4px;
   display: inline-flex;
   align-items: center;
   height: 100%;
 }
+
+header .header-right .header-action {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+header .header-right .header-menu-item.selected,
+header .header-right .header-action.selected,
+header .header-right .header-menu-item:hover,
+header .header-right .header-action:hover {
+  background-color: rgba(108, 129, 240, 0.25);
+}
+
+header .header-right .header-action svg {
+  width: 24px;
+  height: 24px;
+}
+
+header .header-right .header-action svg path {
+  fill: #6C81F0;
+}
+
+@media (min-width: 920px) {
+  header .header-right .header-actions {
+    display: none
+  }
+
+  header .header-right .header-menu {
+    display: inline-flex;
+  }
+}
+
+
 
 header .header-actions .notifications-bell {
   position: relative;
@@ -87,7 +148,8 @@ main {
   grid-area: mainarea;
   background-color: whitesmoke;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 footer {
@@ -127,7 +189,7 @@ footer img {
 }
 
 main>.content {
-  height: calc(100vh - 60px - 80px);
+  height: calc(100vh - 60px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -145,6 +207,50 @@ main .items-row {
   gap: 8px;
   margin: 0 16px;
 }
+
+main .items-row-buttons {
+  display: grid;
+  position: relative;
+  z-index: 10;
+}
+
+main .items-row-button {
+  position: absolute;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  top: 60px;
+  cursor: pointer;
+  opacity: .75;
+}
+
+main .items-row-button:hover {
+  opacity: 1
+}
+
+main .items-row-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+main .items-row-button svg path {
+  fill: #fff;
+}
+
+main .items-row-button:hover svg path {
+  fill: #6C81F0;
+}
+
+
+main .items-row-buttons .left {
+  left: 8px
+}
+
+main .items-row-buttons .right {
+  right: 8px
+}
+
+
 
 main .items-container {
   width: 100%;

@@ -9,7 +9,13 @@ function Bio() {
                 <div>
                     <h2>My Story:</h2>
                     <p>
-                        Hi, my name is Yumie Lee. I created this platform because I always had trouble focusing since my school didn’t teach me in ways that would help me become more engaged in my own education. This made me lose interest, thinking that learning in general was always this boring. I then realized that learning new things can be educational, but fun at the same time, It made me want to share educational entertainment for others through my talent and knowledge. Even though something might not be fun to learn about, I wanted to make it as enjoyable as possible. I then learned how to start up a business and was a lot trying to figure out how Pictoversity would run and how certain things will work. I learned that It was best to start simple and try to grow the business from there. I hope that Pictoversity would expand to inspire many children to keep on learning and growing.
+                        I am someone who loves writing, art, film, music, poetry, comics, and sports all at once.
+                        That is a lot. Like most teenagers, I was overwhelmed with juggling between all of these different subjects.
+                        When I realized I could connect them through comics and storytelling, my sense of self and direction became stronger.
+                        I want to help those that also take interest in multiple things, those who are determined to find themselves
+                        by bringing their passions together, not choosing between them.
+                        Now, sharing this discovery with others, I hope to show that learning doesn’t have to be limited to classrooms or textbooks.
+                        Through comics, we can make every story, including our own, creative, educational, and fun again.
                     </p>
                 </div>
             </div>

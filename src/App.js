@@ -14,7 +14,6 @@ import { useEffect } from 'react';
 import { loadComics, loadCreators, loadLockerComicsByMemberId, loadLockerCreatorsByMemberId, loadMember, loadNotificationsByMemberId } from './api';
 import { useMainContext, useMainDispatchContext } from './MainContext';
 import { isNullOrUndefined } from './utils';
-import About from './components/About';
 
 function App() {
   const dispatch = useMainDispatchContext();
@@ -23,17 +22,9 @@ function App() {
   const {
     member,
   } = mainContext;
-  const appMode = localStorage.getItem("appMode") === "true";
   // const location = useLocation();
   // const isAboutPage = location.pathname === "/about";
-  let standaloneCheck = false;
-  try {
-    const standaloneCheckIOS = window.navigator.standalone === true;
-    const standaloneCheckAndroid = window.matchMedia('(display-mode: standalone)').matches;
-    standaloneCheck = standaloneCheckIOS || standaloneCheckAndroid;
-  } catch (e) {
-    console.log(e);
-  }
+
   // Uncomment this to force the app mode (development only)
   //standaloneCheck = true;
 
@@ -57,24 +48,20 @@ function App() {
     }
   }, [dispatch, member]);
 
-  const isAppMode = appMode || standaloneCheck;
 
   return (
-    <div className={`App${(!isAppMode ? " about-page" : "")}`}>
-      {!isAppMode &&
-        <Routes>
-          <Route path="/" element={<About />}></Route>
-        </Routes>
-      }
-      {
-        isAppMode &&
-        <Routes>
-          <Route path="/" element={<Main />}></Route>
-          <Route path="/details" element={<Details />}></Route>
-          <Route path="/creator" element={<Creator />}></Route>
-          <Route path="/episode" element={<Episode />}></Route>
-        </Routes>
-      }
+    <div className={`App`}>
+
+      <Routes>
+        <Route path="/" element={<Main selectedTab="home" />}></Route>
+        <Route path="/details" element={<Details />}></Route>
+        <Route path="/creator" element={<Creator />}></Route>
+        <Route path="/episode" element={<Episode />}></Route>
+        <Route path="/publish" element={<Main selectedTab="publish" />}></Route>
+        <Route path="/shorts" element={<Main selectedTab="shorts" />}></Route>
+        <Route path="/monthly" element={<Main selectedTab="monthly" />}></Route>
+      </Routes>
+
       <Alert />
       <Modal />
       <WindowContext />

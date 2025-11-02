@@ -1,31 +1,33 @@
 import pictoversity from "../../assets/pictoversity.png";
-import bell from '../../assets/icons/bell-fill.svg'
-import search from '../../assets/icons/search.svg'
-import home from '../../assets/icons/house-fill.svg'
-import locker from '../../assets/icons/locker.svg'
-import idcard from '../../assets/icons/person-vcard.svg'
-import { useEffect, useState } from 'react'
+
+import { ReactComponent as HomeIcon } from "../../assets/icons/house-fill.svg";
+import { ReactComponent as ShortsIcon } from "../../assets/icons/columns-gap.svg";
+import { ReactComponent as MonthlyIcon } from "../../assets/icons/calendar-heart.svg";
+
+
+import { useEffect, } from 'react'
 import Home from '../Home'
-import Locker from '../Locker'
-import IdCard from '../IdCard'
 import { useMainContext, useMainDispatchContext } from '../../MainContext'
-import Search from '../Search'
-import Notifications from '../Notifcations'
+
 import { isNullOrUndefined } from '../../utils'
 import { loadNotificationsByMemberId } from '../../api'
-import Bio from "../Bio";
+import Shorts from "../Shorts";
+import Publish from "../Publish";
+import Monthly from "../Monthly";
+import { useNavigate } from "react-router-dom";
 
-function Main() {
+
+function Main(props) {
+    const navigate = useNavigate();
     // Use dispatch context for updating the main state
     const dispatch = useMainDispatchContext();
+    const { selectedTab = "home" } = props;
 
     // Use main context to read from state
     const mainContext = useMainContext();
     const {
-        notifications,
         member
     } = mainContext;
-    const [selectedTab, setSelectedTab] = useState("home");
 
     useEffect(() => {
         if (isNullOrUndefined(member)) return;
@@ -33,30 +35,7 @@ function Main() {
     }, [dispatch, member, selectedTab]);
 
     const handleLogoClick = () => {
-        setSelectedTab("about");
-        // dispatch({
-        //     type: "setAppMode",
-        //     value: false
-        // });
-        localStorage.setItem("appMode", false);
-        window.location.replace("/");
-        /**
-        dispatch({
-            type: "setModalContent",
-            modalContent: {
-                title: "About Pictoversity",
-                content: <>
-                    Pictoversity is an app and platform for educational comics.
-                    It was designed and created by <a href="https://www.instagram.com/yumieleecomics/"
-                        target="_blank" rel="noreferrer">Yumie Lee</a> and
-                    the app was developed by <a href="https://github.com/grantl33"
-                        target="_blank" rel="noreferrer">Grant Lee</a>.<br /><br />
-                    &copy; Copyright 2023<br />Yumie and Grant Lee
-                </>,
-                showReload: true
-            }
-        });
-        **/
+        navigate("/", { replace: true })
     }
     return (
         <>
@@ -68,22 +47,58 @@ function Main() {
                     </div>
                     <div className="header-right">
                         <div className="header-actions">
-                            <div className="notifications-bell">
-                                <img className="icon" src={bell} alt="" onClick={(e) => setSelectedTab("notifications")} />
-                                {(!isNullOrUndefined(notifications) && notifications.length > 0) &&
-                                    <div className="notifications-indicator"></div>
-                                }
+                            <div className={`header-action${selectedTab === 'home' ? " selected" : ""}`} onClick={() => {
+                                navigate("/", { replace: true })
+                            }}>
+                                <HomeIcon /></div>
+                            <div className={`header-action${selectedTab === 'shorts' ? " selected" : ""}`} onClick={() => {
+                                navigate("/shorts", { replace: true })
+                            }}>
+                                <ShortsIcon />
                             </div>
-                            <div>
-                                <img className="icon" src={search} alt="" onClick={(e) => setSelectedTab("search")} />
+                            {/* <div className={`header-action${selectedTab === 'publish' ? " selected" : ""}`} onClick={() => {
+                                navigate("/publish", { replace: true })
+                            }}>
+                                <PublishIcon />
+                            </div> */}
+                            <div className={`header-action${selectedTab === 'monthly' ? " selected" : ""}`} onClick={() => {
+                                navigate("/monthly", { replace: true })
+                            }}>
+                                <MonthlyIcon />
+                            </div>
+                        </div>
+                        <div className="header-menu">
+                            <div className={`header-menu-item${selectedTab === 'home' ? " selected" : ""}`} onClick={() => {
+                                navigate("/", { replace: true })
+                            }}>
+                                <div>Home</div>
+                            </div>
+                            <div className={`header-menu-item${selectedTab === 'shorts' ? " selected" : ""}`} onClick={() => {
+                                navigate("/shorts", { replace: true })
+                            }} >
+                                <div>Shorts</div>
+                            </div>
+                            {/* <div className={`header-menu-item${selectedTab === 'publish' ? " selected" : ""}`} onClick={() => {
+                                navigate("/publish", { replace: true })
+                            }}>
+                                <div>Publish</div>
+                            </div> */}
+                            <div className={`header-menu-item${selectedTab === 'monthly' ? " selected" : ""}`} onClick={() => {
+                                navigate("/monthly", { replace: true })
+                            }}>
+                                <div>Monthly Theme</div>
                             </div>
                         </div>
                     </div>
                     <div></div>
                 </div>
-            </header>
+            </header >
             <main>
                 {selectedTab === "home" && <Home />}
+                {selectedTab === "shorts" && <Shorts />}
+                {selectedTab === "publish" && <Publish />}
+                {selectedTab === "monthly" && <Monthly />}
+                {/*                 
                 {selectedTab === "locker" && <Locker />}
                 {selectedTab === "idcard" && <IdCard />}
                 {selectedTab === "search" && <Search />}
@@ -92,10 +107,10 @@ function Main() {
                     <div className="main-bio-container">
                         <div className="main-bio">
                             <Bio />
-                        </div>
-                    </div>}
+                        </div> */}
+                {/* </div>} */}
             </main >
-            <footer>
+            {/* <footer>
                 <nav className="row">
                     <div></div>
                     <div className={(selectedTab === "home") ? "main-link selected" : "main-link"}
@@ -115,7 +130,7 @@ function Main() {
                     </div>
                     <div></div>
                 </nav>
-            </footer>
+            </footer> */}
         </>
     )
 }

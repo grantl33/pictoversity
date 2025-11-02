@@ -10,50 +10,22 @@ import step2a from "../../assets/about/install_android_02.png"
 import step3a from "../../assets/about/install_android_03.png"
 import step4a from "../../assets/about/install_android_04.png"
 import seesaw from "../../assets/about/seesaw.png"
-// import signup from "../../assets/about/signup.png"
-import Header from "../Header";
 import { ReactComponent as Instagram } from "../../assets/about/instagram.svg";
+import { ReactComponent as Email } from "../../assets/about/envelope-fill.svg";
+
 import { ReactComponent as Apple } from "../../assets/icons/apple.svg";
 import { ReactComponent as Android } from "../../assets/icons/android.svg";
-import { ReactComponent as Email } from "../../assets/about/envelope-fill.svg";
 import Bio from "../Bio";
 import { useState } from "react";
-// import { useMainDispatchContext } from "../../MainContext";
 
 function About() {
-    // const dispatch = useMainDispatchContext();
     const [installMode, setInstallMode] = useState("apple");
     const blurBgStyle = {
         backgroundImage: "radial-gradient(rgba(150,157,227,.5) 15%, rgba(150,157,227,0.25) 45%, rgba(150,157,227,0.0) 65%)"
     }
     return (
         <>
-            <Header />
             <div className="about">
-                <div className="hero" >
-                    <div className="hero-background">
-                        <div className="hero-text content">
-                            <h1>Make Learning Fun!</h1>
-                            <h2>Digital comic fun combined with a visual learning experience</h2>
-                            <div className="actions">
-                                <div><button className="get-started" onClick={() => {
-                                    // window.location.href = "#install";
-                                    // dispatch({
-                                    //     type: "setAppMode",
-                                    //     value: true
-                                    // });
-                                    localStorage.setItem("appMode", true);
-                                    window.location.replace("/");
-                                }}>Open the App!
-                                </button></div>
-                                <div><button className="donate" onClick={() => {
-                                    window.open("https://venmo.com/u/pictoversity");
-                                }}>Donate Now!</button></div>
-                            </div>
-                            <h3>You can also install the webapp on your phone! Just read the instructions below!</h3>
-                        </div>
-                    </div>
-                </div>
                 <div>
                     <div className="content">
                         <div className="section-row">
@@ -225,11 +197,12 @@ function About() {
                         </div>
                         <div className="footer-row">
                             <div>
-                                &copy; 2024 Yumie Lee
+                                &copy; 2025 Yumie Lee
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </>
     )

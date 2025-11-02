@@ -42,9 +42,9 @@ function Carousel() {
         navigate(BANNERS[currentPos].location);
     }
 
-    const bgImg = BANNERS[currentPos].image;
+    // const bgImg = BANNERS[currentPos].image;
     const style = {
-        backgroundImage: `url(${bgImg})`,
+        // backgroundImage: `url(${bgImg})`,
     }
 
     return (
