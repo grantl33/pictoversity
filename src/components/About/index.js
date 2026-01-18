@@ -197,7 +197,7 @@ function About() {
                         </div>
                         <div className="footer-row">
                             <div>
-                                &copy; 2025 Yumie Lee
+                                &copy; 2026 Yumie Lee
                             </div>
                         </div>
                     </div>
